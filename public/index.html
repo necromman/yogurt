@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>요거트 키워드검색</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
+  <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,500,700' rel='stylesheet' type='text/css'>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+  <script src="js/moment.js"></script>
+  <!--[if IE]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+  <style type="text/css">
+ * {transition: all 0.2s }select {background: rgba(255, 255, 255, 0) }.btn-style {box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);font-size: 20px;border-radius: initial;height: 42px;top: 0px;left: 4px;}.btn:focus, .btn:active {outline: initial !important;box-shadow: initial !important;}.input-group {width: 478px;margin: 0 auto;padding-top: 40vh }.input-position-ab {position: absolute;margin: 4px 0 0 0;z-index: 999 }#map-canvas {height: 400px;width: 600px;}.controls {border: 1px solid transparent;box-sizing: border-box;-moz-box-sizing: border-box;height: 41px;outline: none;box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);}#pac-input {background-color: #fff;padding: 0 0 0 100px;width: 100%;font-size: 15px;font-weight: 300;text-overflow: ellipsis;}#pac-input:hover, #pac-input:focus {box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);}#pac-input:hover ~ button {box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);}#type-selector {color: #fff;background-color: #4d90fe;padding: 5px 11px 0px 11px;}#type-selector label {font-size: 13px;font-weight: 300;}#load {color: rgba(0, 0, 0, 0.4);text-align: center;font-size: 13px;}
+  </style>
+  <div class="input-group">
+    <span class="input-group-btn input-position-ab">
+      <select id="myselect" class="btn">
+        <option value="http://google.com/#q=" selected>구글</option>
+        <option value="https://search.naver.com/search.naver?query=">네이버</option>
+        <option value="http://search.daum.net/search?q=">다음</option>
+      </select>
+    </span>
+    <input id="pac-input" name="p-search" class="controls" type="text" placeholder="검색어를 입력하세요">
+    <span class="input-group-btn">
+      <button id="p-search" class="btn btn-primary btn-style">
+        <i class="fa fa-search"></i>
+      </button>
+    </span>
+  </div>
+  <div id="load"></div>
+  <div id="divUTC"></div>
+  <div id="divLocal"></div>
+  <div id="res">
+    <ul class="resUl"></ul>
+  </div>
+  <script type="text/javascript">
+$(function() {
+
+  var auth = firebase.auth();
+  var database = firebase.database();
+  var authProvider = new firebase.auth.GoogleAuthProvider();
+  var userInfo
+  
+  auth.onAuthStateChanged(function(user) {
+    if (user) {
+      userInfo = user
+      alert("성공" + userInfo.uid);
+      get_text_list()
+    } else {
+      auth.signInWithPopup(authProvider);
+    }
+  })
+
+
+
+  var divUtc = $('#divUTC');
+  var divLocal = $('#divLocal');
+  var localTime;
+  var psearch = $("#p-search");
+
+  // =========== moment.js 스크립트 시작
+  setInterval(function() {
+    divUtc.text(moment.utc().format('YYYY-MM-DD HH:mm:ss'));
+    localTime = moment.utc(divUtc.text()).toDate();
+    localTime = moment(localTime).format('YYYY-MM-DD HH:mm:ss');
+    divLocal.text(localTime);
+  }, 1000);
+  // =========== moment.js 스크립트 끝
+
+  $("input[name=p-search]").keydown(function(key) {
+    if (key.keyCode == 13) { //키가 13이면 실행 (엔터는 13)
+      goSearch();
+    }
+  });
+  psearch.click(function() {
+    goSearch();
+  })
+
+  function goSearch() {
+    var portalText = $("#myselect option:selected").text();
+    var portal = $("#myselect option:selected").val();
+    var keyword = $("#pac-input").val();
+
+    if (!keyword == "") {
+      // =========== 파이어베이스 입력 시작
+      var keyIn = database.ref('/키워드/' + userInfo.uid);
+      keyIn.push({
+        engine: portalText,
+        keyword: keyword,
+        date: localTime
+      });
+      // keyIn.set(data);
+      // =========== 파이어베이스 입력 끝
+      window.open(portal + keyword, "_blank");
+    } else {
+      alert("검색어를 입력하세요.")
+    }
+  }
+
+  function get_text_list(){
+    var getKeyIn = firebase.database().ref('/키워드/' + userInfo.uid);
+    getKeyIn.on('child_added', on_child_added);
+  }
+  function on_child_added(data){
+    var key = data.key;
+    var sData = data.val();
+
+    var Kword = sData.keyword;
+    var Kengine = sData.engine;
+    var Kdate = sData.date;
+
+    var html =
+    "<li id='"+key+"'>" +
+    "<span>"+Kengine+"</span>" +
+    "<span>"+Kword+"</span>" +
+    "<span>"+Kdate+"</span>" +
+    "</li>";
+
+    $(".resUl").append(html);
+    
+  }
+
+
+})
+</script>
+
+  <!-- 파이어베이스 -->
+  <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-messaging.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+  <script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDM0nHhbIi5YU4eqtbFTAkH3nL7CBchBDY",
+    authDomain: "yogurt-22fd4.firebaseapp.com",
+    databaseURL: "https://yogurt-22fd4.firebaseio.com",
+    projectId: "yogurt-22fd4",
+    storageBucket: "yogurt-22fd4.appspot.com",
+    messagingSenderId: "178442852803"
+  };
+  firebase.initializeApp(config);
+  </script>
+  <!-- 구글 로그인 팝업창 발생 -->
+  <script type="text/javascript">
+  
+  </script>
+  <script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function() {
+    // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+    // // The Firebase SDK is initialized and available here!
+    //
+    // firebase.auth().onAuthStateChanged(user => { });
+    // firebase.database().ref('/path/to/ref').on('data', snapshot => { });
+    // firebase.messaging().requestPermission().then(() => { });
+    // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+    //
+    // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+    try {
+      let app = firebase.app();
+      let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
+      document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
+    } catch (e) {
+      console.error(e);
+      document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
+    }
+  });
+  </script>
+</body>
+
+</html>
