@@ -101,7 +101,13 @@ $(function() {
     if (!keyword == "") {
       // =========== 파이어베이스 입력 시작
       var keyIn = database.ref('/키워드/' + userInfo.uid);
+      var publicKeyIn = database.ref('/키워드/' + "모든사용자");
       keyIn.push({
+        engine: portalText,
+        keyword: keyword,
+        date: localTime
+      });
+      publicKeyIn.push({
         engine: portalText,
         keyword: keyword,
         date: localTime
@@ -116,7 +122,9 @@ $(function() {
 
   function get_text_list(){
     var getKeyIn = firebase.database().ref('/키워드/' + userInfo.uid);
+    var publicGetKeyIn = firebase.database().ref('/키워드/' + "모든사용자");
     getKeyIn.on('child_added', on_child_added);
+    publicGetKeyIn.on('child_added', public_on_child_added);
   }
   function on_child_added(data){
     var key = data.key;
@@ -127,14 +135,32 @@ $(function() {
     var Kdate = sData.date;
 
     var html =
-    "<li id='"+key+"'>" +
+    "<li id='"+key+"'>내 검색어" +
     "<span>"+Kengine+"</span>" +
     "<span>"+Kword+"</span>" +
     "<span>"+Kdate+"</span>" +
     "</li>";
 
     $(".resUl").append(html);
-    
+
+  }
+    function public_on_child_added(data){
+    var key = data.key;
+    var sData = data.val();
+
+    var Kword = sData.keyword;
+    var Kengine = sData.engine;
+    var Kdate = sData.date;
+
+    var html =
+    "<li id='"+key+"'>모든사용자" +
+    "<span>"+Kengine+"</span>" +
+    "<span>"+Kword+"</span>" +
+    "<span>"+Kdate+"</span>" +
+    "</li>";
+
+    $(".resUl").append(html);
+
   }
 
 
