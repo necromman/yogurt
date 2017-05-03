@@ -3,24 +3,32 @@
 [debug] CLI Version:  3.6.1
 [debug] Platform:     win32
 [debug] Node Version: v6.10.2
-[debug] Time:         Wed May 03 2017 00:34:17 GMT+0900 (대한민국 표준시)
+[debug] Time:         Wed May 03 2017 09:50:46 GMT+0900 (대한민국 표준시)
 [debug] ----------------------------------------------------------------------
 [debug] 
 [debug] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token { refresh_token: '1/U6-xqYbTq3W0uIznvLDF-9GuGd5PXILPsDubcvFI-VY',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Wed May 03 2017 09:50:46 GMT+0900 (대한민국 표준시)
+[debug] <<< HTTP RESPONSE 200
 [debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/yogurt-22fd4  
- Wed May 03 2017 00:34:17 GMT+0900 (대한민국 표준시)
+ Wed May 03 2017 09:50:46 GMT+0900 (대한민국 표준시)
 [debug] <<< HTTP RESPONSE 200
 [debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/yogurt-22fd4/tokens  
- Wed May 03 2017 00:34:18 GMT+0900 (대한민국 표준시)
+ Wed May 03 2017 09:50:47 GMT+0900 (대한민국 표준시)
 [debug] <<< HTTP RESPONSE 200
 [info] Starting Firebase development server...
 [info] 
-[info] Project Directory: C:\Users\Administrator\Desktop\yy
+[info] Project Directory: C:\Users\Administrator\Desktop\요거트깃\trunk
 [debug] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/yogurt-22fd4  
- Wed May 03 2017 00:34:19 GMT+0900 (대한민국 표준시)
+ Wed May 03 2017 09:50:48 GMT+0900 (대한민국 표준시)
 [debug] <<< HTTP RESPONSE 200
 [debug] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/178442852803/clients/_:getWebAppConfig  
- Wed May 03 2017 00:34:20 GMT+0900 (대한민국 표준시)
+ Wed May 03 2017 09:50:49 GMT+0900 (대한민국 표준시)
 [debug] <<< HTTP RESPONSE 200
 [info] Public Directory: public
 [info] 

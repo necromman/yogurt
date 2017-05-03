@@ -53,15 +53,20 @@ $(function() {
   var authProvider = new firebase.auth.GoogleAuthProvider();
   var userInfo
   
+
   auth.onAuthStateChanged(function(user) {
     if (user) {
       userInfo = user
-      alert("성공" + userInfo.uid);
       get_text_list()
+      alert("성공" + userInfo.uid);
     } else {
-      auth.signInWithPopup(authProvider);
+      alert("익명으로 로그인")
+      firebase.auth().signInAnonymously(); // 익명로그인
+      // auth.signInWithPopup(authProvider);
     }
   })
+
+
 
 
 
@@ -153,10 +158,6 @@ $(function() {
     messagingSenderId: "178442852803"
   };
   firebase.initializeApp(config);
-  </script>
-  <!-- 구글 로그인 팝업창 발생 -->
-  <script type="text/javascript">
-  
   </script>
   <script type="text/javascript">
   document.addEventListener('DOMContentLoaded', function() {
