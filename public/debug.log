@@ -1,0 +1,6 @@
+[0504/130146.182:ERROR:process_info.cc(343)] VirtualQueryEx: 액세스가 거부되었습니다. (0x5)
+[0504/130146.184:ERROR:process_info.cc(564)] ReadMemoryInfo failed
+[0504/130146.184:ERROR:process_reader_win.cc(233)] ReadMemory at 0x7ff953d33970 of 12 bytes failed: ReadProcessMemory 또는 WriteProcessMemory의 일부 작업만을 마쳤습니다. (0x12B)
+[0504/130146.184:WARNING:process_snapshot_win.cc(68)] ReadMemory ExceptionInformation failed
+[0504/130146.184:WARNING:crash_report_exception_handler.cc(60)] ProcessSnapshotWin::Initialize failed
+[0504/130146.184:ERROR:scoped_process_suspend.cc(38)] NtResumeProcess: 기존 프로세스에 액세스하려고 했습니다.  (0xc000010a)
