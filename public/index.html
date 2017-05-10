@@ -22,14 +22,18 @@
 </head>
 <script type="text/javascript">
 $(document).ready(function() {
-    $('#example').dataTable();
-    $('#example2').dataTable();
+    $('#example').dataTable({
+      "order": [[2,'desc']],
+    });
+    $('#example2').dataTable({
+      "order": [[2,'desc']],
+    });
 } );
   </script>
   <style type="text/css">
  * {transition: all 0.2s }select {background: rgba(255, 255, 255, 0) }.btn-style {box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);font-size: 20px;border-radius: initial;height: 42px;top: 0px;left: 4px;}.btn:focus, .btn:active {outline: initial !important;box-shadow: initial !important;}.input-group {width: 478px;margin: 0 auto;padding-top: 40vh }.input-position-ab {position: absolute;margin: 4px 0 0 0;z-index: 999 }#map-canvas {height: 400px;width: 600px;}.controls {border: 1px solid transparent;box-sizing: border-box;-moz-box-sizing: border-box;height: 41px;outline: none;box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);}#pac-input {background-color: #fff;padding: 0 0 0 100px;width: 100%;font-size: 15px;font-weight: 300;text-overflow: ellipsis;}#pac-input:hover, #pac-input:focus {box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);}#pac-input:hover ~ button {box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);}#type-selector {color: #fff;background-color: #4d90fe;padding: 5px 11px 0px 11px;}#type-selector label {font-size: 13px;font-weight: 300;}#load {color: rgba(0, 0, 0, 0.4);text-align: center;font-size: 13px;}.valign-wrapper {display: -webkit-flex !important;display: -ms-flexbox !important;display: flex !important;-webkit-align-items: center !important;-ms-flex-align: center !important;align-items: center !important;}.container {z-index: 0;margin: 44px 0 0 0;position: absolute;width: 100%;left: -14px;}.row{width: 478px;margin: 0 auto;border: 1px solid #ababab;background: white;}.tab-content{padding: 15px 15px;}.nav-tabs li{padding: 0 !important;text-align: center;}.nav-tabs li a{margin:0;border-radius: initial;}.display-none{display: none}body,html{height: 100%}.tab-content .row{width: initial !important;}
   </style>
-<body> 
+<body>
   <div id="divUTC" style="display: none;"></div>
   <div id="divLocal" style="display: none;"></div>
   <div id="load" style="display: none;"></div>
@@ -48,73 +52,79 @@ $(document).ready(function() {
       </button>
     </div>
     <!-- 검색어 탭메뉴 시작 -->
-  <div class="container display-none">
-    <div class="row">
-      <ul class="nav nav-tabs">
-        <li class="active col-lg-6"><a href="#private">내 검색어</a></li>
-        <li class="col-lg-6"><a href="#public">모든사용자 검색어</a></li>
-      </ul>
-      <div class="tab-content">
-        <div id="private" class="tab-pane active">
-          <table id="example" class="table" cellspacing="0">
-            <thead>
-              <tr>
-                <th>키워드</th>
-                <th>검색엔진</th>
-                <th>날짜</th>
-              </tr>
-            </thead>
-            <tbody class="resUl">
-            </tbody>
-          </table>
-        </div>
-        <div id="public" class="tab-pane">
-          <table id="example2" class="table table-striped table-bordered" cellspacing="0" width="100%">
-            <thead>
-              <tr>
-                <th>키워드</th>
-                <th>검색엔진</th>
-                <th>날짜</th>
-              </tr>
-            </thead>
-            <tbody class="allResUl">
-            </tbody>
-          </table>
+    <div class="container display-none">
+      <div class="row">
+        <ul class="nav nav-tabs">
+          <li class="active col-lg-6"><a href="#private">내 검색어</a></li>
+          <li class="col-lg-6"><a href="#public">모든사용자 검색어</a></li>
+        </ul>
+        <div class="tab-content">
+          <div id="private" class="tab-pane active">
+            <table id="example" class="table" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>키워드</th>
+                  <th>검색엔진</th>
+                  <th>날짜</th>
+                </tr>
+              </thead>
+              <tbody class="resUl">
+              </tbody>
+            </table>
+          </div>
+          <div id="public" class="tab-pane">
+            <table id="example2" class="table table-striped table-bordered" cellspacing="0" width="100%">
+              <thead>
+                <tr>
+                  <th>키워드</th>
+                  <th>검색엔진</th>
+                  <th>날짜</th>
+                </tr>
+              </thead>
+              <tbody class="allResUl">
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <script>
-  $(document).ready(function() {
-    $(".nav-tabs a").click(function() {
-      $(this).tab('show');
-    });
-    
-    $("#pac-input").click(function() {
-      $(".container").removeClass("display-none");
-      $(".container").addClass("display-show");
-      $(".container").show();
-      $(".input-group").css('padding-top','10vh');
+<script>
+$(document).ready(function() {
+  $(".nav-tabs a").click(function() {
+    $(this).tab('show');
+  });
 
-      });
+  $("#pac-input").click(function() {
+    $(".container").removeClass("display-none");
+    $(".container").addClass("display-show");
+    $(".container").show();
+    $(".input-group").css('padding-top', '10vh');
 
+  });
 
-
-    $('body').on('click',function(e) {
-    if ($(".container").hasClass("display-show")) {
-        if (!$(".input-group, .row, .container, #").has(e.target).length) {
+  $("body").keydown(function(key) {
+    if (key.keyCode == 27 && $(".container").hasClass("display-show")) {
       $(".container").addClass("display-none");
       $(".container").removeClass("display-show");
       $(".container").hide();
-      $(".input-group").css('padding-top','40vh');
-      };
-    };
+      $(".input-group").css('padding-top', '40vh');
+    }
   });
-  });
-  </script>
-  <!-- 검색어 탭메뉴 끝 -->
-  </div>
 
+  //   $('body').on('click',function(e) {
+  //   if ($(".container").hasClass("display-show")) {
+  //       if (!$(".input-group, .row, .container, #").has(e.target).length) {
+  //     $(".container").addClass("display-none");
+  //     $(".container").removeClass("display-show");
+  //     $(".container").hide();
+  //     $(".input-group").css('padding-top','40vh');
+  //     };
+  //   };
+  // });
+});
+</script>
+    <!-- 검색어 탭메뉴 끝 -->
+  </div>
   <script type="text/javascript">
   $(function() {
     var auth = firebase.auth();
@@ -178,8 +188,6 @@ $(document).ready(function() {
       }
     }
 
-	      
-
 
     function get_text_list() {
       var getKeyIn = firebase.database().ref('/키워드/' + userInfo.uid);
@@ -204,12 +212,11 @@ $(document).ready(function() {
       //   "</tr>";
       // $(".resUl").append(html);
 
- $('#example').dataTable().fnAddData( [
-            Kword,
-            Kengine,
-            Kdate ] );
-
-
+      $('#example').dataTable().fnAddData([
+        Kword,
+        Kengine,
+        Kdate
+      ]);
     }
 
     function public_on_child_added(data) {
@@ -226,10 +233,11 @@ $(document).ready(function() {
       //   "</tr>";
       // $(".allResUl").append(html);
 
-       $('#example2').dataTable().fnAddData( [
-            Kword,
-            Kengine,
-            Kdate ] );
+      $('#example2').dataTable().fnAddData([
+        Kword,
+        Kengine,
+        Kdate
+      ]);
     }
   })
   </script>
@@ -272,9 +280,8 @@ $(document).ready(function() {
     }
   });
   </script>
-  <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+  <script src="lib/jquery.dataTables.js"></script>
   <script src="lib/dataTables.bootstrap.js"></script>
 </body>
-
 
 </html>
