@@ -1,44 +1,287 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
-  <title>XK 랜딩페이지</title>
+  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>요거트 키워드검색</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+  <!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
+  <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,500,700' rel='stylesheet' type='text/css'>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="js/moment.js"></script>
+  <!--[if IE]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
 </head>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#example').dataTable({
+            "order": [[2,'desc']],
+        });
+        $('#example2').dataTable({
+            "order": [[2,'desc']],
+        });
+    } );
+</script>
+<style type="text/css">
+  * {transition: all 0.2s }select {background: rgba(255, 255, 255, 0) }.btn-style {box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);font-size: 20px;border-radius: initial;height: 42px;top: 0px;left: 4px;}.btn:focus, .btn:active {outline: initial !important;box-shadow: initial !important;}.input-group {width: 478px;margin: 0 auto;padding-top: 40vh }.input-position-ab {position: absolute;margin: 4px 0 0 0;z-index: 999 }#map-canvas {height: 400px;width: 600px;}.controls {border: 1px solid transparent;box-sizing: border-box;-moz-box-sizing: border-box;height: 41px;outline: none;box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);}#pac-input {background-color: #fff;padding: 0 0 0 100px;width: 100%;font-size: 15px;font-weight: 300;text-overflow: ellipsis;}#pac-input:hover, #pac-input:focus {box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);}#pac-input:hover ~ button {box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);}#type-selector {color: #fff;background-color: #4d90fe;padding: 5px 11px 0px 11px;}#type-selector label {font-size: 13px;font-weight: 300;}#load {color: rgba(0, 0, 0, 0.4);text-align: center;font-size: 13px;}.valign-wrapper {display: -webkit-flex !important;display: -ms-flexbox !important;display: flex !important;-webkit-align-items: center !important;-ms-flex-align: center !important;align-items: center !important;}.container {z-index: 0;margin: 44px 0 0 0;position: absolute;width: 100%;left: -14px;}.row{width: 478px;margin: 0 auto;border: 1px solid #ababab;background: white;}.tab-content{padding: 15px 15px;}.nav-tabs li{padding: 0 !important;text-align: center;}.nav-tabs li a{margin:0;border-radius: initial;}.display-none{display: none}body,html{height: 100%}.tab-content .row{width: initial !important;}
+</style>
 <body>
-  <script type="text/javascript">
-    $(function() {
-      window.open("index.html","_blank","channelmode=no,toolbar=no,location=no,width=540,height=175,top=0,left=0"); 
-    })
+<div id="divUTC" style="display: none;"></div>
+<div id="divLocal" style="display: none;"></div>
+<div id="load" style="display: none;"></div>
+<div class="input-group">
+  <div class="input-group-btn input-position-ab">
+    <select id="myselect" class="btn">
+      <option value="http://google.com/#q=" selected>구글</option>
+      <option value="https://search.naver.com/search.naver?query=">네이버</option>
+      <option value="http://search.daum.net/search?q=">다음</option>
+    </select>
+  </div>
+  <input id="pac-input" name="p-search" class="controls" type="text" placeholder="검색어를 입력하세요">
+  <div class="input-group-btn">
+    <button id="p-search" class="btn btn-primary btn-style">
+      <i class="fa fa-search"></i>
+    </button>
+  </div>
+  <!-- 검색어 탭메뉴 시작 -->
+  <div class="container display-none">
+    <div class="row">
+      <ul class="nav nav-tabs">
+        <li class="active col-lg-6"><a href="#private">내 검색어</a></li>
+        <li class="col-lg-6"><a href="#public">모든사용자 검색어</a></li>
+      </ul>
+      <div class="tab-content">
+        <div id="private" class="tab-pane active">
+          <table id="example" class="table" cellspacing="0">
+            <thead>
+            <tr>
+              <th>키워드</th>
+              <th>검색엔진</th>
+              <th>날짜</th>
+            </tr>
+            </thead>
+            <tbody class="resUl">
+            </tbody>
+          </table>
+        </div>
+        <div id="public" class="tab-pane">
+          <table id="example2" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
+            <tr>
+              <th>키워드</th>
+              <th>검색엔진</th>
+              <th>날짜</th>
+            </tr>
+            </thead>
+            <tbody class="allResUl">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+      $(document).ready(function() {
+          $(".nav-tabs a").click(function() {
+              $(this).tab('show');
+          });
+
+          $("#pac-input").click(function() {
+              $(".container").removeClass("display-none");
+              $(".container").addClass("display-show");
+              $(".container").show();
+              $(".input-group").css('padding-top', '10vh');
+
+          });
+
+          $("body").keydown(function(key) {
+              if (key.keyCode == 27 && $(".container").hasClass("display-show")) {
+                  $(".container").addClass("display-none");
+                  $(".container").removeClass("display-show");
+                  $(".container").hide();
+                  $(".input-group").css('padding-top', '40vh');
+              }
+          });
+
+          //   $('body').on('click',function(e) {
+          //   if ($(".container").hasClass("display-show")) {
+          //       if (!$(".input-group, .row, .container, #").has(e.target).length) {
+          //     $(".container").addClass("display-none");
+          //     $(".container").removeClass("display-show");
+          //     $(".container").hide();
+          //     $(".input-group").css('padding-top','40vh');
+          //     };
+          //   };
+          // });
+      });
   </script>
+  <!-- 검색어 탭메뉴 끝 -->
+</div>
+<script type="text/javascript">
+    $(function() {
+        var auth = firebase.auth();
+        var database = firebase.database();
+        var authProvider = new firebase.auth.GoogleAuthProvider();
+        var userInfo
+        auth.onAuthStateChanged(function(user) {
+            if (user) {
+                userInfo = user
+                get_text_list()
+                alert("성공" + userInfo.uid);
+            } else {
+                firebase.auth().signInAnonymously(); // 익명로그인
+                // auth.signInWithPopup(authProvider);
+            }
+        })
+        var divUtc = $('#divUTC');
+        var divLocal = $('#divLocal');
+        var localTime;
+        var psearch = $("#p-search");
+        // =========== moment.js 스크립트 시작
+        setInterval(function() {
+            divUtc.text(moment.utc().format('YYYY-MM-DD HH:mm:ss'));
+            localTime = moment.utc(divUtc.text()).toDate();
+            localTime = moment(localTime).format('YYYY-MM-DD HH:mm:ss');
+            divLocal.text(localTime);
+        }, 1000);
+        // =========== moment.js 스크립트 끝
+        $("input[name=p-search]").keydown(function(key) {
+            if (key.keyCode == 13) { //키가 13이면 실행 (엔터는 13)
+                goSearch();
+            }
+        });
+        psearch.click(function() {
+            goSearch();
+        })
+
+        function goSearch() {
+            var portalText = $("#myselect option:selected").text();
+            var portal = $("#myselect option:selected").val();
+            var keyword = $("#pac-input").val();
+            if (!keyword == "") {
+                // =========== 파이어베이스 입력 시작
+                var keyIn = database.ref('/키워드/' + userInfo.uid);
+                var publicKeyIn = database.ref('/키워드/' + "모든사용자");
+                keyIn.push({
+                    engine: portalText,
+                    keyword: keyword,
+                    date: localTime
+                });
+                publicKeyIn.push({
+                    engine: portalText,
+                    keyword: keyword,
+                    date: localTime
+                });
+                // keyIn.set(data);
+                // =========== 파이어베이스 입력 끝
+                window.open(portal + keyword, "_blank");
+            } else {
+                alert("검색어를 입력하세요.")
+            }
+        }
+
+
+        function get_text_list() {
+            var getKeyIn = firebase.database().ref('/키워드/' + userInfo.uid);
+            var publicGetKeyIn = firebase.database().ref('/키워드/' + "모든사용자");
+            getKeyIn.on('child_added', on_child_added);
+            publicGetKeyIn.on('child_added', public_on_child_added);
+            // boottable.draw();
+        }
+
+
+        function on_child_added(data) {
+            var key = data.key;
+            var sData = data.val();
+            var Kword = sData.keyword;
+            var Kengine = sData.engine;
+            var Kdate = sData.date;
+            // var html =
+            //   "<tr id='" + key + "'>" +
+            //   "<td>" + Kword + "</td>" +
+            //   "<td>" + Kengine + "</td>" +
+            //   "<td>" + Kdate + "</td>" +
+            //   "</tr>";
+            // $(".resUl").append(html);
+
+            $('#example').dataTable().fnAddData([
+                Kword,
+                Kengine,
+                Kdate
+            ]);
+        }
+
+        function public_on_child_added(data) {
+            var key = data.key;
+            var sData = data.val();
+            var Kword = sData.keyword;
+            var Kengine = sData.engine;
+            var Kdate = sData.date;
+            // var html =
+            //   "<tr id='" + key + "'>" +
+            //   "<td>" + Kword + "</td>" +
+            //   "<td>" + Kengine + "</td>" +
+            //   "<td>" + Kdate + "</td>" +
+            //   "</tr>";
+            // $(".allResUl").append(html);
+
+            $('#example2').dataTable().fnAddData([
+                Kword,
+                Kengine,
+                Kdate
+            ]);
+        }
+    })
+</script>
+<!-- 파이어베이스 -->
+<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-messaging.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyDM0nHhbIi5YU4eqtbFTAkH3nL7CBchBDY",
+        authDomain: "yogurt-22fd4.firebaseapp.com",
+        databaseURL: "https://yogurt-22fd4.firebaseio.com",
+        projectId: "yogurt-22fd4",
+        storageBucket: "yogurt-22fd4.appspot.com",
+        messagingSenderId: "178442852803"
+    };
+    firebase.initializeApp(config);
+</script>
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+        // // The Firebase SDK is initialized and available here!
+        //
+        // firebase.auth().onAuthStateChanged(user => { });
+        // firebase.database().ref('/path/to/ref').on('data', snapshot => { });
+        // firebase.messaging().requestPermission().then(() => { });
+        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+        //
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+        try {
+            let app = firebase.app();
+            let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
+            document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
+        } catch (e) {
+            console.error(e);
+            document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
+        }
+    });
+</script>
+<script src="lib/jquery.dataTables.js"></script>
+<script src="lib/dataTables.bootstrap.js"></script>
 </body>
+
 </html>
-
-<!-- 
-ㅇ 이동
-    - window.moveTo(X, Y) : 현재 위치와 상관없이 지정된 좌표로 이동
-    - window.moveBy(X, Y) : 현재 위치에서 X, Y 만큼 이동
-
-ㅇ 크기 변경
-    - window.resizeTo(X, Y) : 현재 크기와 상관없이 지정된 크기로 변경
-    - window.resizeBy(X, Y) : 현재 크기에서 X, Y 만큼 크기 변경 
-
-ㅇ 스크롤 위치 변경
-    - window.scrollTo(X, Y) : 현재 스크롤 위치와 상관없이 지정된 수치로 이동
-    - window.scrollBy(X, Y) : 현재 스크롤 위치에서 지정된 수치만큼 이동
-
-ㅇ 새창 열기
-    - window.open("URL", "창 이름", "창 속성")
-      ㆍ창 이름 : 열어놓은 창을 컨트롤할때 사용
-      ㆍ창 속성 : 크기, 툴바, 상태바 등에 대한 속성을 지정 
-          location(yes / no) : 주소 입력란
-          menubar(yes / no) : 메뉴 표시줄
-          scrollbars(yes / no) : 스크롤바
-          status(yes / no) : 상태 표시줄
-          toolbar(yes / no) : 도구모음
-          copyhistory(yes / no) : 히스토리 정보를 복사
-          resizable(yes / no) : 창 크기 조절 여부
-          width : 넓이
-          height : 높이
-
--->
