@@ -56,36 +56,15 @@
           -webkit-align-items: center;
           align-items: center;
       }
-      .owl-item{border-radius: 59px;border: 1px solid #ececec;overflow: hidden;height: 18em;}
-      .round-element{position: relative;}
-      .above-overlay{position: relative;top: -250px;margin: 0 auto;text-align: center;width: 100%;color: white;z-index: 999;}
+      .owl-item{width: 100%;border-radius: 59px;overflow: hidden;height: 18em;}
+      .round-element{position: relative;top: -40px;height: 100%;background-size: cover}
+      .above-overlay{position: relative;top: 200px;margin: 0 auto;text-align: center;width: 100%;color: white;z-index: 999;}
+      .above-overlay h2{text-shadow: 0px 1px 6px #000000;font-weight: bold;}
+      .above-overlay p{margin: 0}
       .overlay-gradient-large{width: 100%;height: 322px;position: absolute;left: 0;top: 43px;margin: 0 auto;background: linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,0) 30%,rgba(0,0,0,.7) 60%,rgba(0,0,0,.8) 70%,rgba(0,0,0,1) 100%);}
   </style>
   <div class="swiper-container">
       <div id="j-swiper-wrapper" class="swiper-wrapper">
-          <!--<div class="swiper-slide">
-              <div class="owl-item">
-                  <div class="round-element">
-                      <img class="" src="https://enableds.com/products/kolor3/images/pictures/10l.jpg">
-                      <div class="above-overlay">
-                          <h3 class="">상점이름</h3>
-                          <p class="">휴무일</p>
-                          <p class="">배달유무</p>
-                          <p class="">전화번호</p>
-                      </div>
-                      <div class="overlay-gradient-large"></div>
-                  </div>
-              </div>
-          </div>
-          <div class="swiper-slide">Slide 2</div>
-          <div class="swiper-slide">Slide 3</div>
-          <div class="swiper-slide">Slide 4</div>
-          <div class="swiper-slide">Slide 5</div>
-          <div class="swiper-slide">Slide 6</div>
-          <div class="swiper-slide">Slide 7</div>
-          <div class="swiper-slide">Slide 8</div>
-          <div class="swiper-slide">Slide 9</div>
-          <div class="swiper-slide">Slide 10</div>-->
       </div>
       <!-- Add Pagination -->
       <div class="swiper-pagination"></div>
@@ -282,8 +261,9 @@
       function swiper_func() {
           var swiper = new Swiper('.swiper-container', {
               slidesPerView: 5,
-              spaceBetween: 50,
+              spaceBetween: 20,
               observer : true,
+              centeredSlides : false,
               // init: false,
               pagination: {
                   el: '.swiper-pagination',
@@ -292,15 +272,15 @@
               breakpoints: {
                   1024: {
                       slidesPerView: 4,
-                      spaceBetween: 40,
+                      spaceBetween: 20,
                   },
                   768: {
                       slidesPerView: 3,
-                      spaceBetween: 30,
+                      spaceBetween: 20,
                   },
                   640: {
                       slidesPerView: 2,
-                      spaceBetween: 20,
+                      spaceBetween: 10,
                   },
                   320: {
                       slidesPerView: 1,
@@ -385,23 +365,31 @@
               var fdelivery = sData.delivery;
 
               /*범위지정 랜덤*/
-              var ranJ = Math.floor((Math.random() * 10) + 1);
+              var ranJ = Math.floor((Math.random() * 3) + 1);
+              var ranBack;
+              switch (ranJ){
+                  case 1 : ranBack ="https://cdn.pixabay.com/photo/2017/09/16/19/21/salad-2756467_960_720.jpg";
+                    break;
+                  case 2 : ranBack ="https://cdn.pixabay.com/photo/2016/03/05/23/02/barbecue-1239434_960_720.jpg";
+                      break;
+                  case 3 : ranBack ="https://cdn.pixabay.com/photo/2014/07/22/09/59/bread-399286_960_720.jpg";
+                      break;
+              }
 
               var fhtml = "<div class=\"swiper-slide\">" +
                   "              <div class=\"owl-item\">" +
-                  "                  <div class=\"round-element\">" +
-                  "                      <img class=\"\" src=\"https://enableds.com/products/kolor3/images/pictures/10l.jpg\">" +
+                  "                  <div class=\"round-element\" style='background-image: url("+ ranBack +")'>" +
                   "                      <div class=\"above-overlay\">" +
-                  "                          <h3>"+ fname +"</h3>" +
-                  "                          <p>"+ fclosed +"</p>" +
-                  "                          <p>"+ fdelivery +"</p>" +
-                  "                          <p>"+ fnumber +"</p>" +
+                  "                          <h2>"+ fname +"</h2>" +
+                  "                          <p>휴무일 : "+ fclosed +"</p>" +
+                  "                          <p>배달여부 : "+ fdelivery +"</p>" +
+                  "                          <p><a href='tel:'"+ fnumber +">"+ fnumber +"</a></p>" +
                   "                      </div>" +
                   "                      <div class=\"overlay-gradient-large\"></div>" +
                   "                  </div>" +
                   "              </div>" +
                   "          </div>";
-              $("#j-swiper-wrapper").append(fhtml);
+              $("#j-swiper-wrapper").prepend(fhtml);
           }
           /* 음식점 목록  한세트 */
 
