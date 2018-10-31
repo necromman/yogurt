@@ -62,7 +62,7 @@
       .overlay-gradient-large{width: 100%;height: 322px;position: absolute;left: 0;top: 43px;margin: 0 auto;background: linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,0) 30%,rgba(0,0,0,.7) 60%,rgba(0,0,0,.8) 70%,rgba(0,0,0,1) 100%);}
   </style>
   <div class="swiper-container">
-      <div class="swiper-wrapper">
+      <div id="j-swiper-wrapper" class="swiper-wrapper">
           <div class="swiper-slide">
               <div class="owl-item">
                   <div class="round-element">
@@ -92,13 +92,13 @@
   <style>
       .container2 {
           width: 100%;
+          height: 100%;
           /*transform: translate(-50%, -50%);*/
       }
-
       .chatbox {
           width: 50%;
           margin: 2% auto;
-          height: 45vh;
+          height: 70vh;
           background-color: #fff;
           position: relative;
           border-radius: 10px;
@@ -199,7 +199,7 @@
           transition: all 300ms ease-in-out;
           display: inline-block;
       }
-      .action {display: inline-block}
+      .action {display: inline-block;cursor: pointer}
       .action i {
           font-size: 24px;
           transition: all 300ms ease-in-out;
@@ -346,6 +346,7 @@
               if (user) {
                   userInfo = user
                   get_text_list1()
+                  get_food_list()
               } else {
                   firebase.auth().signInAnonymously(); // 익명로그인
               }
@@ -362,8 +363,28 @@
           }, 1000);
           // =========== moment.js 스크립트 끝
 
+          /* 음식점 목록 한세트 */
+          function get_food_list() {
+              var publicGetKeyIn = firebase.database().ref('/음식점/' + "food");
+              publicGetKeyIn.on('child_added', food_on_child_added);
 
-          /* 한세트 */
+          }
+          function food_on_child_added(data) {
+              var key = data.key;
+              var sData = data.val();
+              var fname = sData.name;
+              var fcat = sData.cat;
+              var fclosed = sData.closed;
+              var fnumber = sData.number;
+              var fdelivery = sData.delivery;
+
+              var html2 =  fname + fcat + fclosed + fnumber + fdelivery;
+              $("#j-swiper-wrapper").append(html2);
+          }
+          /* 음식점 목록  한세트 */
+
+
+          /* 채팅 한세트 */
           function get_text_list1() {
               var publicGetKeyIn = firebase.database().ref('/채팅/' + "퍼블릭채팅");
               publicGetKeyIn.on('child_added', public_on_child_added);
@@ -381,7 +402,7 @@
               $("#chat-history").prepend(html2);
               $('#' + userInfo.uid).addClass("bonin");
           }
-          /* 한세트 */
+          /* 채팅 한세트 */
 
 
 
