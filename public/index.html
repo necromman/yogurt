@@ -63,13 +63,15 @@
   </style>
   <div class="swiper-container">
       <div id="j-swiper-wrapper" class="swiper-wrapper">
-          <div class="swiper-slide">
+          <!--<div class="swiper-slide">
               <div class="owl-item">
                   <div class="round-element">
                       <img class="" src="https://enableds.com/products/kolor3/images/pictures/10l.jpg">
                       <div class="above-overlay">
                           <h3 class="">상점이름</h3>
-                          <p class="">설명을 해보자</p>
+                          <p class="">휴무일</p>
+                          <p class="">배달유무</p>
+                          <p class="">전화번호</p>
                       </div>
                       <div class="overlay-gradient-large"></div>
                   </div>
@@ -83,7 +85,7 @@
           <div class="swiper-slide">Slide 7</div>
           <div class="swiper-slide">Slide 8</div>
           <div class="swiper-slide">Slide 9</div>
-          <div class="swiper-slide">Slide 10</div>
+          <div class="swiper-slide">Slide 10</div>-->
       </div>
       <!-- Add Pagination -->
       <div class="swiper-pagination"></div>
@@ -277,33 +279,36 @@
 
   <!-- Initialize Swiper -->
   <script>
-      var swiper = new Swiper('.swiper-container', {
-          slidesPerView: 5,
-          spaceBetween: 50,
-          // init: false,
-          pagination: {
-              el: '.swiper-pagination',
-              clickable: true,
-          },
-          breakpoints: {
-              1024: {
-                  slidesPerView: 4,
-                  spaceBetween: 40,
+      function swiper_func() {
+          var swiper = new Swiper('.swiper-container', {
+              slidesPerView: 5,
+              spaceBetween: 50,
+              observer : true,
+              // init: false,
+              pagination: {
+                  el: '.swiper-pagination',
+                  clickable: true,
               },
-              768: {
-                  slidesPerView: 3,
-                  spaceBetween: 30,
-              },
-              640: {
-                  slidesPerView: 2,
-                  spaceBetween: 20,
-              },
-              320: {
-                  slidesPerView: 1,
-                  spaceBetween: 10,
+              breakpoints: {
+                  1024: {
+                      slidesPerView: 4,
+                      spaceBetween: 40,
+                  },
+                  768: {
+                      slidesPerView: 3,
+                      spaceBetween: 30,
+                  },
+                  640: {
+                      slidesPerView: 2,
+                      spaceBetween: 20,
+                  },
+                  320: {
+                      slidesPerView: 1,
+                      spaceBetween: 10,
+                  }
               }
-          }
-      });
+          });
+      }
   </script>
 
 
@@ -347,6 +352,7 @@
                   userInfo = user
                   get_text_list1()
                   get_food_list()
+                  swiper_func()
               } else {
                   firebase.auth().signInAnonymously(); // 익명로그인
               }
@@ -378,8 +384,24 @@
               var fnumber = sData.number;
               var fdelivery = sData.delivery;
 
-              var html2 =  fname + fcat + fclosed + fnumber + fdelivery;
-              $("#j-swiper-wrapper").append(html2);
+              /*범위지정 랜덤*/
+              var ranJ = Math.floor((Math.random() * 10) + 1);
+
+              var fhtml = "<div class=\"swiper-slide\">" +
+                  "              <div class=\"owl-item\">" +
+                  "                  <div class=\"round-element\">" +
+                  "                      <img class=\"\" src=\"https://enableds.com/products/kolor3/images/pictures/10l.jpg\">" +
+                  "                      <div class=\"above-overlay\">" +
+                  "                          <h3>"+ fname +"</h3>" +
+                  "                          <p>"+ fclosed +"</p>" +
+                  "                          <p>"+ fdelivery +"</p>" +
+                  "                          <p>"+ fnumber +"</p>" +
+                  "                      </div>" +
+                  "                      <div class=\"overlay-gradient-large\"></div>" +
+                  "                  </div>" +
+                  "              </div>" +
+                  "          </div>";
+              $("#j-swiper-wrapper").append(fhtml);
           }
           /* 음식점 목록  한세트 */
 
