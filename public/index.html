@@ -258,6 +258,9 @@
 
   <!-- Initialize Swiper -->
   <script>
+      $('.swiper-slide').on('click',function(){
+          alert("adf");
+      });
       function swiper_func() {
           var swiper = new Swiper('.swiper-container', {
               slidesPerView: 5,
@@ -395,9 +398,7 @@
           /* 음식점 목록  한세트 */
 
 
-          $('.swiper-slide').click(function(){
-              alert("adf");
-          });
+
           /* 메뉴 목록 한세트 */
           function get_menu_list() {
               var publicGetKeyIn = firebase.database().ref('/음식점/' + "/food/" + "/shop02/" + "menu");
