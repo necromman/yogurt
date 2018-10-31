@@ -333,6 +333,7 @@
                   get_text_list1()
                   get_food_list()
                   swiper_func()
+                  get_menu_list()
               } else {
                   firebase.auth().signInAnonymously(); // 익명로그인
               }
@@ -376,7 +377,7 @@
                       break;
               }
 
-              var fhtml = "<div class=\"swiper-slide\">" +
+              var fhtml = "<div id='"+ key +"' class=\"swiper-slide\">" +
                   "              <div class=\"owl-item\">" +
                   "                  <div class=\"round-element\" style='background-image: url("+ ranBack +")'>" +
                   "                      <div class=\"above-overlay\">" +
@@ -392,6 +393,40 @@
               $("#j-swiper-wrapper").prepend(fhtml);
           }
           /* 음식점 목록  한세트 */
+
+
+          $('.swiper-slide').click(function(){
+              alert("adf");
+          });
+          /* 메뉴 목록 한세트 */
+          function get_menu_list() {
+              var publicGetKeyIn = firebase.database().ref('/음식점/' + "/food/" + "/shop02/" + "menu");
+              publicGetKeyIn.on('child_added', menu_on_child_added);
+
+          }
+          function menu_on_child_added(data) {
+              var key = data.key; // 메뉴이름
+              var sData = data.val();
+              var mprice = sData.price;
+              var morder = sData.order;
+              var mgrade = sData.grade;
+
+              var mhtml = "<div id='"+ key +"' class=\"swiper-slide\">" +
+                  "              <div class=\"owl-item\">" +
+                  "                  <div class=\"round-element\" style='background-image: url("+ ranBack +")'>" +
+                  "                      <div class=\"above-overlay\">" +
+                  "                          <h2>"+ fname +"</h2>" +
+                  "                          <p>휴무일 : "+ fclosed +"</p>" +
+                  "                          <p>배달여부 : "+ fdelivery +"</p>" +
+                  "                          <p><a href='tel:'"+ fnumber +">"+ fnumber +"</a></p>" +
+                  "                      </div>" +
+                  "                      <div class=\"overlay-gradient-large\"></div>" +
+                  "                  </div>" +
+                  "              </div>" +
+                  "          </div>";
+              // $("#j-swiper-wrapper").prepend(mhtml);
+          }
+          /* 메뉴 목록  한세트 */
 
 
           /* 채팅 한세트 */
