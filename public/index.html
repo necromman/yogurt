@@ -8,7 +8,7 @@
   <title>11AM - 점심준비</title>
   <link rel="stylesheet" type="text/css" href="css/normalize.css" />
   <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,500,700' rel='stylesheet' type='text/css'>
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/css/swiper.css">
@@ -25,6 +25,7 @@
     <![endif]-->
 </head>
   <style type="text/css">
+      body{margin: 1em 1em}
  * {transition: all 0.2s }select {background: rgba(255, 255, 255, 0) }.btn-style {box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);font-size: 20px;border-radius: initial;height: 42px;top: 0px;left: 4px;}.btn:focus, .btn:active {outline: initial !important;box-shadow: initial !important;}.input-group {width: 478px;margin: 0 auto;padding-top: 40vh }.input-position-ab {position: absolute;margin: 4px 0 0 0;z-index: 999 }#map-canvas {height: 400px;width: 600px;}.controls {border: 1px solid transparent;box-sizing: border-box;-moz-box-sizing: border-box;height: 41px;outline: none;box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);}#pac-input {background-color: #fff;padding: 0 0 0 100px;width: 100%;font-size: 15px;font-weight: 300;text-overflow: ellipsis;}#pac-input:hover, #pac-input:focus {box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);}#pac-input:hover ~ button {box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);}#type-selector {color: #fff;background-color: #4d90fe;padding: 5px 11px 0px 11px;}#type-selector label {font-size: 13px;font-weight: 300;}#load {color: rgba(0, 0, 0, 0.4);text-align: center;font-size: 13px;}.valign-wrapper {display: -webkit-flex !important;display: -ms-flexbox !important;display: flex !important;-webkit-align-items: center !important;-ms-flex-align: center !important;align-items: center !important;}.container {z-index: 0;margin: 44px 0 0 0;position: absolute;width: 100%;left: -14px;}.row{width: 478px;margin: 0 auto;border: 1px solid #ababab;background: white;}.tab-content{padding: 15px 15px;}.nav-tabs li{padding: 0 !important;text-align: center;}.nav-tabs li a{margin:0;border-radius: initial;}.display-none{display: none}body,html{height: 100%}.tab-content .row{width: initial !important;}
   </style>
 <body>
@@ -37,14 +38,10 @@
 
   <!-- Swiper -->
   <style>
-      .swiper-container {
-          width: 100%;
-          height: 100%;
-      }
+      .swiper-container {width: 100%;}
       .swiper-slide {
           text-align: center;
           font-size: 18px;
-          background: #fff;
           /* Center slide text vertically */
           display: -webkit-box;
           display: -ms-flexbox;
@@ -59,10 +56,10 @@
           -webkit-align-items: center;
           align-items: center;
       }
-      .owl-item{border-radius: 59px;border: 1px solid #ececec;overflow: hidden;height: 26em;}
+      .owl-item{border-radius: 59px;border: 1px solid #ececec;overflow: hidden;height: 18em;}
       .round-element{position: relative;}
-      .above-overlay{position: relative;top: -100px;margin: 0 auto;text-align: center;width: 100%;color: white;z-index: 999;}
-      .overlay-gradient-large{width: 100%;height: 322px;position: absolute;left: 0;top: 145px;margin: 0 auto;background: linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,0) 30%,rgba(0,0,0,.7) 60%,rgba(0,0,0,.8) 70%,rgba(0,0,0,1) 100%);}
+      .above-overlay{position: relative;top: -250px;margin: 0 auto;text-align: center;width: 100%;color: white;z-index: 999;}
+      .overlay-gradient-large{width: 100%;height: 322px;position: absolute;left: 0;top: 43px;margin: 0 auto;background: linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,0) 30%,rgba(0,0,0,.7) 60%,rgba(0,0,0,.8) 70%,rgba(0,0,0,1) 100%);}
   </style>
   <div class="swiper-container">
       <div class="swiper-wrapper">
@@ -90,6 +87,192 @@
       </div>
       <!-- Add Pagination -->
       <div class="swiper-pagination"></div>
+  </div>
+
+  <style>
+      .container2 {
+          width: 100%;
+          /*transform: translate(-50%, -50%);*/
+      }
+
+      .chatbox {
+          width: 50%;
+          margin: 2% auto;
+          height: 45vh;
+          background-color: #fff;
+          position: relative;
+          border-radius: 10px;
+          overflow: hidden;
+          box-shadow: 0px 0px 249px -48px rgba(0,0,0,0.75);
+          transition: all 300ms ease-in-out;
+      }
+
+      .bar {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 50px;
+          background-color: #4286f4;
+      }
+
+      .positioning-container-bar {
+          position: relative;
+          top: 0;
+          left: 50%;
+          transform: translate(-50%, 0);
+          height: 100%;
+      }
+      @keyframes statuschange {
+          0% {background-color: lightgreen;}
+          50% {background-color: red;}
+          100% {background-color: gray;}
+      }
+
+      .name {
+          color: #fff;
+          font-family: sans-serif;
+          font-size: 16px;
+          font-weight: bold;
+          position: absolute;
+          top: 50%;
+          left: 0;
+          transform: translate(0, -50%);
+          margin-left: 15px;
+          transition: all 300ms ease-in-out;
+      }
+
+      .icon i {
+          color: #fff;
+          font-size: 16px;
+          transition: all 300ms ease-in-out;
+      }
+
+      .chat-history {
+          overflow-y: scroll;
+          padding: 5em 2em;
+          width: 101.4%;
+          height: 85%;
+          background-color: #fff;
+          transition: all 300ms ease-in-out;
+      }
+      .chat-history .bonin p{
+          background-color: #f7f7b6 !important;
+      }
+      .chat-history p{
+          padding: 10px 15px;
+          border: 0px solid;
+          border-radius: 5px;
+          background-color: #efefef;
+          word-break: break-all;
+          font-weight: bold;
+          color: #676767;
+      }
+      .chat-history p span{
+          text-align: right;
+          display: block;
+          color: #bfbfbf;
+      }
+
+      .chat-input {
+          border-top: 1px solid #e0e0e0;
+          width: 100%;
+          background-color: #fff;
+          text-align: center;
+          transition: all 300ms ease-in-out;
+      }
+
+      .positioning-container-chat {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          padding: 0 6px;
+      }
+
+      .chat-input input {
+          width: 85%;
+          height: 6.5vh;
+          border: none;
+          outline: none;
+          color: #000;
+          font-size: 16px;
+          transition: all 300ms ease-in-out;
+          display: inline-block;
+      }
+      .action {display: inline-block}
+      .action i {
+          font-size: 24px;
+          transition: all 300ms ease-in-out;
+      }
+
+      @media only screen and (max-width: 1100px) {
+          .name, .icon i {
+              font-size: 14px;
+          }
+
+          .chat-input input {
+              font-size: 14px;
+          }
+
+          .action i {
+              font-size: 22px;
+          }
+      }
+
+      @media only screen and (max-height: 525px) {
+          .name, .icon i {
+              font-size: 14px;
+          }
+
+          .chat-input input {
+              font-size: 14px;
+          }
+
+          .action i {
+              font-size: 22px;
+          }
+
+          .chat-history {
+              height: 75%;
+          }
+      }
+
+      @media only screen and (max-width: 950px) {
+          .chatbox {
+              width: 100%;
+          }
+      }
+
+      @media only screen and (max-width: 600px) {
+          .name, .icon i {
+              font-size: 10px;
+          }
+
+          .name {
+              margin-left: 10px;
+          }
+      }
+  </style>
+
+  <div class="container2">
+      <div class="chatbox">
+          <div class="bar">
+              <div class="positioning-container-bar">
+                  <div class="name">11AM</div>
+              </div>
+          </div>
+
+          <div id="chat-history" class="chat-history"></div>
+
+          <div class="chat-input">
+              <div class="positioning-container-chat">
+                  <input type="text" id="chat-text" name="p-search" placeholder="점심 고르시죠">
+                  <div id="p-search" class="action">
+                      <i class="fas fa-stop"></i>
+                  </div>
+              </div>
+          </div>
+      </div>
   </div>
 
   <!-- Initialize Swiper -->
@@ -127,110 +310,112 @@
   <!--11AM - 점심 준비 끝-->
 
 
-
   <script type="text/javascript">
-  $(function() {
-    var auth = firebase.auth();
-    var database = firebase.database();
-    var authProvider = new firebase.auth.GoogleAuthProvider();
-    var userInfo
-    auth.onAuthStateChanged(function(user) {
-      if (user) {
-        userInfo = user
-        get_text_list()
-        // alert("성공" + userInfo.uid);
-      } else {
-        firebase.auth().signInAnonymously(); // 익명로그인
-        // auth.signInWithPopup(authProvider);
-      }
-    })
-    var divUtc = $('#divUTC');
-    var divLocal = $('#divLocal');
-    var localTime;
-    var psearch = $("#p-search");
-    // =========== moment.js 스크립트 시작
-    setInterval(function() {
-      divUtc.text(moment.utc().format('YYYY-MM-DD HH:mm:ss'));
-      localTime = moment.utc(divUtc.text()).toDate();
-      localTime = moment(localTime).format('YYYY-MM-DD HH:mm:ss');
-      divLocal.text(localTime);
-    }, 1000);
-    // =========== moment.js 스크립트 끝
-    $("input[name=p-search]").keydown(function(key) {
-      if (key.keyCode == 13) { //키가 13이면 실행 (엔터는 13)
-        goSearch();
-      }
-    });
-    psearch.click(function() {
-      goSearch();
-    })
+      $(function () {
 
-    function goSearch() {
-      var portalText = $("#myselect option:selected").text();
-      var portal = $("#myselect option:selected").val();
-      var keyword = $("#pac-input").val();
-      if (!keyword == "") {
-        // =========== 파이어베이스 입력 시작
-        var keyIn = database.ref('/키워드/' + userInfo.uid);
-        var publicKeyIn = database.ref('/키워드/' + "모든사용자");
-        keyIn.push({
-          engine: portalText,
-          keyword: keyword,
-          date: localTime
-        });
-        publicKeyIn.push({
-          engine: portalText,
-          keyword: keyword,
-          date: localTime
-        });
-        // keyIn.set(data);
-        // =========== 파이어베이스 입력 끝
-        window.open(portal + keyword, "_blank");
-      } else {
-        alert("검색어를 입력하세요.")
-      }
-    }
+    /*
+    *==================================================================
+    *  current time zero add
+    *==================================================================
+    */
+          var Now = new Date();
+          var NowTime = Now.getFullYear();
+          NowTime += '-' + leadingZeros((Now.getMonth() + 1), 2);
+          NowTime += '-' + leadingZeros(Now.getDate(), 2);
+          NowTime += ' ' + leadingZeros(Now.getHours(), 2);
+          NowTime += ':' + leadingZeros(Now.getMinutes(), 2);
+          NowTime += ':' + leadingZeros(Now.getSeconds(), 2);
+
+          function leadingZeros(n, digits) {
+              var zero = '';
+              n = n.toString();
+
+              if (n.length < digits) {
+                  for (var i = 0; i < digits - n.length; i++)
+                      zero += '0';
+              }
+              return zero + n;
+          }
 
 
-    function get_text_list() {
-      var getKeyIn = firebase.database().ref('/키워드/' + userInfo.uid);
-      var publicGetKeyIn = firebase.database().ref('/키워드/' + "모든사용자");
-      getKeyIn.on('child_added', on_child_added);
-      publicGetKeyIn.on('child_added', public_on_child_added);
-      // boottable.draw();
-    }
+          var auth = firebase.auth();
+          var database = firebase.database();
+          var authProvider = new firebase.auth.GoogleAuthProvider();
+          var userInfo
+          auth.onAuthStateChanged(function (user) {
+              if (user) {
+                  userInfo = user
+                  get_text_list1()
+              } else {
+                  firebase.auth().signInAnonymously(); // 익명로그인
+              }
+          })
+          var divUtc = $('#divUTC');
+          var divLocal = $('#divLocal');
+          var localTime;
+          // =========== moment.js 스크립트 시작
+          setInterval(function () {
+              divUtc.text(moment.utc().format('YYYY-MM-DD HH:mm:ss'));
+              localTime = moment.utc(divUtc.text()).toDate();
+              localTime = moment(localTime).format('YYYY-MM-DD HH:mm:ss');
+              divLocal.text(localTime);
+          }, 1000);
+          // =========== moment.js 스크립트 끝
 
 
-    function on_child_added(data) {
-      var key = data.key;
-      var sData = data.val();
-      var Kword = sData.keyword;
-      var Kengine = sData.engine;
-      var Kdate = sData.date;
-      // var html =
-      //   "<tr id='" + key + "'>" +
-      //   "<td>" + Kword + "</td>" +
-      //   "<td>" + Kengine + "</td>" +
-      //   "<td>" + Kdate + "</td>" +
-      //   "</tr>";
-      // $(".resUl").append(html);
-    }
+          /* 한세트 */
+          function get_text_list1() {
+              var publicGetKeyIn = firebase.database().ref('/채팅/' + "퍼블릭채팅");
+              publicGetKeyIn.on('child_added', public_on_child_added);
 
-    function public_on_child_added(data) {
-      var key = data.key;
-      var sData = data.val();
-      var Kword = sData.keyword;
-      var Kengine = sData.engine;
-      var Kdate = sData.date;
-      // var html =
-      //   "<tr id='" + key + "'>" +
-      //   "<td>" + Kword + "</td>" +
-      //   "<td>" + Kengine + "</td>" +
-      //   "<td>" + Kdate + "</td>" +
-      //   "</tr>";
-      // $(".allResUl").append(html);
-    }
-  })
+          }
+          function public_on_child_added(data) {
+              var key = data.key;
+              var sData = data.val();
+              var Kword = sData.keyword;
+              var Kdate = sData.date;
+              var jUser = sData.user;
+
+              var html2 =
+                  "<div id='"+ jUser +"'><p id='" + key + "' class='timeline-item'>" + Kword + "<span>"+ Kdate +"</span>" + "</p></div>";
+              $("#chat-history").prepend(html2);
+              $('#' + userInfo.uid).addClass("bonin");
+          }
+          /* 한세트 */
+
+
+
+          function goSearch() {
+              var keyword = $("#chat-text").val();
+              if (!keyword == "") {
+                  // =========== 파이어베이스 입력 시작
+                  var publicKeyIn = database.ref('/채팅/' + "퍼블릭채팅");
+                  publicKeyIn.push({
+                      keyword: keyword,
+                      date: NowTime,
+                      user : userInfo.uid
+                  });
+                  // =========== 파이어베이스 입력 끝
+              } else {
+                  alert("입력값이 없어요")
+              }
+          }
+
+
+          var psearch = $("#p-search");
+          $("input[name=p-search]").keydown(function (key) {
+              if (key.keyCode == 13) { //키가 13이면 실행 (엔터는 13)
+                  goSearch();
+                  $("#chat-text").val("");
+              }
+          });
+          psearch.click(function () {
+              goSearch();
+          });
+
+
+
+      })
   </script>
   <!-- 파이어베이스 -->
   <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-app.js"></script>
