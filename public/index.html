@@ -80,6 +80,15 @@
           width: 50px;
           height: 50px;
       }
+      .card .c_img span{
+          font-size: 1.4em;
+          font-weight: bolder;
+          left: -14px;
+          top: 12px;
+          display: inline-block;
+          width: 100%;
+          position: relative;
+      }
       .card span{display: inline-block;vertical-align: middle;margin: 0 1em;}
       .card .c_name{
           font-size: 2rem;
@@ -457,7 +466,7 @@
 
 
           /* 메뉴 목록 한세트 */
-          var shopId
+          var shopId;
           $('#j-swiper-wrapper').on('click', 'div.above-overlay h2', function() {
               shopId = $(this).closest(".swiper-slide").attr("id");
               $("#s_card_wrap").empty();
@@ -468,7 +477,7 @@
                   'padding' : '1em 0'
               });
               $("#cart").empty();
-              $('#cart').simpleCart()
+              $('#cart').simpleCart();
               $('.container3').css({
                   "bottom" : "0%",
                   "display" : "block"
@@ -476,10 +485,21 @@
           });
 
           function get_menu_list() {
-              var publicGetKeyIn = firebase.database().ref('/음식점/' + "/food/" + "/" + shopId + "/" + "menu");
-              publicGetKeyIn.on('child_added', menu_on_child_added);
-
+              var shopGetKeyIn = firebase.database().ref('/음식점/' + "/food/");
+              shopGetKeyIn.on('child_added', shop_on_child_added);
           }
+
+          var sName;
+          function shop_on_child_added(data) {
+              var key = data.key; // 메뉴이름
+              var sData = data.val();
+              if(key == shopId){
+                  sName = sData.name;
+                  var publicGetKeyIn = firebase.database().ref('/음식점/' + "/food/" + "/" + shopId + "/" + "menu");
+                  publicGetKeyIn.on('child_added', menu_on_child_added);
+              }
+          }
+
           function menu_on_child_added(data) {
               var key = data.key; // 메뉴이름
               var sData = data.val();
@@ -488,7 +508,7 @@
               var mgrade = sData.grade;
 
               var mhtml= "<div class=\"card\">" +
-                  "              <span class=\"c_img\"></span>" +
+                  "              <span class=\"c_img\"><span>"+sName.substr(0,2)+"</span></span>" +
                   "              <span class=\"c_name\">"+ key +"</span>" +
                   "              <span class=\"c_price\">￦"+mprice+"</span>" +
                   "              <span class=\"c_order\">주문횟수 : "+morder+"</span>" +
@@ -496,7 +516,7 @@
                   "              <span><button class=\"sc-add-to-cart\" data-name='"+ key +"' data-price='"+ mprice +"'>이걸로하죠</button></span>" +
                   "          </div>"
 
-              $("#s_card_wrap").prepend(mhtml);
+              $("#s_card_wrap").append(mhtml);
           }
           /* 메뉴 목록  한세트 */
 
@@ -936,6 +956,7 @@
           for (var i = 0; i < collection.length; ++i) {
               setColor()
               collection[i].style.background = newColor1;
+              collection[i].style.color = newColor2;
           }
       }
 
