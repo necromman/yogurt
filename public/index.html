@@ -42,6 +42,7 @@
       }
       .swiper-container {width: 100%;margin-bottom: 2em;padding-bottom: 1em}
       .swiper-slide {
+          cursor: pointer;
           text-align: center;
           font-size: 18px;
           /* Center slide text vertically */
@@ -61,7 +62,7 @@
       .owl-item{width: 100%;border-radius: 59px;overflow: hidden;height: 18em;}
       .round-element{position: relative;top: -30px;height: 110%;background-size: cover}
       .above-overlay{position: relative;top: 200px;margin: 0 auto;text-align: center;width: 100%;color: white;z-index: 999;}
-      .above-overlay h2{text-shadow: 0px 1px 6px #000000;font-weight: bold;cursor: pointer}
+      .above-overlay h2{text-shadow: 0px 1px 6px #000000;font-weight: bold;}
       .above-overlay p{margin: 0}
       .overlay-gradient-large{width: 100%;height: 322px;position: absolute;left: 0;top: 43px;margin: 0 auto;background: linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,0) 30%,rgba(0,0,0,.7) 60%,rgba(0,0,0,.8) 70%,rgba(0,0,0,1) 100%);}
        #s_menu_list{width: 100%;height: 0%;overflow: auto;transition: all 300ms ease-in-out;padding:0em 0;background-color: white;margin-bottom: 1em}
@@ -467,8 +468,9 @@
 
           /* 메뉴 목록 한세트 */
           var shopId;
-          $('#j-swiper-wrapper').on('click', 'div.above-overlay h2', function() {
-              shopId = $(this).closest(".swiper-slide").attr("id");
+          $('#j-swiper-wrapper').on('click', 'div.swiper-slide', function() {
+              shopId = $(this).attr("id");
+              // shopId = $(this).closest(".swiper-slide").attr("id");
               $("#s_card_wrap").empty();
               get_menu_list();
               setRanColor();
