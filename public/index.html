@@ -292,6 +292,30 @@
           </div>
       </div>
   </div>
+  <style>
+      .container3{
+          width: 100%;
+          height: 35%;
+          position: fixed;
+          z-index: 99;
+          bottom: -40%;
+          overflow: auto;
+          background-color: white;
+          border: 3px solid #ddd;
+          border-radius: 10px;
+          display: none;
+      }
+      .container3 *{transition: all 300ms ease-in-out;}
+      #cart{
+          width: 60%;
+          padding: 1em 1em;
+          margin: 0 auto;
+          box-shadow: 0px 0px 177px -48px rgba(0,0,0,0.75);
+      }
+  </style>
+  <div class="container3">
+  <div id="cart"></div>
+</div>
 
   <!-- Initialize Swiper -->
   <script>
@@ -437,12 +461,18 @@
           $('#j-swiper-wrapper').on('click', 'div.above-overlay h2', function() {
               shopId = $(this).closest(".swiper-slide").attr("id");
               $("#s_card_wrap").empty();
-              get_menu_list()
-              setRanColor()
+              get_menu_list();
+              setRanColor();
               $("#s_menu_list").css({
                   'height' : '50%',
                   'padding' : '1em 0'
-              })
+              });
+              $("#cart").empty();
+              $('#cart').simpleCart()
+              $('.container3').css({
+                  "bottom" : "0%",
+                  "display" : "block"
+              });
           });
 
           function get_menu_list() {
@@ -463,6 +493,7 @@
                   "              <span class=\"c_price\">￦"+mprice+"</span>" +
                   "              <span class=\"c_order\">주문횟수 : "+morder+"</span>" +
                   "              <span class=\"c_like\">좋아요 : "+ mgrade+"개</span>" +
+                  "              <span><button class=\"sc-add-to-cart\" data-name='"+ key +"' data-price='"+ mprice +"'>이걸로하죠</button></span>" +
                   "          </div>"
 
               $("#s_card_wrap").prepend(mhtml);
@@ -911,7 +942,7 @@
 
 
   </script>
-
+  <script src="/lib/Add-To-Shopping-Cart-SimpleCart/lib/js/jQuery.SimpleCart.js" ></script>
 </body>
 
 </html>
