@@ -98,7 +98,7 @@
           font-weight: bold;
       }
       .card .c_price{font-weight: bold;font-size: 1.5em;}
-      .card .c_order{}
+      .card .c_order span{vertical-align: baseline}
       .card .c_like{}
 
 
@@ -468,6 +468,7 @@
 
           /* 메뉴 목록 한세트 */
           var shopId;
+          var cartThis;
           $('#j-swiper-wrapper').on('click', 'div.swiper-slide', function() {
               shopId = $(this).attr("id");
               // shopId = $(this).closest(".swiper-slide").attr("id");
@@ -477,6 +478,10 @@
               $("#s_menu_list").css({
                   'height' : '50%',
                   'padding' : '1em 0'
+              });
+              $('.sc-add-to-cart').on('click', function() {
+                  cartThis = $(this);
+                  pushMenu();
               });
               /*$("#cart").empty();
               $('#cart').simpleCart();
@@ -513,14 +518,35 @@
                   "              <span class=\"c_img\"><span>"+sName.substr(0,2)+"</span></span>" +
                   "              <span class=\"c_name\">"+ key +"</span>" +
                   "              <span class=\"c_price\">￦"+mprice+"</span>" +
-                  "              <span class=\"c_order\">주문횟수 : "+morder+"</span>" +
+                  "              <span class=\"c_order\">주문횟수 : <span>"+morder+"</span></span>" +
                   "              <span class=\"c_like\">좋아요 : "+ mgrade+"개</span>" +
-                  "              <span><button class=\"sc-add-to-cart\" data-name='"+ key +"' data-price='"+ mprice +"'>이걸로하죠</button></span>" +
+                  "              <span><button class=\"sc-add-to-cart\" data-shop='"+ shopId +"' data-name='"+ key +"' data-price='"+ mprice +"' data-order='"+ morder +"'>이걸로하죠</button></span>" +
                   "          </div>"
 
               $("#s_card_wrap").append(mhtml);
           }
           /* 메뉴 목록  한세트 */
+
+
+          /*푸시메뉴*/
+          function pushMenu() {
+              var dataShop = cartThis.attr("data-shop");
+              var dataMenu = cartThis.attr("data-name");
+              var dataPrice = cartThis.attr("data-price");
+              var dataOrder = parseInt(cartThis.attr("data-order"));
+
+              var publicKeyIn = database.ref('/음식점/' + "/food/" + "/" + shopId + "/" + "/menu/" + dataMenu );
+              publicKeyIn.update({
+                  order: dataOrder + 1
+              });
+              publicKeyIn.push({
+                  date: NowTime,
+                  user : userInfo.uid
+              });
+              cartThis.attr("data-order", dataOrder + 1);
+              cartThis.parent().parent().children(".c_order").children("span").text(dataOrder + 1);
+          }
+          /*푸시메뉴*/
 
 
           /* 채팅 한세트 */
@@ -571,6 +597,7 @@
           });
           psearch.click(function () {
               goSearch();
+              $("#chat-text").val("");
           });
 
 
