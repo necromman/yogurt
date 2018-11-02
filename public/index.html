@@ -435,6 +435,7 @@
           NowTime += ':' + leadingZeros(Now.getMinutes(), 2);
           NowTime += ':' + leadingZeros(Now.getSeconds(), 2);
 
+
           function leadingZeros(n, digits) {
               var zero = '';
               n = n.toString();
@@ -449,13 +450,14 @@
 
           var auth = firebase.auth();
           var database = firebase.database();
-          var rootRef = firebase.database().ref();
           var authProvider = new firebase.auth.GoogleAuthProvider();
           var userInfo
           auth.onAuthStateChanged(function (user) {
               if (user) {
                   userInfo = user
-                  get_text_list1()
+                 if(!$("#chat-history").text()){
+                      get_text_list1()
+                  }
                   get_food_list()
                   swiper_func()
               } else {
@@ -474,8 +476,8 @@
           }, 1000);
           // =========== moment.js 스크립트 끝
 
-          /* 음식점 목록 한세트 */
           function get_food_list() {
+              /* 음식점 목록 한세트 */
               var publicGetKeyIn = firebase.database().ref('/음식점/' + "food");
               publicGetKeyIn.on('child_added', food_on_child_added);
 
@@ -632,9 +634,11 @@
               var Kword = sData.keyword;
               var Kdate = sData.date;
               var jUser = sData.user;
+              var mPrice = sData.mprice;
 
               var html2 =
-                  "<div id='"+ jUser +"'><div id='" + key + "' class='timeline-item'>" + Kword + "<span>"+ Kdate +"</span>" + "</div></div>";
+                  "<div id='"+ jUser +"'><div id='" + key + "' class='timeline-item' data-price='"+mPrice+"'>" + Kword + "<span>"+ Kdate +"</span>" + "</div></div>";
+
               $("#chat-history").prepend(html2);
               $('#' + userInfo.uid).addClass("bonin");
           }
