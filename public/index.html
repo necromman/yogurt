@@ -1,3 +1,36 @@
+<script type="text/javascript">
+    <!--
+    var xmlHttp;
+    function srvTime() {
+        try {
+            //FF, Opera, Safari, Chrome
+            xmlHttp = new XMLHttpRequest();
+        }
+        catch (err1) {
+            //IE
+            try {
+                xmlHttp = new ActiveXObject('Msxml2.XMLHTTP');
+            }
+            catch (err2) {
+                try {
+                    xmlHttp = new ActiveXObject('Microsoft.XMLHTTP');
+                }
+                catch (eerr3) {
+                    //AJAX not supported, use CPU time.
+                    alert("AJAX not supported");
+                }
+            }
+        }
+        xmlHttp.open('HEAD', window.location.href.toString(), false);
+        xmlHttp.setRequestHeader("Content-Type", "text/html");
+        xmlHttp.send('');
+        return xmlHttp.getResponseHeader("Date");
+    }
+
+    var st = srvTime();
+    var date = new Date(st);
+    //-->
+</script>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -23,6 +56,9 @@
       <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 </head>
+<script language="javascript">
+    // document.write("서버타임 : " + date);
+</script>
   <style type="text/css">
       body{margin: 1em 1em}
       h3{margin: 5px 0 !important;}
@@ -40,7 +76,7 @@
   <!-- Swiper -->
   <style>
       .swiper-pagination,.swiper-pagination-clickable,.swiper-pagination-bullets{
-          bottom: -3px !important;
+          bottom: 2px !important;
       }
       .swiper-container {width: 100%;margin-bottom: 2em;padding-bottom: 1em;margin-top: -188px;height: 340px}
       .swiper-slide {
@@ -565,14 +601,17 @@
               publicKeyIn.update({
                   order: dataOrder + 1
               });
-              publicKeyIn.push({
+              /*publicKeyIn.push({
                   date: NowTime,
                   user : userInfo.uid
-              });
-              var keyword ="<h3>"+ sName +"</h3><p>메뉴:" + dataMenu +"<br>가격:"+ dataPrice +"</p>"
+              });*/
+              var keyword ="<h3>"+ dataMenu +"</h3><p>가격:"+ dataPrice +"<br>상호:" + sName +"</p>"
               chatKeyIn.push({
                   keyword: keyword,
-                  date: NowTime,
+                  date: localTime,
+                  shopname: sName,
+                  mmenu: dataMenu,
+                  mprice: dataPrice,
                   user : userInfo.uid
               });
               cartThis.attr("data-order", dataOrder + 1);
@@ -610,7 +649,7 @@
                   var publicKeyIn = database.ref('/채팅/' + "퍼블릭채팅");
                   publicKeyIn.push({
                       keyword: keyword,
-                      date: NowTime,
+                      date: localTime,
                       user : userInfo.uid
                   });
                   // =========== 파이어베이스 입력 끝
