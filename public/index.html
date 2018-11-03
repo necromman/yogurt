@@ -531,8 +531,6 @@
               // shopId = $(this).closest(".swiper-slide").attr("id");
               $("#s_card_wrap").empty();
               get_menu_list();
-              get_menu_list_c();
-              setRanColor();
               $("#s_menu_list").css({
                   'left' : '0%'
               });
@@ -555,10 +553,6 @@
               shopGetKeyIn.on('child_added', shop_on_child_added);
           }
 
-          function get_menu_list_c() {
-              var shopGetKeyIn = firebase.database().ref('/음식점/' + "/food/");
-              shopGetKeyIn.on('child_changed', shop_on_child_added);
-          }
 
           var sName;
           var menu_GetKeyIn;
@@ -567,8 +561,10 @@
               var sData = data.val();
               if(key == shopId){
                   sName = sData.name;
-                  menu_GetKeyIn = firebase.database().ref('/음식점/' + "/food/" + "/" + shopId + "/" + "menu").orderByChild('order');
+                  // menu_GetKeyIn = firebase.database().ref('/음식점/' + "/food/" + "/" + shopId + "/" + "menu").orderByChild('order');
+                  menu_GetKeyIn = firebase.database().ref('/음식점/' + "/food/" + "/" + shopId + "/" + "menu");
                   menu_GetKeyIn.on('child_added', menu_on_child_added);
+                  setRanColor();
               }
           }
 
@@ -587,8 +583,8 @@
                   "              <span class=\"c_like\">좋아요 : "+ mgrade+"개</span>" +
                   "              <span><button class=\"sc-add-to-cart\" data-shop='"+ shopId +"' data-name='"+ key +"' data-price='"+ mprice +"' data-order='"+ morder +"'>이걸로하죠</button></span>" +
                   "          </div>"
-              if(morder > 0){$("#s_card_wrap").prepend(mhtml);}else{$("#s_card_wrap").append(mhtml);}
-
+              // if(morder > 0){$("#s_card_wrap").prepend(mhtml);}else{$("#s_card_wrap").append(mhtml);}
+              $("#s_card_wrap").append(mhtml);
           }
           /* 메뉴 목록  한세트 */
 
@@ -605,10 +601,6 @@
               publicKeyIn.update({
                   order: dataOrder + 1
               });
-              /*publicKeyIn.push({
-                  date: NowTime,
-                  user : userInfo.uid
-              });*/
               var keyword ="<h3>"+ dataMenu +"</h3><p>가격:"+ dataPrice +"<br>상호:" + sName +"</p>"
               chatKeyIn.push({
                   keyword: keyword,
@@ -618,8 +610,8 @@
                   mprice: dataPrice,
                   user : userInfo.uid
               });
-              // cartThis.attr("data-order", dataOrder + 1);
-              // cartThis.parent().parent().children(".c_order").children("span").text(dataOrder + 1);
+              cartThis.attr("data-order", dataOrder + 1);
+              cartThis.parent().parent().children(".c_order").children("span").text(dataOrder + 1);
           }
           /*푸시메뉴*/
 
