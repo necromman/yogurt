@@ -531,6 +531,7 @@
               // shopId = $(this).closest(".swiper-slide").attr("id");
               $("#s_card_wrap").empty();
               get_menu_list();
+              get_menu_list_c();
               setRanColor();
               $("#s_menu_list").css({
                   'left' : '0%'
@@ -542,16 +543,11 @@
                       'left' : '-100%'
                   });
               });
-              $('.sc-add-to-cart').on('click', function() {
+              $(document).on('click', '.sc-add-to-cart', function(){
                   cartThis = $(this);
                   pushMenu();
               });
-              /*$("#cart").empty();
-              $('#cart').simpleCart();
-              $('.container3').css({
-                  "bottom" : "0%",
-                  "display" : "block"
-              });*/
+              //AJAX사용 후 불러온 엘리먼트의 이벤트가 작동 하지 않을때
           });
 
           function get_menu_list() {
@@ -559,14 +555,20 @@
               shopGetKeyIn.on('child_added', shop_on_child_added);
           }
 
+          function get_menu_list_c() {
+              var shopGetKeyIn = firebase.database().ref('/음식점/' + "/food/");
+              shopGetKeyIn.on('child_changed', shop_on_child_added);
+          }
+
           var sName;
+          var menu_GetKeyIn;
           function shop_on_child_added(data) {
               var key = data.key; // 메뉴이름
               var sData = data.val();
               if(key == shopId){
                   sName = sData.name;
-                  var publicGetKeyIn = firebase.database().ref('/음식점/' + "/food/" + "/" + shopId + "/" + "menu").orderByChild('order');
-                  publicGetKeyIn.on('child_added', menu_on_child_added);
+                  menu_GetKeyIn = firebase.database().ref('/음식점/' + "/food/" + "/" + shopId + "/" + "menu").orderByChild('order');
+                  menu_GetKeyIn.on('child_added', menu_on_child_added);
               }
           }
 
@@ -616,8 +618,8 @@
                   mprice: dataPrice,
                   user : userInfo.uid
               });
-              cartThis.attr("data-order", dataOrder + 1);
-              cartThis.parent().parent().children(".c_order").children("span").text(dataOrder + 1);
+              // cartThis.attr("data-order", dataOrder + 1);
+              // cartThis.parent().parent().children(".c_order").children("span").text(dataOrder + 1);
           }
           /*푸시메뉴*/
 
