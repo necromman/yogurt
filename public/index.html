@@ -1,1067 +1,124 @@
-<script type="text/javascript">
-    <!--
-    var xmlHttp;
-    function srvTime() {
-        try {
-            //FF, Opera, Safari, Chrome
-            xmlHttp = new XMLHttpRequest();
-        }
-        catch (err1) {
-            //IE
-            try {
-                xmlHttp = new ActiveXObject('Msxml2.XMLHTTP');
-            }
-            catch (err2) {
-                try {
-                    xmlHttp = new ActiveXObject('Microsoft.XMLHTTP');
-                }
-                catch (eerr3) {
-                    //AJAX not supported, use CPU time.
-                    alert("AJAX not supported");
-                }
-            }
-        }
-        xmlHttp.open('HEAD', window.location.href.toString(), false);
-        xmlHttp.setRequestHeader("Content-Type", "text/html");
-        xmlHttp.send('');
-        return xmlHttp.getResponseHeader("Date");
-    }
-
-    var st = srvTime();
-    var date = new Date(st);
-    //-->
-</script>
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>11AM - 점심준비</title>
-  <link rel="stylesheet" type="text/css" href="css/normalize.css" />
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/css/swiper.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/css/swiper.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="js/moment.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>11AM - 점심준비</title>
+    <link rel="stylesheet" type="text/css" href="css/normalize.css"/>
+    <link rel="stylesheet" type="text/css" href="css/main.css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/css/swiper.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/css/swiper.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="js/moment.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/js/swiper.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/js/swiper.min.js"></script>
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/js/swiper.esm.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/js/swiper.esm.bundle.js"></script>-->
-  <!--[if IE]>
-      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 </head>
-<script language="javascript">
-    // document.write("서버타임 : " + date);
-</script>
-  <style type="text/css">
-      body{margin: 1em 1em}
-      h3{margin: 5px 0 !important;}
-      p{margin: 0 !important;}
- * {transition: all 0.2s }select {background: rgba(255, 255, 255, 0) }.btn-style {box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);font-size: 20px;border-radius: initial;height: 42px;top: 0px;left: 4px;}.btn:focus, .btn:active {outline: initial !important;box-shadow: initial !important;}.input-group {width: 478px;margin: 0 auto;padding-top: 40vh }.input-position-ab {position: absolute;margin: 4px 0 0 0;z-index: 999 }#map-canvas {height: 400px;width: 600px;}.controls {border: 1px solid transparent;box-sizing: border-box;-moz-box-sizing: border-box;height: 41px;outline: none;box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);}#pac-input {background-color: #fff;padding: 0 0 0 100px;width: 100%;font-size: 15px;font-weight: 300;text-overflow: ellipsis;}#pac-input:hover, #pac-input:focus {box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);}#pac-input:hover ~ button {box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);}#type-selector {color: #fff;background-color: #4d90fe;padding: 5px 11px 0px 11px;}#type-selector label {font-size: 13px;font-weight: 300;}#load {color: rgba(0, 0, 0, 0.4);text-align: center;font-size: 13px;}.valign-wrapper {display: -webkit-flex !important;display: -ms-flexbox !important;display: flex !important;-webkit-align-items: center !important;-ms-flex-align: center !important;align-items: center !important;}.container {z-index: 0;margin: 44px 0 0 0;position: absolute;width: 100%;left: -14px;}.row{width: 478px;margin: 0 auto;border: 1px solid #ababab;background: white;}.tab-content{padding: 15px 15px;}.nav-tabs li{padding: 0 !important;text-align: center;}.nav-tabs li a{margin:0;border-radius: initial;}.display-none{display: none}body,html{height: 100%}.tab-content .row{width: initial !important;}
-  </style>
+
 <body>
-  <div id="divUTC" style="display: none;"></div>
-  <div id="divLocal" style="display: none;"></div>
-  <div id="load" style="display: none;"></div>
+<div id="divUTC" style="display: none;"></div>
+<div id="divLocal" style="display: none;"></div>
+<div id="load" style="display: none;"></div>
 
+<!--11AM - 점심 준비 시작-->
 
-  <!--11AM - 점심 준비 시작-->
-
-  <!-- Swiper -->
-  <style>
-      .swiper-pagination,.swiper-pagination-clickable,.swiper-pagination-bullets{
-          bottom: 2px !important;
-      }
-      .swiper-container {width: 100%;margin-bottom: 2em;padding-bottom: 1em;margin-top: -188px;height: 340px}
-      .swiper-slide {
-          overflow: hidden;
-          border-radius: 70px;
-          cursor: pointer;
-          text-align: center;
-          font-size: 18px;
-          /* Center slide text vertically */
-          display: -webkit-box;
-          display: -ms-flexbox;
-          display: -webkit-flex;
-          display: flex;
-          -webkit-box-pack: center;
-          -ms-flex-pack: center;
-          -webkit-justify-content: center;
-          justify-content: center;
-          -webkit-box-align: center;
-          -ms-flex-align: center;
-          -webkit-align-items: center;
-          align-items: center;
-      }
-      .owl-item{width: 100%;height: 18em;}
-      .round-element{position: relative;top: -30px;height: 110%;background-size: cover}
-      .above-overlay{position: relative;top: 200px;margin: 0 auto;text-align: center;width: 100%;color: white;z-index: 999;}
-      .above-overlay h2{text-shadow: 0px 1px 6px #000000;font-weight: bold;}
-      .above-overlay p{margin: 0}
-      .overlay-gradient-large{width: 100%;height: 322px;position: absolute;left: 0;top: 43px;margin: 0 auto;background: linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,0) 30%,rgba(0,0,0,.7) 60%,rgba(0,0,0,.8) 70%,rgba(0,0,0,1) 100%);}
-       #s_menu_list{position: fixed;
-           top: 170px;
-           left: -100%;
-           z-index: 99;
-           width: 100%;
-           height: 80%;
-           overflow-y: auto;
-           overflow-x: hidden;
-           transition: all 300ms ease-in-out;
-           padding: 2em 0;
-           background-color: white;
-       }
-       .card{
-           width: 80%;
-           margin: 0 auto;
-           border: 1px solid #ddd;
-           transition: all 300ms ease-in-out;
-           border-radius: 5px;
-           padding: 1em 1em;
-       }
-      .card .c_img{
-          background-color: tomato;
-          border-radius: 100px;
-          display: inline-block;
-          width: 50px;
-          height: 50px;
-      }
-      .card .c_img span{
-          font-size: 1.4em;
-          font-weight: bolder;
-          left: -14px;
-          top: 12px;
-          display: inline-block;
-          width: 100%;
-          position: relative;
-      }
-      .card span{display: inline-block;vertical-align: middle;margin: 0 1em;}
-      .card .c_name{
-          font-size: 2rem;
-          margin-left: 0.5em;
-          width: 40rem;
-          font-weight: bold;
-      }
-      .card .c_price{font-weight: bold;font-size: 1.5em;}
-      .card .c_order span{vertical-align: baseline}
-      .card .c_like{}
-
-
-
-  </style>
-  <div id="s_menu_list">
-      <button class="close_list" style="position: fixed;right: 3%;display: none"> 닫기 </button>
-      <div id="s_card_wrap">
-      </div>
-  </div>
-
-  <div class="swiper-container">
-      <div id="j-swiper-wrapper" class="swiper-wrapper">
-      </div>
-      <!-- Add Pagination -->
-      <div class="swiper-pagination"></div>
-  </div>
-
-  <style>
-      .container2 {
-          width: 100%;
-          height: 100%;
-          /*transform: translate(-50%, -50%);*/
-      }
-      .chatbox {
-          width: 50%;
-          margin: 2% auto;
-          height: 70vh;
-          background-color: #fff;
-          position: relative;
-          border-radius: 10px;
-          overflow: hidden;
-          box-shadow: 0px 0px 249px -48px rgba(0,0,0,0.75);
-          transition: all 300ms ease-in-out;
-      }
-
-      .bar {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 50px;
-          background-color: #4286f4;
-      }
-
-      .positioning-container-bar {
-          position: relative;
-          top: 0;
-          left: 50%;
-          transform: translate(-50%, 0);
-          height: 100%;
-      }
-      @keyframes statuschange {
-          0% {background-color: lightgreen;}
-          50% {background-color: red;}
-          100% {background-color: gray;}
-      }
-
-      .name {
-          color: #fff;
-          font-family: sans-serif;
-          font-size: 16px;
-          font-weight: bold;
-          position: absolute;
-          top: 50%;
-          left: 0;
-          transform: translate(0, -50%);
-          margin-left: 15px;
-          transition: all 300ms ease-in-out;
-      }
-
-      .icon i {
-          color: #fff;
-          font-size: 16px;
-          transition: all 300ms ease-in-out;
-      }
-
-      .chat-history {
-          overflow-y: scroll;
-          padding: 5em 2em;
-          width: 100%;
-          height: 85%;
-          background-color: #f2f4f7;
-          transition: all 300ms ease-in-out;
-      }
-      .chat-history .bonin{
-          border: 1px solid #4286f4 !important;
-          border-style: inset;
-      }
-      .chat-history > div{
-          margin: 1em 0;
-          padding: 15px 15px;
-          border: 0px solid;
-          border-radius: 5px;
-          background-color: white;
-          word-break: break-all;
-          font-weight: bold;
-          color: #676767;
-      }
-      .chat-history > div > div > span{
-          text-align: right;
-          display: block;
-          color: #bfbfbf;
-      }
-
-      .chat-input {
-          border-top: 1px solid #e0e0e0;
-          width: 100%;
-          background-color: #fff;
-          text-align: center;
-          transition: all 300ms ease-in-out;
-      }
-
-      .positioning-container-chat {
-          position: relative;
-          width: 100%;
-          height: 100%;
-          padding: 0 6px;
-      }
-
-      .chat-input input {
-          width: 85%;
-          height: 6.5vh;
-          border: none;
-          outline: none;
-          color: #000;
-          font-size: 16px;
-          transition: all 300ms ease-in-out;
-          display: inline-block;
-      }
-      .action {display: inline-block;cursor: pointer}
-      .action i {
-          font-size: 24px;
-          transition: all 300ms ease-in-out;
-      }
-
-      @media only screen and (max-width: 1100px) {
-          .name, .icon i {
-              font-size: 14px;
-          }
-
-          .chat-input input {
-              font-size: 14px;
-          }
-
-          .action i {
-              font-size: 22px;
-          }
-      }
-
-      @media only screen and (max-height: 525px) {
-          .name, .icon i {
-              font-size: 14px;
-          }
-
-          .chat-input input {
-              font-size: 14px;
-          }
-
-          .action i {
-              font-size: 22px;
-          }
-
-          .chat-history {
-              height: 75%;
-          }
-      }
-
-      @media only screen and (max-width: 950px) {
-          .chatbox {
-              width: 100%;
-          }
-      }
-
-      @media only screen and (max-width: 600px) {
-          .name, .icon i {
-              font-size: 10px;
-          }
-
-          .name {
-              margin-left: 10px;
-          }
-      }
-  </style>
-
-  <div class="container2">
-      <div class="chatbox">
-          <div class="bar">
-              <div class="positioning-container-bar">
-                  <div class="name">11AM</div>
-              </div>
-          </div>
-
-          <div id="chat-history" class="chat-history"></div>
-
-          <div class="chat-input">
-              <div class="positioning-container-chat">
-                  <input type="text" id="chat-text" name="p-search" placeholder="점심 고르시죠">
-                  <div id="p-search" class="action">
-                      <i class="fas fa-stop"></i>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-  <style>
-      .container3{
-          width: 100%;
-          height: 35%;
-          position: fixed;
-          z-index: 99;
-          bottom: -40%;
-          overflow: auto;
-          background-color: white;
-          border: 3px solid #ddd;
-          border-radius: 10px;
-          display: none;
-      }
-      .container3 *{transition: all 300ms ease-in-out;}
-      #cart{
-          width: 60%;
-          padding: 1em 1em;
-          margin: 0 auto;
-          box-shadow: 0px 0px 177px -48px rgba(0,0,0,0.75);
-      }
-  </style>
-  <div class="container3">
-  <div id="cart"></div>
+<div id="s_menu_list">
+    <button class="close_list" style="position: fixed;right: 3%;display: none"> 닫기</button>
+    <div id="s_card_wrap">
+    </div>
 </div>
 
-  <!-- Initialize Swiper -->
-  <script>
-      function swiper_func() {
-          var swiper = new Swiper('.swiper-container', {
-              slidesPerView: 5,
-              spaceBetween: 20,
-              observer : true,
-              centeredSlides : false,
-              // init: false,
-              pagination: {
-                  el: '.swiper-pagination',
-                  clickable: true,
-              },
-              breakpoints: {
-                  1024: {
-                      slidesPerView: 4,
-                      spaceBetween: 20,
-                  },
-                  768: {
-                      slidesPerView: 3,
-                      spaceBetween: 20,
-                  },
-                  640: {
-                      slidesPerView: 2,
-                      spaceBetween: 10,
-                  },
-                  320: {
-                      slidesPerView: 1,
-                      spaceBetween: 10,
-                  }
-              }
-          });
-      }
-  </script>
+<div class="swiper-container">
+    <div id="j-swiper-wrapper" class="swiper-wrapper">
+    </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
+</div>
+
+<div class="container2">
+    <div class="chatbox">
+        <div class="bar">
+            <div class="positioning-container-bar">
+                <div class="name">11AM</div>
+            </div>
+        </div>
+
+        <div id="chat-history" class="chat-history"></div>
+
+        <div class="chat-input">
+            <div class="positioning-container-chat">
+                <input type="text" id="chat-text" name="p-search" placeholder="점심 고르시죠">
+                <div id="p-search" class="action">
+                    <i class="fas fa-stop"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container3">
+    <div id="cart"></div>
+</div>
 
 
-  <!--11AM - 점심 준비 끝-->
-
-
-  <script type="text/javascript">
-      $(function () {
-
-    /*
-    *==================================================================
-    *  current time zero add
-    *==================================================================
-    */
-          var Now = new Date();
-          var NowTime = Now.getFullYear();
-          NowTime += '-' + leadingZeros((Now.getMonth() + 1), 2);
-          NowTime += '-' + leadingZeros(Now.getDate(), 2);
-          NowTime += ' ' + leadingZeros(Now.getHours(), 2);
-          NowTime += ':' + leadingZeros(Now.getMinutes(), 2);
-          NowTime += ':' + leadingZeros(Now.getSeconds(), 2);
-
-
-          function leadingZeros(n, digits) {
-              var zero = '';
-              n = n.toString();
-
-              if (n.length < digits) {
-                  for (var i = 0; i < digits - n.length; i++)
-                      zero += '0';
-              }
-              return zero + n;
-          }
-
-
-          var auth = firebase.auth();
-          var database = firebase.database();
-          var authProvider = new firebase.auth.GoogleAuthProvider();
-          var userInfo
-          auth.onAuthStateChanged(function (user) {
-              if (user) {
-                  userInfo = user
-                 if(!$("#chat-history").text()){
-                      get_text_list1()
-                  }
-                  get_food_list()
-                  swiper_func()
-              } else {
-                  firebase.auth().signInAnonymously(); // 익명로그인
-              }
-          })
-          var divUtc = $('#divUTC');
-          var divLocal = $('#divLocal');
-          var localTime;
-          // =========== moment.js 스크립트 시작
-          setInterval(function () {
-              divUtc.text(moment.utc().format('YYYY-MM-DD HH:mm:ss'));
-              localTime = moment.utc(divUtc.text()).toDate();
-              localTime = moment(localTime).format('YYYY-MM-DD HH:mm:ss');
-              divLocal.text(localTime);
-          }, 1000);
-          // =========== moment.js 스크립트 끝
-
-          function get_food_list() {
-              /* 음식점 목록 한세트 */
-              var publicGetKeyIn = firebase.database().ref('/음식점/' + "food");
-              publicGetKeyIn.on('child_added', food_on_child_added);
-
-          }
-          function food_on_child_added(data) {
-              var key = data.key;
-              var sData = data.val();
-              var fname = sData.name;
-              var fcat = sData.cat;
-              var fclosed = sData.closed;
-              var fnumber = sData.number;
-              var fdelivery = sData.delivery;
-
-              /*범위지정 랜덤*/
-              var ranJ = Math.floor((Math.random() * 3) + 1);
-              var ranBack;
-              switch (ranJ){
-                  case 1 : ranBack ="/img/1.jpg";
-                    break;
-                  case 2 : ranBack ="/img/2.jpg";
-                      break;
-                  case 3 : ranBack ="/img/3.jpg";
-                      break;
-              }
-
-              var fhtml = "<div id='"+ key +"' class=\"swiper-slide\">" +
-                  "              <div class=\"owl-item\">" +
-                  "                  <div class=\"round-element\" style='background-image: url("+ ranBack +")'>" +
-                  "                      <div class=\"above-overlay\">" +
-                  "                          <h2>"+ fname +"</h2>" +
-                  "                          <p>휴무일 : "+ fclosed +"</p>" +
-                  "                          <p>배달여부 : "+ fdelivery +"</p>" +
-                  "                          <p><a href='tel:'"+ fnumber +">"+ fnumber +"</a></p>" +
-                  "                      </div>" +
-                  "                      <div class=\"overlay-gradient-large\"></div>" +
-                  "                  </div>" +
-                  "              </div>" +
-                  "          </div>";
-              $("#j-swiper-wrapper").prepend(fhtml);
-          }
-          /* 음식점 목록  한세트 */
-
-
-
-          /* 메뉴 목록 한세트 */
-          var shopId;
-          var cartThis;
-          $('#j-swiper-wrapper').on('click', 'div.swiper-slide', function() {
-
-              shopId = $(this).attr("id");
-              // shopId = $(this).closest(".swiper-slide").attr("id");
-              $("#s_card_wrap").empty();
-              get_menu_list();
-              $("#s_menu_list").css({
-                  'left' : '0%'
-              });
-              $('.close_list').css("display","block");
-              $('.close_list').on('click', function() {
-                  $(this).css("display","none");
-                  $("#s_menu_list").css({
-                      'left' : '-100%'
-                  });
-              });
-              $(document).on('click', '.sc-add-to-cart', function(){
-                  cartThis = $(this);
-                  pushMenu();
-              });
-              //AJAX사용 후 불러온 엘리먼트의 이벤트가 작동 하지 않을때
-          });
-
-          function get_menu_list() {
-              var shopGetKeyIn = firebase.database().ref('/음식점/' + "/food/");
-              shopGetKeyIn.on('child_added', shop_on_child_added);
-          }
-
-
-          var sName;
-          var menu_GetKeyIn;
-          function shop_on_child_added(data) {
-              var key = data.key; // 메뉴이름
-              var sData = data.val();
-              if(key == shopId){
-                  sName = sData.name;
-                  // menu_GetKeyIn = firebase.database().ref('/음식점/' + "/food/" + "/" + shopId + "/" + "menu").orderByChild('order');
-                  menu_GetKeyIn = firebase.database().ref('/음식점/' + "/food/" + "/" + shopId + "/" + "menu");
-                  menu_GetKeyIn.on('child_added', menu_on_child_added);
-                  setRanColor();
-              }
-          }
-
-          function menu_on_child_added(data) {
-              var key = data.key; // 메뉴이름
-              var sData = data.val();
-              var mprice = sData.price;
-              var morder = sData.order;
-              var mgrade = sData.grade;
-
-              var mhtml= "<div class=\"card\">" +
-                  "              <span class=\"c_img\"><span>"+sName.substr(0,2)+"</span></span>" +
-                  "              <span class=\"c_name\">"+ key +"</span>" +
-                  "              <span class=\"c_price\">￦"+mprice+"</span>" +
-                  "              <span class=\"c_order\">주문횟수 : <span>"+morder+"</span></span>" +
-                  "              <span class=\"c_like\">좋아요 : "+ mgrade+"개</span>" +
-                  "              <span><button class=\"sc-add-to-cart\" data-shop='"+ shopId +"' data-name='"+ key +"' data-price='"+ mprice +"' data-order='"+ morder +"'>이걸로하죠</button></span>" +
-                  "          </div>"
-              // if(morder > 0){$("#s_card_wrap").prepend(mhtml);}else{$("#s_card_wrap").append(mhtml);}
-              $("#s_card_wrap").append(mhtml);
-          }
-          /* 메뉴 목록  한세트 */
-
-
-          /*푸시메뉴*/
-          function pushMenu() {
-              var dataShop = cartThis.attr("data-shop");
-              var dataMenu = cartThis.attr("data-name");
-              var dataPrice = cartThis.attr("data-price");
-              var dataOrder = parseInt(cartThis.attr("data-order"));
-
-              var publicKeyIn = database.ref('/음식점/' + "/food/" + "/" + shopId + "/" + "/menu/" + dataMenu );
-              var chatKeyIn = database.ref('/채팅/' + "퍼블릭채팅");
-              publicKeyIn.update({
-                  order: dataOrder + 1
-              });
-              var keyword ="<h3>"+ dataMenu +"</h3><p>가격:"+ dataPrice +"<br>상호:" + sName +"</p>"
-              chatKeyIn.push({
-                  keyword: keyword,
-                  date: localTime,
-                  shopname: sName,
-                  mmenu: dataMenu,
-                  mprice: dataPrice,
-                  user : userInfo.uid
-              });
-              cartThis.attr("data-order", dataOrder + 1);
-              cartThis.parent().parent().children(".c_order").children("span").text(dataOrder + 1);
-          }
-          /*푸시메뉴*/
-
-
-          /* 채팅 한세트 */
-          function get_text_list1() {
-              var publicGetKeyIn = firebase.database().ref('/채팅/' + "퍼블릭채팅");
-              publicGetKeyIn.on('child_added', public_on_child_added);
-
-          }
-          function public_on_child_added(data) {
-              var key = data.key;
-              var sData = data.val();
-              var Kword = sData.keyword;
-              var Kdate = sData.date;
-              var jUser = sData.user;
-              var mPrice = sData.mprice;
-
-              var html2 =
-                  "<div id='"+ jUser +"'><div id='" + key + "' class='timeline-item' data-price='"+mPrice+"'>" + Kword + "<span>"+ Kdate +"</span>" + "</div></div>";
-
-              $("#chat-history").prepend(html2);
-              $('#' + userInfo.uid).addClass("bonin");
-          }
-          /* 채팅 한세트 */
-
-
-
-          function goSearch() {
-              var keyword = $("#chat-text").val();
-              if (!keyword == "") {
-                  // =========== 파이어베이스 입력 시작
-                  var publicKeyIn = database.ref('/채팅/' + "퍼블릭채팅");
-                  publicKeyIn.push({
-                      keyword: keyword,
-                      date: localTime,
-                      user : userInfo.uid
-                  });
-                  // =========== 파이어베이스 입력 끝
-              } else {
-                  alert("입력값이 없어요")
-              }
-          }
-
-
-          var psearch = $("#p-search");
-          $("input[name=p-search]").keydown(function (key) {
-              if (key.keyCode == 13) { //키가 13이면 실행 (엔터는 13)
-                  goSearch();
-                  $("#chat-text").val("");
-              }
-          });
-          psearch.click(function () {
-              goSearch();
-              $("#chat-text").val("");
-          });
-
-
-
-
-      })
-  </script>
-  <!-- 파이어베이스 -->
-  <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-database.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-messaging.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
-  <script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyDM0nHhbIi5YU4eqtbFTAkH3nL7CBchBDY",
-    authDomain: "yogurt-22fd4.firebaseapp.com",
-    databaseURL: "https://yogurt-22fd4.firebaseio.com",
-    projectId: "yogurt-22fd4",
-    storageBucket: "yogurt-22fd4.appspot.com",
-    messagingSenderId: "178442852803"
-  };
-  firebase.initializeApp(config);
-  </script>
-  <script type="text/javascript">
-  document.addEventListener('DOMContentLoaded', function() {
-    // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-    // // The Firebase SDK is initialized and available here!
-    //
-    // firebase.auth().onAuthStateChanged(user => { });
-    // firebase.database().ref('/path/to/ref').on('data', snapshot => { });
-    // firebase.messaging().requestPermission().then(() => { });
-    // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-    //
-    // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-    try {
-      let app = firebase.app();
-      let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
-      document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
-    } catch (e) {
-      console.error(e);
-      document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
+<!-- Initialize Swiper -->
+<script>
+    function swiper_func() {
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 5,
+            spaceBetween: 20,
+            observer: true,
+            centeredSlides: false,
+            // init: false,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 20,
+                },
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 20,
+                },
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 10,
+                },
+                320: {
+                    slidesPerView: 1,
+                    spaceBetween: 10,
+                }
+            }
+        });
     }
-  });
-  </script>
-  <script src="lib/jquery.dataTables.js"></script>
-  <script src="lib/dataTables.bootstrap.js"></script>
-
-  <script>
-      function pickRandomProperty(obj) {
-          var result;
-          var count = 0;
-          for (var prop in obj)
-              if (Math.random() < 1 / ++count)
-                  result = prop;
-          return result;
-      }
-
-      function materialColor() {
-          var colors = {
-              "red": {
-                  "50": "#ffebee",
-                  "100": "#ffcdd2",
-                  "200": "#ef9a9a",
-                  "300": "#e57373",
-                  "400": "#ef5350",
-                  "500": "#f44336",
-                  "600": "#e53935",
-                  "700": "#d32f2f",
-                  "800": "#c62828",
-                  "900": "#b71c1c",
-                  "hex": "#f44336",
-                  "a100": "#ff8a80",
-                  "a200": "#ff5252",
-                  "a400": "#ff1744",
-                  "a700": "#d50000"
-              },
-              "pink": {
-                  "50": "#fce4ec",
-                  "100": "#f8bbd0",
-                  "200": "#f48fb1",
-                  "300": "#f06292",
-                  "400": "#ec407a",
-                  "500": "#e91e63",
-                  "600": "#d81b60",
-                  "700": "#c2185b",
-                  "800": "#ad1457",
-                  "900": "#880e4f",
-                  "hex": "#e91e63",
-                  "a100": "#ff80ab",
-                  "a200": "#ff4081",
-                  "a400": "#f50057",
-                  "a700": "#c51162"
-              },
-              "purple": {
-                  "50": "#f3e5f5",
-                  "100": "#e1bee7",
-                  "200": "#ce93d8",
-                  "300": "#ba68c8",
-                  "400": "#ab47bc",
-                  "500": "#9c27b0",
-                  "600": "#8e24aa",
-                  "700": "#7b1fa2",
-                  "800": "#6a1b9a",
-                  "900": "#4a148c",
-                  "hex": "#9c27b0",
-                  "a100": "#ea80fc",
-                  "a200": "#e040fb",
-                  "a400": "#d500f9",
-                  "a700": "#aa00ff"
-              },
-              "deepPurple": {
-                  "50": "#ede7f6",
-                  "100": "#d1c4e9",
-                  "200": "#b39ddb",
-                  "300": "#9575cd",
-                  "400": "#7e57c2",
-                  "500": "#673ab7",
-                  "600": "#5e35b1",
-                  "700": "#512da8",
-                  "800": "#4527a0",
-                  "900": "#311b92",
-                  "hex": "#673ab7",
-                  "a100": "#b388ff",
-                  "a200": "#7c4dff",
-                  "a400": "#651fff",
-                  "a700": "#6200ea"
-              },
-              "indigo": {
-                  "50": "#e8eaf6",
-                  "100": "#c5cae9",
-                  "200": "#9fa8da",
-                  "300": "#7986cb",
-                  "400": "#5c6bc0",
-                  "500": "#3f51b5",
-                  "600": "#3949ab",
-                  "700": "#303f9f",
-                  "800": "#283593",
-                  "900": "#1a237e",
-                  "hex": "#3f51b5",
-                  "a100": "#8c9eff",
-                  "a200": "#536dfe",
-                  "a400": "#3d5afe",
-                  "a700": "#304ffe"
-              },
-              "blue": {
-                  "50": "#e3f2fd",
-                  "100": "#bbdefb",
-                  "200": "#90caf9",
-                  "300": "#64b5f6",
-                  "400": "#42a5f5",
-                  "500": "#2196f3",
-                  "600": "#1e88e5",
-                  "700": "#1976d2",
-                  "800": "#1565c0",
-                  "900": "#0d47a1",
-                  "hex": "#2196f3",
-                  "a100": "#82b1ff",
-                  "a200": "#448aff",
-                  "a400": "#2979ff",
-                  "a700": "#2962ff"
-              },
-              "lightBlue": {
-                  "50": "#e1f5fe",
-                  "100": "#b3e5fc",
-                  "200": "#81d4fa",
-                  "300": "#4fc3f7",
-                  "400": "#29b6f6",
-                  "500": "#03a9f4",
-                  "600": "#039be5",
-                  "700": "#0288d1",
-                  "800": "#0277bd",
-                  "900": "#01579b",
-                  "hex": "#03a9f4",
-                  "a100": "#80d8ff",
-                  "a200": "#40c4ff",
-                  "a400": "#00b0ff",
-                  "a700": "#0091ea"
-              },
-              "cyan": {
-                  "50": "#e0f7fa",
-                  "100": "#b2ebf2",
-                  "200": "#80deea",
-                  "300": "#4dd0e1",
-                  "400": "#26c6da",
-                  "500": "#00bcd4",
-                  "600": "#00acc1",
-                  "700": "#0097a7",
-                  "800": "#00838f",
-                  "900": "#006064",
-                  "hex": "#00bcd4",
-                  "a100": "#84ffff",
-                  "a200": "#18ffff",
-                  "a400": "#00e5ff",
-                  "a700": "#00b8d4"
-              },
-              "teal": {
-                  "50": "#e0f2f1",
-                  "100": "#b2dfdb",
-                  "200": "#80cbc4",
-                  "300": "#4db6ac",
-                  "400": "#26a69a",
-                  "500": "#009688",
-                  "600": "#00897b",
-                  "700": "#00796b",
-                  "800": "#00695c",
-                  "900": "#004d40",
-                  "hex": "#009688",
-                  "a100": "#a7ffeb",
-                  "a200": "#64ffda",
-                  "a400": "#1de9b6",
-                  "a700": "#00bfa5"
-              },
-              "green": {
-                  "50": "#e8f5e9",
-                  "100": "#c8e6c9",
-                  "200": "#a5d6a7",
-                  "300": "#81c784",
-                  "400": "#66bb6a",
-                  "500": "#4caf50",
-                  "600": "#43a047",
-                  "700": "#388e3c",
-                  "800": "#2e7d32",
-                  "900": "#1b5e20",
-                  "hex": "#4caf50",
-                  "a100": "#b9f6ca",
-                  "a200": "#69f0ae",
-                  "a400": "#00e676",
-                  "a700": "#00c853"
-              },
-              "lightGreen": {
-                  "50": "#f1f8e9",
-                  "100": "#dcedc8",
-                  "200": "#c5e1a5",
-                  "300": "#aed581",
-                  "400": "#9ccc65",
-                  "500": "#8bc34a",
-                  "600": "#7cb342",
-                  "700": "#689f38",
-                  "800": "#558b2f",
-                  "900": "#33691e",
-                  "hex": "#8bc34a",
-                  "a100": "#ccff90",
-                  "a200": "#b2ff59",
-                  "a400": "#76ff03",
-                  "a700": "#64dd17"
-              },
-              "lime": {
-                  "50": "#f9fbe7",
-                  "100": "#f0f4c3",
-                  "200": "#e6ee9c",
-                  "300": "#dce775",
-                  "400": "#d4e157",
-                  "500": "#cddc39",
-                  "600": "#c0ca33",
-                  "700": "#afb42b",
-                  "800": "#9e9d24",
-                  "900": "#827717",
-                  "hex": "#cddc39",
-                  "a100": "#f4ff81",
-                  "a200": "#eeff41",
-                  "a400": "#c6ff00",
-                  "a700": "#aeea00"
-              },
-              "yellow": {
-                  "50": "#fffde7",
-                  "100": "#fff9c4",
-                  "200": "#fff59d",
-                  "300": "#fff176",
-                  "400": "#ffee58",
-                  "500": "#ffeb3b",
-                  "600": "#fdd835",
-                  "700": "#fbc02d",
-                  "800": "#f9a825",
-                  "900": "#f57f17",
-                  "hex": "#ffeb3b",
-                  "a100": "#ffff8d",
-                  "a200": "#ffff00",
-                  "a400": "#ffea00",
-                  "a700": "#ffd600"
-              },
-              "amber": {
-                  "50": "#fff8e1",
-                  "100": "#ffecb3",
-                  "200": "#ffe082",
-                  "300": "#ffd54f",
-                  "400": "#ffca28",
-                  "500": "#ffc107",
-                  "600": "#ffb300",
-                  "700": "#ffa000",
-                  "800": "#ff8f00",
-                  "900": "#ff6f00",
-                  "hex": "#ffc107",
-                  "a100": "#ffe57f",
-                  "a200": "#ffd740",
-                  "a400": "#ffc400",
-                  "a700": "#ffab00"
-              },
-              "orange": {
-                  "50": "#fff3e0",
-                  "100": "#ffe0b2",
-                  "200": "#ffcc80",
-                  "300": "#ffb74d",
-                  "400": "#ffa726",
-                  "500": "#ff9800",
-                  "600": "#fb8c00",
-                  "700": "#f57c00",
-                  "800": "#ef6c00",
-                  "900": "#e65100",
-                  "hex": "#ff9800",
-                  "a100": "#ffd180",
-                  "a200": "#ffab40",
-                  "a400": "#ff9100",
-                  "a700": "#ff6d00"
-              },
-              "deepOrange": {
-                  "50": "#fbe9e7",
-                  "100": "#ffccbc",
-                  "200": "#ffab91",
-                  "300": "#ff8a65",
-                  "400": "#ff7043",
-                  "500": "#ff5722",
-                  "600": "#f4511e",
-                  "700": "#e64a19",
-                  "800": "#d84315",
-                  "900": "#bf360c",
-                  "hex": "#ff5722",
-                  "a100": "#ff9e80",
-                  "a200": "#ff6e40",
-                  "a400": "#ff3d00",
-                  "a700": "#dd2c00"
-              },
-              "brown": {
-                  "50": "#efebe9",
-                  "100": "#d7ccc8",
-                  "200": "#bcaaa4",
-                  "300": "#a1887f",
-                  "400": "#8d6e63",
-                  "500": "#795548",
-                  "600": "#6d4c41",
-                  "700": "#5d4037",
-                  "800": "#4e342e",
-                  "900": "#3e2723",
-                  "hex": "#795548"
-              },
-              "blueGrey": {
-                  "50": "#eceff1",
-                  "100": "#cfd8dc",
-                  "200": "#b0bec5",
-                  "300": "#90a4ae",
-                  "400": "#78909c",
-                  "500": "#607d8b",
-                  "600": "#546e7a",
-                  "700": "#455a64",
-                  "800": "#37474f",
-                  "900": "#263238",
-                  "hex": "#607d8b"
-              }
-          }
-          // pick random property
-          //var property = pickRandomProperty(colors);
-          var colorList = colors[pickRandomProperty(colors)];
-          var newColorKey = pickRandomProperty(colorList);
-          var newColor = colorList[newColorKey];
-          return newColor;
-      }
-
-      function randomColor() {
-          return "#" + // start with a leading hash
-              Math.random() // generates random number
-                  .toString(16) // changes that number to base 16 as a string
-                  .substr(2, 6); // gets 6 characters and excludes the leading "0."
-      }
-
-      var newColor1;
-      var newColor2;
-      function setColor() {
-              newColor1 = materialColor();
-              newColor2 = randomColor();
-      }
-
-      function setRanColor() {
-          var collection = document.getElementsByClassName('c_img');
-          for (var i = 0; i < collection.length; ++i) {
-              setColor()
-              collection[i].style.background = newColor1;
-              collection[i].style.color = newColor2;
-          }
-      }
+</script>
 
 
+<!--11AM - 점심 준비 끝-->
 
-  </script>
-  <script src="/lib/Add-To-Shopping-Cart-SimpleCart/lib/js/jQuery.SimpleCart.js" ></script>
+<script src="js/main.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-messaging.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+<script src="lib/jquery.dataTables.js"></script>
+<script src="lib/dataTables.bootstrap.js"></script>
+<script src="js/firebase-Initialize.js"></script>
+<script src="js/randomColor.js"></script>
+
+<script src="/lib/Add-To-Shopping-Cart-SimpleCart/lib/js/jQuery.SimpleCart.js"></script>
 </body>
 
 </html>
