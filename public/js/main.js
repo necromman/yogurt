@@ -130,7 +130,6 @@ $(function () {
         cartThis = $(this);
         cartThisSpan = cartThis.parent().parent().children(".c_order").children("span");
         pushMenu();
-        get_menu_list();
     });
     //AJAX사용 후 불러온 엘리먼트의 이벤트가 작동 하지 않을때
 
