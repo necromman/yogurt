@@ -37,7 +37,6 @@ $(function () {
                 get_text_list1()
             }
             get_food_list();
-            get_menu_list_changed();
             swiper_func();
         } else {
             firebase.auth().signInAnonymously(); // 익명로그인
@@ -109,11 +108,11 @@ $(function () {
     /* 메뉴 목록 한세트 */
     var shopId;
     var cartThis;
+    var cartThisSpan;
     $('#j-swiper-wrapper').on('click', 'div.swiper-slide', function () {
-
         shopId = $(this).attr("id");
         // shopId = $(this).closest(".swiper-slide").attr("id");
-        $("#s_card_wrap").empty();
+        // $("#s_card_wrap").empty();
         get_menu_list();
         $("#s_menu_list").css({
             'left': '0%'
@@ -129,7 +128,9 @@ $(function () {
 
     $(document).on('click', '.sc-add-to-cart', function () {
         cartThis = $(this);
+        cartThisSpan = cartThis.parent().parent().children(".c_order").children("span");
         pushMenu();
+        get_menu_list();
     });
     //AJAX사용 후 불러온 엘리먼트의 이벤트가 작동 하지 않을때
 
@@ -161,18 +162,11 @@ $(function () {
     }
     /*푸시메뉴*/
 
-    function get_menu_list_changed() {
-        var shopGetKeyIn = firebase.database().ref('/음식점/' + "/food/");
-        shopGetKeyIn.on('child_changed', order_on_changed);
-    }
-
-    function order_on_changed() {
-        cartThis.parent().parent().children(".c_order").children("span").text(dataOrder + 1);
-    }
-
     function get_menu_list() {
+        $("#s_card_wrap").empty();
         var shopGetKeyIn = firebase.database().ref('/음식점/' + "/food/");
         shopGetKeyIn.on('child_added', shop_on_child_added);
+        // shopGetKeyIn.on('child_changed', shop_on_child_added);
     }
 
 
@@ -186,6 +180,7 @@ $(function () {
             // menu_GetKeyIn = firebase.database().ref('/음식점/' + "/food/" + "/" + shopId + "/" + "menu").orderByChild('order');
             menu_GetKeyIn = firebase.database().ref('/음식점/' + "/food/" + "/" + shopId + "/" + "menu");
             menu_GetKeyIn.on('child_added', menu_on_child_added);
+            menu_GetKeyIn.on('child_changed', menu_on_child_added2);
             setRanColor();
         }
     }
@@ -197,7 +192,7 @@ $(function () {
         var morder = sData.order;
         var mgrade = sData.grade;
 
-        var mhtml = "<div class=\"card\">" +
+        var mhtml = "<div id='"+ key +"' class=\"card\">" +
             "              <span class=\"c_img\"><span>" + sName.substr(0, 2) + "</span></span>" +
             "              <span class=\"c_name\">" + key + "</span>" +
             "              <span class=\"c_price\">￦" + mprice + "</span>" +
@@ -207,6 +202,15 @@ $(function () {
             "          </div>"
         // if(morder > 0){$("#s_card_wrap").prepend(mhtml);}else{$("#s_card_wrap").append(mhtml);}
         $("#s_card_wrap").append(mhtml);
+    }
+    function menu_on_child_added2(data) {
+        var key = data.key; // 메뉴이름
+        var sData = data.val();
+        var mprice = sData.price;
+        var morder = sData.order;
+        var mgrade = sData.grade;
+        $("#"+ key + " .c_order span").text(morder);
+        $("#"+ key + " .sc-add-to-cart").attr("data-order",morder);
     }
 
     /* 메뉴 목록  한세트 */
