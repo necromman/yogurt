@@ -29,15 +29,16 @@ $(function () {
     var auth = firebase.auth();
     var database = firebase.database();
     var authProvider = new firebase.auth.GoogleAuthProvider();
-    var userInfo
+    var userInfo;
     auth.onAuthStateChanged(function (user) {
         if (user) {
-            userInfo = user
+            userInfo = user;
             if (!$("#chat-history").text()) {
                 get_text_list1()
             }
-            get_food_list()
-            swiper_func()
+            get_food_list();
+            get_menu_list_changed();
+            swiper_func();
         } else {
             firebase.auth().signInAnonymously(); // 익명로그인
         }
@@ -93,7 +94,7 @@ $(function () {
             "                          <h2>" + fname + "</h2>" +
             "                          <p>휴무일 : " + fclosed + "</p>" +
             "                          <p>배달여부 : " + fdelivery + "</p>" +
-            "                          <p><a href='tel:'" + fnumber + ">" + fnumber + "</a></p>" +
+            "                          <p><a href='tel:" + fnumber + "'>" + fnumber + "</a></p>" +
             "                      </div>" +
             "                      <div class=\"overlay-gradient-large\"></div>" +
             "                  </div>" +
@@ -124,12 +125,50 @@ $(function () {
                 'left': '-100%'
             });
         });
-        $(document).on('click', '.sc-add-to-cart', function () {
-            cartThis = $(this);
-            pushMenu();
-        });
-        //AJAX사용 후 불러온 엘리먼트의 이벤트가 작동 하지 않을때
     });
+
+    $(document).on('click', '.sc-add-to-cart', function () {
+        cartThis = $(this);
+        pushMenu();
+    });
+    //AJAX사용 후 불러온 엘리먼트의 이벤트가 작동 하지 않을때
+
+    /*푸시메뉴*/
+    var dataMenu;
+    var dataOrder;
+    function pushMenu() {
+        var dataShop = cartThis.attr("data-shop");
+        dataMenu = cartThis.attr("data-name");
+        var dataPrice = cartThis.attr("data-price");
+        dataOrder = parseInt(cartThis.attr("data-order"));
+
+        var publicKeyIn = database.ref('/음식점/' + "/food/" + "/" + shopId + "/" + "/menu/" + dataMenu);
+        var chatKeyIn = database.ref('/채팅/' + "퍼블릭채팅");
+        publicKeyIn.update({
+            order: dataOrder + 1
+        });
+        var keyword = "<h3>" + dataMenu + "</h3><p>가격:" + dataPrice + "<br>상호:" + sName + "</p>"
+        chatKeyIn.push({
+            keyword: keyword,
+            date: localTime,
+            shopname: sName,
+            mmenu: dataMenu,
+            mprice: dataPrice,
+            user: userInfo.uid
+        });
+        // cartThis.attr("data-order", dataOrder + 1);
+        // cartThis.parent().parent().children(".c_order").children("span").text(dataOrder + 1);
+    }
+    /*푸시메뉴*/
+
+    function get_menu_list_changed() {
+        var shopGetKeyIn = firebase.database().ref('/음식점/' + "/food/");
+        shopGetKeyIn.on('child_changed', order_on_changed);
+    }
+
+    function order_on_changed() {
+        cartThis.parent().parent().children(".c_order").children("span").text(dataOrder + 1);
+    }
 
     function get_menu_list() {
         var shopGetKeyIn = firebase.database().ref('/음식점/' + "/food/");
@@ -139,7 +178,6 @@ $(function () {
 
     var sName;
     var menu_GetKeyIn;
-
     function shop_on_child_added(data) {
         var key = data.key; // 메뉴이름
         var sData = data.val();
@@ -172,34 +210,6 @@ $(function () {
     }
 
     /* 메뉴 목록  한세트 */
-
-
-    /*푸시메뉴*/
-    function pushMenu() {
-        var dataShop = cartThis.attr("data-shop");
-        var dataMenu = cartThis.attr("data-name");
-        var dataPrice = cartThis.attr("data-price");
-        var dataOrder = parseInt(cartThis.attr("data-order"));
-
-        var publicKeyIn = database.ref('/음식점/' + "/food/" + "/" + shopId + "/" + "/menu/" + dataMenu);
-        var chatKeyIn = database.ref('/채팅/' + "퍼블릭채팅");
-        publicKeyIn.update({
-            order: dataOrder + 1
-        });
-        var keyword = "<h3>" + dataMenu + "</h3><p>가격:" + dataPrice + "<br>상호:" + sName + "</p>"
-        chatKeyIn.push({
-            keyword: keyword,
-            date: localTime,
-            shopname: sName,
-            mmenu: dataMenu,
-            mprice: dataPrice,
-            user: userInfo.uid
-        });
-        cartThis.attr("data-order", dataOrder + 1);
-        cartThis.parent().parent().children(".c_order").children("span").text(dataOrder + 1);
-    }
-
-    /*푸시메뉴*/
 
 
     /* 채팅 한세트 */

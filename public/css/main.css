@@ -1,4 +1,4 @@
-body{margin: 1em 1em}h3{margin: 5px 0 !important;}p{margin: 0 !important;}* {transition: all 0.2s }select {background: rgba(255, 255, 255, 0) }.btn-style {box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);font-size: 20px;border-radius: initial;height: 42px;top: 0px;left: 4px;}.btn:focus, .btn:active {outline: initial !important;box-shadow: initial !important;}.input-group {width: 478px;margin: 0 auto;padding-top: 40vh }.input-position-ab {position: absolute;margin: 4px 0 0 0;z-index: 999 }#map-canvas {height: 400px;width: 600px;}.controls {border: 1px solid transparent;box-sizing: border-box;-moz-box-sizing: border-box;height: 41px;outline: none;box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);}#pac-input {background-color: #fff;padding: 0 0 0 100px;width: 100%;font-size: 15px;font-weight: 300;text-overflow: ellipsis;}#pac-input:hover, #pac-input:focus {box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);}#pac-input:hover ~ button {box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);}#type-selector {color: #fff;background-color: #4d90fe;padding: 5px 11px 0px 11px;}#type-selector label {font-size: 13px;font-weight: 300;}#load {color: rgba(0, 0, 0, 0.4);text-align: center;font-size: 13px;}.valign-wrapper {display: -webkit-flex !important;display: -ms-flexbox !important;display: flex !important;-webkit-align-items: center !important;-ms-flex-align: center !important;align-items: center !important;}.container {z-index: 0;margin: 44px 0 0 0;position: absolute;width: 100%;left: -14px;}.row{width: 478px;margin: 0 auto;border: 1px solid #ababab;background: white;}.tab-content{padding: 15px 15px;}.nav-tabs li{padding: 0 !important;text-align: center;}.nav-tabs li a{margin:0;border-radius: initial;}.display-none{display: none}body,html{height: 100%}.tab-content .row{width: initial !important;}
+body{margin: 1em 1em}h3{margin: 5px 0 !important;}p{margin: 0 !important;}* {transition: all 0.2s }select {background: rgba(255, 255, 255, 0) }.btn-style {box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);font-size: 20px;border-radius: initial;height: 42px;top: 0;left: 4px;}.btn:focus, .btn:active {outline: initial !important;box-shadow: initial !important;}.input-group {width: 478px;margin: 0 auto;padding-top: 40vh }.input-position-ab {position: absolute;margin: 4px 0 0 0;z-index: 999 }#map-canvas {height: 400px;width: 600px;}.controls {border: 1px solid transparent;box-sizing: border-box;-moz-box-sizing: border-box;height: 41px;outline: none;box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);}#pac-input {background-color: #fff;padding: 0 0 0 100px;width: 100%;font-size: 15px;font-weight: 300;text-overflow: ellipsis;}#pac-input:hover, #pac-input:focus {box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);}#pac-input:hover ~ button {box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);}#type-selector {color: #fff;background-color: #4d90fe;padding: 5px 11px 0px 11px;}#type-selector label {font-size: 13px;font-weight: 300;}#load {color: rgba(0, 0, 0, 0.4);text-align: center;font-size: 13px;}.valign-wrapper {display: -webkit-flex !important;display: -ms-flexbox !important;display: flex !important;-webkit-align-items: center !important;-ms-flex-align: center !important;align-items: center !important;}.container {z-index: 0;margin: 44px 0 0 0;position: absolute;width: 100%;left: -14px;}.row{width: 478px;margin: 0 auto;border: 1px solid #ababab;background: white;}.tab-content{padding: 15px 15px;}.nav-tabs li{padding: 0 !important;text-align: center;}.nav-tabs li a{margin:0;border-radius: initial;}.display-none{display: none}body,html{height: 100%}.tab-content .row{width: initial !important;}
 
 /* Swiper */
 .swiper-pagination,.swiper-pagination-clickable,.swiper-pagination-bullets{
@@ -51,7 +51,7 @@ body{margin: 1em 1em}h3{margin: 5px 0 !important;}p{margin: 0 !important;}* {tra
     z-index: 999;
 }
 .above-overlay h2{
-    text-shadow: 0px 1px 6px #000000;
+    text-shadow: 0 1px 6px #000000;
     font-weight: bold;
 }
 .above-overlay p{
@@ -137,7 +137,7 @@ body{margin: 1em 1em}h3{margin: 5px 0 !important;}p{margin: 0 !important;}* {tra
     position: relative;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0px 0px 249px -48px rgba(0,0,0,0.75);
+    box-shadow: 0 0 249px -48px rgba(0,0,0,0.75);
     transition: all 300ms ease-in-out;
 }
 .bar {
@@ -298,5 +298,5 @@ body{margin: 1em 1em}h3{margin: 5px 0 !important;}p{margin: 0 !important;}* {tra
     width: 60%;
     padding: 1em 1em;
     margin: 0 auto;
-    box-shadow: 0px 0px 177px -48px rgba(0,0,0,0.75);
+    box-shadow: 0 0 177px -48px rgba(0,0,0,0.75);
 }
