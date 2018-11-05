@@ -61,7 +61,7 @@ $(function () {
         /* 음식점 목록 한세트 */
         var publicGetKeyIn = firebase.database().ref('/음식점/' + "food");
         publicGetKeyIn.on('child_added', food_on_child_added);
-
+        $(".lds-heart").hide();
     }
 
     function food_on_child_added(data) {
