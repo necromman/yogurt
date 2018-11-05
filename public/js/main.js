@@ -150,7 +150,7 @@ $(function () {
         publicKeyIn.update({
             order: dataOrder + 1
         });
-        var keyword = "<h3>" + dataMenu + "</h3><p>가격:" + dataPrice + "<br>상호:" + sName + "</p>"
+        var keyword = "<h3 data-menu='"+ dataMenu +"' data-order='" + dataOrder + 1 + "' class='" + shopId + "'>" + dataMenu + "</h3><p>가격:" + dataPrice + "<br>상호:" + sName + "</p>"
         chatKeyIn.push({
             keyword: keyword,
             date: localTime,
@@ -250,15 +250,15 @@ $(function () {
             days = diff / 1000 / 60 / 60 / 24;
 
         if (days < 1) {
-            Kdate ="오늘";
+            Kdate = "오늘";
         }
-            var html2 =
-                "<div id='" + jUser + "'><div id='" + key + "' class='timeline-item' data-price='" + mPrice + "'>" + Kword + "<span>" + Kdate + "</span>" + "</div></div>";
-            $("#chat-history").prepend(html2);
-            $('#' + userInfo.uid).addClass("bonin");
-            if (jUser == userInfo.uid) {
-                $('#' + userInfo.uid).append("<button class='msgDel'>삭제</button>");
-            }
+        var html2 =
+            "<div id='" + jUser + "'><div id='" + key + "' class='timeline-item' data-price='" + mPrice + "'>" + Kword + "<span>" + Kdate + "</span>" + "</div></div>";
+        $("#chat-history").prepend(html2);
+        $('#' + userInfo.uid).addClass("bonin");
+        if (jUser == userInfo.uid) {
+            $('#' + userInfo.uid).append("<button class='msgDel'>삭제</button>");
+        }
 
 
     }
@@ -266,17 +266,30 @@ $(function () {
     /* 채팅 한세트 */
 
     /*본인 메세지 삭제*/
+    var delMenu;
+    var delShop;
+    var delOrder;
     $(document).on('click', '.msgDel', function () {
         var delBtnThis = $(this);
         var delKey = delBtnThis.prev("div").attr("id");
+        delShop = delBtnThis.prev("div").children("h3").attr("class");
+        delMenu = delBtnThis.prev("div").children("h3").text();
+        // var delOrder = delBtnThis.prev("div").children("h3").attr("data-order");
         var publicGetKeyIn = firebase.database().ref('/채팅/' + "/퍼블릭채팅/" + delKey);
         publicGetKeyIn.remove();
+        var publicKeyIn = database.ref('/음식점/' + "/food/" + "/" + delShop + "/" + "/menu/" + delMenu);
+        publicKeyIn.on('child_changed', function update_order_delete_child(data){
+            data.order = data.order++
+        })
+        // var publicKeyIn = database.ref('/음식점/' + "/food/" + "/" + delShop + "/" + "/menu/" + delMenu);
+        // publicKeyIn.update({
+        //     order: delOrder--
+        // });
     });
 
     function del_text_msg() {
         var publicGetKeyIn = firebase.database().ref('/채팅/' + "퍼블릭채팅");
         publicGetKeyIn.on('child_removed', del_on_child_removed);
-
     }
 
     function del_on_child_removed(data) {
