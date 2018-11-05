@@ -33,9 +33,10 @@ $(function () {
     auth.onAuthStateChanged(function (user) {
         if (user) {
             userInfo = user;
-            if (!$("#chat-history").text()) {
-                get_text_list1()
-            }
+            // if (!$("#chat-history").text()) {
+            //
+            // }
+            get_text_list1();
             del_text_msg();
             get_food_list();
             swiper_func();
@@ -235,14 +236,31 @@ $(function () {
         var jUser = sData.user;
         var mPrice = sData.mprice;
 
-        var html2 =
-            "<div id='" + jUser + "'><div id='" + key + "' class='timeline-item' data-price='" + mPrice + "'>" + Kword + "<span>" + Kdate + "</span>" + "</div></div>";
 
-        $("#chat-history").prepend(html2);
-        $('#' + userInfo.uid).addClass("bonin");
-        if (jUser == userInfo.uid) {
-            $('#' + userInfo.uid).append("<button class='msgDel'>삭제</button>");
+        var dateStr = Kdate;
+        var a = dateStr.split(" ");
+        var d = a[0].split("-");
+        var t = a[1].split(":");
+        var rKdate = new Date(d[0], (d[1] - 1), d[2], t[0], t[1], t[2]);
+
+
+        // var start = new Date(Kdate),
+        var end = new Date(),
+            diff = new Date(end - rKdate),
+            days = diff / 1000 / 60 / 60 / 24;
+
+        if (days < 1) {
+            Kdate ="오늘";
         }
+            var html2 =
+                "<div id='" + jUser + "'><div id='" + key + "' class='timeline-item' data-price='" + mPrice + "'>" + Kword + "<span>" + Kdate + "</span>" + "</div></div>";
+            $("#chat-history").prepend(html2);
+            $('#' + userInfo.uid).addClass("bonin");
+            if (jUser == userInfo.uid) {
+                $('#' + userInfo.uid).append("<button class='msgDel'>삭제</button>");
+            }
+
+
     }
 
     /* 채팅 한세트 */
@@ -252,7 +270,7 @@ $(function () {
         var delBtnThis = $(this);
         var delKey = delBtnThis.prev("div").attr("id");
         var publicGetKeyIn = firebase.database().ref('/채팅/' + "/퍼블릭채팅/" + delKey);
-         publicGetKeyIn.remove();
+        publicGetKeyIn.remove();
     });
 
     function del_text_msg() {
@@ -260,10 +278,12 @@ $(function () {
         publicGetKeyIn.on('child_removed', del_on_child_removed);
 
     }
+
     function del_on_child_removed(data) {
         var key = data.key;
         $("#" + key).parent().remove();
     }
+
     /*본인 메세지 삭제*/
 
 
