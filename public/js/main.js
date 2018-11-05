@@ -36,6 +36,7 @@ $(function () {
             if (!$("#chat-history").text()) {
                 get_text_list1()
             }
+            del_text_msg();
             get_food_list();
             swiper_func();
         } else {
@@ -136,6 +137,7 @@ $(function () {
     /*푸시메뉴*/
     var dataMenu;
     var dataOrder;
+
     function pushMenu() {
         var dataShop = cartThis.attr("data-shop");
         dataMenu = cartThis.attr("data-name");
@@ -159,6 +161,7 @@ $(function () {
         // cartThis.attr("data-order", dataOrder + 1);
         // cartThis.parent().parent().children(".c_order").children("span").text(dataOrder + 1);
     }
+
     /*푸시메뉴*/
 
     function get_menu_list() {
@@ -171,6 +174,7 @@ $(function () {
 
     var sName;
     var menu_GetKeyIn;
+
     function shop_on_child_added(data) {
         var key = data.key; // 메뉴이름
         var sData = data.val();
@@ -191,7 +195,7 @@ $(function () {
         var morder = sData.order;
         var mgrade = sData.grade;
 
-        var mhtml = "<div id='"+ key +"' class=\"card\">" +
+        var mhtml = "<div id='" + key + "' class=\"card\">" +
             "              <span class=\"c_img\"><span>" + sName.substr(0, 2) + "</span></span>" +
             "              <span class=\"c_name\">" + key + "</span>" +
             "              <span class=\"c_price\">￦" + mprice + "</span>" +
@@ -202,14 +206,15 @@ $(function () {
         // if(morder > 0){$("#s_card_wrap").prepend(mhtml);}else{$("#s_card_wrap").append(mhtml);}
         $("#s_card_wrap").append(mhtml);
     }
+
     function menu_on_child_added2(data) {
         var key = data.key; // 메뉴이름
         var sData = data.val();
         var mprice = sData.price;
         var morder = sData.order;
         var mgrade = sData.grade;
-        $("#"+ key + " .c_order span").text(morder);
-        $("#"+ key + " .sc-add-to-cart").attr("data-order",morder);
+        $("#" + key + " .c_order span").text(morder);
+        $("#" + key + " .sc-add-to-cart").attr("data-order", morder);
     }
 
     /* 메뉴 목록  한세트 */
@@ -235,9 +240,31 @@ $(function () {
 
         $("#chat-history").prepend(html2);
         $('#' + userInfo.uid).addClass("bonin");
+        if (jUser == userInfo.uid) {
+            $('#' + userInfo.uid).append("<button class='msgDel'>삭제</button>");
+        }
     }
 
     /* 채팅 한세트 */
+
+    /*본인 메세지 삭제*/
+    $(document).on('click', '.msgDel', function () {
+        var delBtnThis = $(this);
+        var delKey = delBtnThis.prev("div").attr("id");
+        var publicGetKeyIn = firebase.database().ref('/채팅/' + "/퍼블릭채팅/" + delKey);
+         publicGetKeyIn.remove();
+    });
+
+    function del_text_msg() {
+        var publicGetKeyIn = firebase.database().ref('/채팅/' + "퍼블릭채팅");
+        publicGetKeyIn.on('child_removed', del_on_child_removed);
+
+    }
+    function del_on_child_removed(data) {
+        var key = data.key;
+        $("#" + key).parent().remove();
+    }
+    /*본인 메세지 삭제*/
 
 
     function goSearch() {
