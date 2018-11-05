@@ -141,7 +141,8 @@ $(function () {
 
     function pushMenu() {
         var dataShop = cartThis.attr("data-shop");
-        dataMenu = cartThis.attr("data-name");
+        dataMenu = cartThis.closest("div").attr("id");
+        var dataMenuName = cartThis.attr("data-name");
         var dataPrice = cartThis.attr("data-price");
         dataOrder = parseInt(cartThis.attr("data-order"));
 
@@ -150,7 +151,7 @@ $(function () {
         publicKeyIn.update({
             order: dataOrder + 1
         });
-        var keyword = "<h3 data-menu='"+ dataMenu +"' data-order='" + dataOrder + 1 + "' class='" + shopId + "'>" + dataMenu + "</h3><p>가격:" + dataPrice + "<br>상호:" + sName + "</p>"
+        var keyword = "<h3 data-id='" + dataMenu + "' data-order='' class='" + shopId + "'>" + dataMenuName + "</h3><p>가격:" + dataPrice + "<br>상호:" + sName + "</p>"
         chatKeyIn.push({
             keyword: keyword,
             date: localTime,
@@ -193,16 +194,17 @@ $(function () {
         var key = data.key; // 메뉴이름
         var sData = data.val();
         var mprice = sData.price;
+        var menuname = sData.menuname;
         var morder = sData.order;
         var mgrade = sData.grade;
 
         var mhtml = "<div id='" + key + "' class=\"card\">" +
             "              <span class=\"c_img\"><span>" + sName.substr(0, 2) + "</span></span>" +
-            "              <span class=\"c_name\">" + key + "</span>" +
+            "              <span class=\"c_name\">" + menuname + "</span>" +
             "              <span class=\"c_price\">￦" + mprice + "</span>" +
             "              <span class=\"c_order\">주문횟수 : <span>" + morder + "</span></span>" +
             "              <span class=\"c_like\">좋아요 : " + mgrade + "개</span>" +
-            "              <span><button class=\"sc-add-to-cart\" data-shop='" + shopId + "' data-name='" + key + "' data-price='" + mprice + "' data-order='" + morder + "'>이걸로하죠</button></span>" +
+            "              <span><button class=\"sc-add-to-cart\" data-shop='" + shopId + "' data-name='" + menuname + "' data-price='" + mprice + "' data-order='" + morder + "'>이걸로하죠</button></span>" +
             "          </div>"
         // if(morder > 0){$("#s_card_wrap").prepend(mhtml);}else{$("#s_card_wrap").append(mhtml);}
         $("#s_card_wrap").append(mhtml);
@@ -216,6 +218,7 @@ $(function () {
         var mgrade = sData.grade;
         $("#" + key + " .c_order span").text(morder);
         $("#" + key + " .sc-add-to-cart").attr("data-order", morder);
+        $("." + shopId).attr("data-order", morder);
     }
 
     /* 메뉴 목록  한세트 */
@@ -273,19 +276,29 @@ $(function () {
         var delBtnThis = $(this);
         var delKey = delBtnThis.prev("div").attr("id");
         delShop = delBtnThis.prev("div").children("h3").attr("class");
-        delMenu = delBtnThis.prev("div").children("h3").text();
+        delMenu = delBtnThis.prev("div").children("h3").attr("data-id");
         // var delOrder = delBtnThis.prev("div").children("h3").attr("data-order");
         var publicGetKeyIn = firebase.database().ref('/채팅/' + "/퍼블릭채팅/" + delKey);
         publicGetKeyIn.remove();
-        var publicKeyIn = database.ref('/음식점/' + "/food/" + "/" + delShop + "/" + "/menu/" + delMenu);
-        publicKeyIn.on('child_changed', function update_order_delete_child(data){
-            data.order = data.order++
-        })
-        // var publicKeyIn = database.ref('/음식점/' + "/food/" + "/" + delShop + "/" + "/menu/" + delMenu);
-        // publicKeyIn.update({
-        //     order: delOrder--
-        // });
+        update_order_action();
     });
+
+    function update_order_action() {
+        var publicKeyIn = database.ref('/음식점/' + "/food/" + "/" + delShop + "/" + "menu");
+        publicKeyIn.on('child_added', update_order_delete_child);
+    }
+
+    function update_order_delete_child(data) {
+        var key = data.key;
+        var dataTem = data.val();
+        var dataOrderTem = dataTem.order;
+        if (key == delMenu) {
+            var publicKeyIn = database.ref('/음식점/' + "/food/" + "/" + delShop + "/" + "/menu/" + delMenu);
+            publicKeyIn.update({
+                order : dataOrderTem -1
+            });
+        }
+    }
 
     function del_text_msg() {
         var publicGetKeyIn = firebase.database().ref('/채팅/' + "퍼블릭채팅");
