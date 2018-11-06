@@ -138,6 +138,7 @@ $(function () {
     /*푸시메뉴*/
     var dataMenu;
     var dataOrder;
+    var totalPrice = 0;
 
     function pushMenu() {
         var dataShop = cartThis.attr("data-shop");
@@ -151,7 +152,7 @@ $(function () {
         publicKeyIn.update({
             order: dataOrder + 1
         });
-        var keyword = "<h3 data-id='" + dataMenu + "' data-order='' class='" + shopId + "'>" + dataMenuName + "</h3><p>가격:" + dataPrice + "<br>상호:" + sName + "</p>"
+        var keyword = "<h3 data-id='" + dataMenu + "' data-order='' class='" + shopId + "'>" + dataMenuName + "</h3><p>가격:<span class='mt-price'>" + dataPrice + "</span><br>상호:" + sName + "</p>"
         chatKeyIn.push({
             keyword: keyword,
             date: localTime,
@@ -219,6 +220,8 @@ $(function () {
         $("#" + key + " .c_order span").text(morder);
         $("#" + key + " .sc-add-to-cart").attr("data-order", morder);
         $("." + shopId).attr("data-order", morder);
+        /*체인지*/
+        totalMenuCalc();
     }
 
     /* 메뉴 목록  한세트 */
@@ -230,6 +233,7 @@ $(function () {
         publicGetKeyIn.on('child_added', public_on_child_added);
 
     }
+
 
     function public_on_child_added(data) {
         var key = data.key;
@@ -262,7 +266,8 @@ $(function () {
         if (jUser == userInfo.uid) {
             $('#' + userInfo.uid).append("<button class='msgDel'>삭제</button>");
         }
-
+        /*애드*/
+        totalMenuCalc();
 
     }
 
@@ -295,7 +300,7 @@ $(function () {
         if (key == delMenu) {
             var publicKeyIn = database.ref('/음식점/' + "/food/" + "/" + delShop + "/" + "/menu/" + delMenu);
             publicKeyIn.update({
-                order : dataOrderTem -1
+                order: dataOrderTem - 1
             });
         }
     }
@@ -308,6 +313,8 @@ $(function () {
     function del_on_child_removed(data) {
         var key = data.key;
         $("#" + key).parent().remove();
+        /*리무브*/
+        totalMenuCalc();
     }
 
     /*본인 메세지 삭제*/
@@ -342,5 +349,24 @@ $(function () {
         $("#chat-text").val("");
     });
 
+
+
+    function totalMenuCalc() {
+        var totalPrice = 0;
+        var collection = document.getElementsByClassName('mt-price');
+        if(collection.length < 1){
+            totalPrice = 0;
+            $("#total-menu-price span").text(totalPrice);
+        }
+        for (var i = 0; i < collection.length; ++i) {
+            totalPrice += parseInt(collection[i].innerHTML);
+            $("#total-menu-price span").text(comma(totalPrice));
+        }
+    }
+
+    function comma(str) {
+        str = String(str);
+        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    }
 
 });

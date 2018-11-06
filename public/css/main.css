@@ -169,6 +169,7 @@ body{background-image: url("../img/Hexagon-1s-46x36px.svg")}
     }
 }
 .name {
+    width: 95%;
     color: #fff;
     font-family: sans-serif;
     font-size: 16px;
@@ -275,7 +276,7 @@ body{background-image: url("../img/Hexagon-1s-46x36px.svg")}
 }
 @media only screen and (max-width: 600px) {
     .name, .icon i {
-        font-size: 10px;
+        font-size: 13px;
     }
     .name {
         margin-left: 10px;
@@ -361,3 +362,5 @@ body{background-image: url("../img/Hexagon-1s-46x36px.svg")}
         transform: scale(0.9);
     }
 }
+
+#total-menu-price{width: 88%;display: inline-block;text-align: right;}
