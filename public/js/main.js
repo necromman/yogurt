@@ -152,7 +152,7 @@ $(function () {
         publicKeyIn.update({
             order: dataOrder + 1
         });
-        var keyword = "<h3 data-id='" + dataMenu + "' data-order='' class='" + shopId + "'>" + dataMenuName + "</h3><p>가격:<span class='mt-price'>" + dataPrice + "</span><br>상호:<span class='mt-sname'>" + sName + "</span></p>"
+        var keyword = "<h3 data-id='" + dataMenu + "' data-order='"+ dataOrder +"' class='" + shopId + "'>" + dataMenuName + "</h3><p>가격:<span class='mt-price'>" + dataPrice + "</span><br>상호:<span class='mt-sname'>" + sName + "</span></p>"
         chatKeyIn.push({
             keyword: keyword,
             date: localTime,
@@ -279,16 +279,23 @@ $(function () {
         samThis = $(this);
         var price = samThis.prevAll("p").children(".mt-price").text();
         var dataId = samThis.prevAll("h3").attr("data-id");
-        var shopId = samThis.prevAll("h3").attr("class");
+        var shopId2 = samThis.prevAll("h3").attr("class");
         var dataMeuName = samThis.prevAll("h3").text();
-        var sName = samThis.prevAll("p").children(".mt-sname").text();
+        var sName2 = samThis.prevAll("p").children(".mt-sname").text();
+        var menuKey = samThis.prevAll("h3").attr("data-id");
+        var dataOrder2 = samThis.prevAll("h3").attr("data-order");
+
+        var publicKeyIn = database.ref('/음식점/' + "/food/" + "/" + shopId2 + "/" + "/menu/" + menuKey);
+        publicKeyIn.update({
+            order: dataOrder2 + 1
+        });
 
         var chatKeyIn = database.ref('/채팅/' + "퍼블릭채팅");
-        var keyword = "<h3 data-id='" + dataId + "' data-order='' class='" + shopId + "'>" + dataMeuName + "</h3><p>가격:<span class='mt-price'>" + price + "</span><br>상호:" + sName + "</p>"
+        var keyword = "<h3 data-id='" + dataId + "' data-order='' class='" + shopId2 + "'>" + dataMeuName + "</h3><p>가격:<span class='mt-price'>" + price + "</span><br>상호:" + sName2 + "</p>"
         chatKeyIn.push({
             keyword: keyword,
             date: localTime,
-            shopname: sName,
+            shopname: sName2,
             mmenu: dataMeuName,
             mprice: price,
             user: userInfo.uid
