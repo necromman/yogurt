@@ -152,7 +152,7 @@ $(function () {
         publicKeyIn.update({
             order: dataOrder + 1
         });
-        var keyword = "<h3 data-id='" + dataMenu + "' data-order='" + dataOrder + "' class='" + shopId + "'>" + dataMenuName + "</h3><p>가격:<span class='mt-price'>" + dataPrice + "</span><br>상호:<span class='mt-sname'>" + sName + "</span></p>"
+        var keyword = "<h3 data-id='" + dataMenu + "' data-order='" + dataOrder + "' class='" + shopId + "'>" + dataMenuName + "</h3><p>가격:<span class='mt-price'>" + dataPrice + "</span>원<br>상호:<span class='mt-sname'>" + sName + "</span></p>"
         chatKeyIn.push({
             keyword: keyword,
             date: localTime,
@@ -202,7 +202,7 @@ $(function () {
         var mhtml = "<div id='" + key + "' class=\"card\">" +
             "              <span class=\"c_img\"><span>" + sName.substr(0, 2) + "</span></span>" +
             "              <span class=\"c_name\">" + menuname + "</span>" +
-            "              <span class=\"c_price\">￦" + mprice + "</span>" +
+            "              <span class=\"c_price\">" + comma(mprice) + "원</span>" +
             "              <span class=\"c_order\">주문횟수 : <span>" + morder + "</span></span>" +
             "              <span class=\"c_like\">좋아요 : " + mgrade + "개</span>" +
             "              <span><button class=\"sc-add-to-cart btn btn-irenic\" data-shop='" + shopId + "' data-name='" + menuname + "' data-price='" + mprice + "' data-order='" + morder + "'>이걸로하죠</button></span>" +
@@ -303,7 +303,7 @@ $(function () {
         });
 
         var chatKeyIn = database.ref('/채팅/' + "퍼블릭채팅");
-        var keyword = "<h3 data-id='" + dataId + "' data-order='" + dataOrder2 + "' class='" + shopId2 + "'>" + dataMeuName + "</h3><p>가격:<span class='mt-price'>" + price + "</span><br>상호:" + sName2 + "</p>"
+        var keyword = "<h3 data-id='" + dataId + "' data-order='" + dataOrder2 + "' class='" + shopId2 + "'>" + dataMeuName + "</h3><p>가격:<span class='mt-price'>" + price + "</span>원<br>상호:" + sName2 + "</p>"
         chatKeyIn.push({
             keyword: keyword,
             date: localTime,
