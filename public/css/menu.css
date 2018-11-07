@@ -106,11 +106,12 @@
 }
 
 .btn-irenic {
-    background-color: #07beb8;
+    background-color: #4286f4;
     color: white;
 }
 .btn-irenic:hover, .btn-irenic:focus, .btn-irenic:active {
-    background-color: #06a5a0;
+    background-color: #3a77d8;
+    color: white;
 }
 
 .btn-serene {
@@ -294,3 +295,5 @@
         -webkit-transform: scale(1);
     }
 }
+
+.btn.focus, .btn:focus, .btn:hover{color: white !important;}

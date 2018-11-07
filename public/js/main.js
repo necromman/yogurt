@@ -205,7 +205,7 @@ $(function () {
             "              <span class=\"c_price\">￦" + mprice + "</span>" +
             "              <span class=\"c_order\">주문횟수 : <span>" + morder + "</span></span>" +
             "              <span class=\"c_like\">좋아요 : " + mgrade + "개</span>" +
-            "              <span><button class=\"sc-add-to-cart\" data-shop='" + shopId + "' data-name='" + menuname + "' data-price='" + mprice + "' data-order='" + morder + "'>이걸로하죠</button></span>" +
+            "              <span><button class=\"sc-add-to-cart btn btn-irenic\" data-shop='" + shopId + "' data-name='" + menuname + "' data-price='" + mprice + "' data-order='" + morder + "'>이걸로하죠</button></span>" +
             "          </div>"
         // if(morder > 0){$("#s_card_wrap").prepend(mhtml);}else{$("#s_card_wrap").append(mhtml);}
         $("#s_card_wrap").append(mhtml);
