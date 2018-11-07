@@ -415,14 +415,14 @@ $(function () {
 
     function input_menu_added() {
         var html = "<label class=\"form-input\">" +
-            "                            <input type=\"text\" required/>" +
+            "                            <input type=\"text\" name=\"input-menu\" required/>" +
             "                            <span class=\"label\">메뉴명</span>" +
-            "                            <div class=\"input-menu underline\"></div>" +
+            "                            <div class=\"underline\"></div>" +
             "                        </label>" +
             "                        <label class=\"form-input\">" +
-            "                            <input type=\"text\" required/>" +
+            "                            <input type=\"text\" name=\"input-price\" required/>" +
             "                            <span class=\"label\">가격</span>" +
-            "                            <div class=\"input-price underline\"></div>" +
+            "                            <div class=\"underline\"></div>" +
             "                        </label>"
         $("#input-menu-in").append(html);
 

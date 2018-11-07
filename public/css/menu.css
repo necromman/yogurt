@@ -208,7 +208,7 @@
 }
 .submit-container #submit.granted ~ .login-pending {
     opacity: 1;
-    transform: translate(-9rem, -11rem) scale(18, 18);
+    transform: translate(0, -6px) scale(2, 2);
     z-index: 3;
 }
 .submit-container #submit.granted ~ .login-pending .spinner {
@@ -223,7 +223,7 @@
     background-color: #07beb8;
     position: absolute;
     border-radius: 50%;
-    right: 1rem;
+    right: 32px;
     bottom: -0.5rem;
     opacity: 0;
     overflow: hidden;
