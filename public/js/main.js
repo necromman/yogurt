@@ -261,12 +261,12 @@ $(function () {
             Kdate = "오늘";
         }
         var html2 =
-            "<div id='" + jUser + "'><div id='" + key + "' class='timeline-item' data-price='" + mPrice + "'>" + Kword + "<span>" + Kdate + "</span>" + "<button class='samsam'>나도 같은걸로</button></div></div>";
+            "<div id='" + jUser + "'><div id='" + key + "' class='timeline-item' data-price='" + mPrice + "'>" + Kword + "<span>" + Kdate + "</span>" + "<button class='samsam btn btn-irenic'>나도 같은걸로</button></div></div>";
 
         $("#chat-history").prepend(html2);
         $('#' + userInfo.uid).addClass("bonin");
         if (jUser == userInfo.uid) {
-            $('#' + userInfo.uid).append("<button class='msgDel'>삭제</button>");
+            $('#' + userInfo.uid).append("<button class='msgDel btn btn-irenic'>삭제</button>");
             $('#' + userInfo.uid).find(".samsam").hide();
         }
         /*애드*/
