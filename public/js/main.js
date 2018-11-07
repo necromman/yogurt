@@ -377,11 +377,10 @@ $(function () {
     });
 
 
-
     function totalMenuCalc() {
         var totalPrice = 0;
         var collection = document.getElementsByClassName('mt-price');
-        if(collection.length < 1){
+        if (collection.length < 1) {
             totalPrice = 0;
             $("#total-menu-price span").text(totalPrice);
         }
@@ -394,6 +393,39 @@ $(function () {
     function comma(str) {
         str = String(str);
         return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    }
+
+    $(document).on('click', '#menu_line_add', function () {
+        input_menu_added();
+
+    });
+    $(document).on('click', '#submit', function () {
+        if ($(".form-input input").val() == "") {
+            alert("빈곳이 있어요");
+        } else {
+            menu_input_list();
+        }
+    });
+
+    $("#menu_line_add").keydown(function (key) {
+        if (key.keyCode == 13 || key.keyCode == 32) { //키가 13이면 실행 (엔터는 13)
+            input_menu_added();
+        }
+    });
+
+    function input_menu_added() {
+        var html = "<label class=\"form-input\">" +
+            "                            <input type=\"text\" required/>" +
+            "                            <span class=\"label\">메뉴명</span>" +
+            "                            <div class=\"input-menu underline\"></div>" +
+            "                        </label>" +
+            "                        <label class=\"form-input\">" +
+            "                            <input type=\"text\" required/>" +
+            "                            <span class=\"label\">가격</span>" +
+            "                            <div class=\"input-price underline\"></div>" +
+            "                        </label>"
+        $("#input-menu-in").append(html);
+
     }
 
 });

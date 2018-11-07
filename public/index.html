@@ -8,6 +8,7 @@
     <title>11AM - 점심준비</title>
     <link rel="stylesheet" type="text/css" href="css/normalize.css"/>
     <link rel="stylesheet" type="text/css" href="css/main.css?"/>
+    <link rel="stylesheet" type="text/css" href="css/menu.css?"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
@@ -54,7 +55,8 @@
     <div class="chatbox">
         <div class="bar">
             <div class="positioning-container-bar">
-                <div class="name">11AM <span id="total-menu-price">총 가격 : <span>0</span>원 / 주문가능 가격 : 32,000원</span></div>
+                <div class="name">11AM <span id="total-menu-price">총 가격 : <span>0</span>원 / 주문가능 가격 : 32,000원</span>
+                </div>
             </div>
         </div>
 
@@ -72,6 +74,95 @@
 </div>
 
 <div class="container3">
+
+    <div class="tile">
+        <div class="tile-header">
+            <h2 style="color: white; opacity: .75; font-size: 4rem; display: flex; justify-content: center; align-items: center; height: 100%;">
+                점심목록 추가</h2>
+        </div>
+
+        <div class="tile-body">
+            <form id="form">
+                <label class="form-input">
+                    <input type="text" class="s-name" required/>
+                    <span class="label">상호명</span>
+                    <span class="underline"></span>
+                </label>
+
+                <label class="form-input">
+                    <input type="text" class="cat" required/>
+                    <span class="label">구분</span>
+                    <div class="underline"></div>
+                </label>
+
+                <label class="form-input">
+                    <input type="text" class="phone-number" required/>
+                    <span class="label">전화번호</span>
+                    <div class="underline"></div>
+                </label>
+
+                <label class="form-input">
+                    <input type="text" class="closed" required/>
+                    <span class="label">휴무일</span>
+                    <div class="underline"></div>
+                </label>
+
+                <label class="form-input">
+                    <input type="text" class="delivery" required/>
+                    <span class="label">배달유무 (배달가능/방문포장)</span>
+                    <div class="underline"></div>
+                </label>
+
+                <div class="input-menu-wrap">
+                    <h4>메뉴입력</h4>
+                    <div id="input-menu-in">
+                        <label class="form-input">
+                            <input type="text" name="input-menu" required/>
+                            <span class="label">메뉴명</span>
+                            <div class="underline"></div>
+                        </label>
+                        <label class="form-input">
+                            <input type="text" name="input-price" required/>
+                            <span class="label">가격</span>
+                            <div class="underline"></div>
+                        </label>
+                        <label class="form-input">
+                            <input type="text" name="input-menu" required/>
+                            <span class="label">메뉴명</span>
+                            <div class="underline"></div>
+                        </label>
+                        <label class="form-input">
+                            <input type="text" name="input-price" required/>
+                            <span class="label">가격</span>
+                            <div class="underline"></div>
+                        </label>
+                    </div>
+                    <div id="menu_line_add" class="btn btn-irenic"  tabindex="0">
+                        <span>라인추가</span>
+                    </div>
+                </div>
+
+
+                <div class="submit-container clearfix" style="margin-top: 2rem;">
+                    <div id="submit" role="button" type="button" class="btn btn-irenic float-right" tabindex="0">
+                        <span>맛있을거야</span>
+                    </div>
+
+                    <div class="login-pending">
+                        <div class=spinner>
+                            <span class="dot1"></span>
+                            <span class="dot2"></span>
+                        </div>
+
+                        <div class="login-granted-content">
+                            <i class="material-icons">done</i>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
 
 </div>
 
@@ -114,6 +205,7 @@
 <!--11AM - 점심 준비 끝-->
 
 <script src="js/main.js?"></script>
+<script src="js/menu-input.js?"></script>
 <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-database.js"></script>

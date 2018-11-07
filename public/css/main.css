@@ -282,28 +282,6 @@ body{background-image: url("../img/Rain-6s-120x120px.svg")}
         margin-left: 10px;
     }
 }
-.container3{
-    width: 100%;
-    height: 35%;
-    position: fixed;
-    z-index: 99;
-    bottom: -40%;
-    overflow: auto;
-    background-color: white;
-    border: 3px solid #ddd;
-    border-radius: 10px;
-    display: none;
-}
-.container3 *{
-    transition: all 300ms ease-in-out;
-}
-#cart{
-    width: 60%;
-    padding: 1em 1em;
-    margin: 0 auto;
-    box-shadow: 0 0 177px -48px rgba(0,0,0,0.75);
-}
-
 
  /* pure css loading */
 .lds-heart {
