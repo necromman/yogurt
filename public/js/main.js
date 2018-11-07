@@ -152,7 +152,7 @@ $(function () {
         publicKeyIn.update({
             order: dataOrder + 1
         });
-        var keyword = "<h3 data-id='" + dataMenu + "' data-order='' class='" + shopId + "'>" + dataMenuName + "</h3><p>가격:<span class='mt-price'>" + dataPrice + "</span><br>상호:" + sName + "</p>"
+        var keyword = "<h3 data-id='" + dataMenu + "' data-order='' class='" + shopId + "'>" + dataMenuName + "</h3><p>가격:<span class='mt-price'>" + dataPrice + "</span><br>상호:<span class='mt-sname'>" + sName + "</span></p>"
         chatKeyIn.push({
             keyword: keyword,
             date: localTime,
@@ -260,16 +260,43 @@ $(function () {
             Kdate = "오늘";
         }
         var html2 =
-            "<div id='" + jUser + "'><div id='" + key + "' class='timeline-item' data-price='" + mPrice + "'>" + Kword + "<span>" + Kdate + "</span>" + "</div></div>";
+            "<div id='" + jUser + "'><div id='" + key + "' class='timeline-item' data-price='" + mPrice + "'>" + Kword + "<span>" + Kdate + "</span>" + "<button class='samsam'>나도 같은걸로</button></div></div>";
+
         $("#chat-history").prepend(html2);
         $('#' + userInfo.uid).addClass("bonin");
         if (jUser == userInfo.uid) {
             $('#' + userInfo.uid).append("<button class='msgDel'>삭제</button>");
+            $('#' + userInfo.uid).find(".samsam").hide();
         }
         /*애드*/
         totalMenuCalc();
 
     }
+
+    /*나도 같은걸로*/
+    var samThis;
+    $(document).on('click', '.samsam', function () {
+        samThis = $(this);
+        var price = samThis.prevAll("p").children(".mt-price").text();
+        var dataId = samThis.prevAll("h3").attr("data-id");
+        var shopId = samThis.prevAll("h3").attr("class");
+        var dataMeuName = samThis.prevAll("h3").text();
+        var sName = samThis.prevAll("p").children(".mt-sname").text();
+
+        var chatKeyIn = database.ref('/채팅/' + "퍼블릭채팅");
+        var keyword = "<h3 data-id='" + dataId + "' data-order='' class='" + shopId + "'>" + dataMeuName + "</h3><p>가격:<span class='mt-price'>" + price + "</span><br>상호:" + sName + "</p>"
+        chatKeyIn.push({
+            keyword: keyword,
+            date: localTime,
+            shopname: sName,
+            mmenu: dataMeuName,
+            mprice: price,
+            user: userInfo.uid
+        });
+
+    });
+
+    /*나도 같은걸로*/
 
     /* 채팅 한세트 */
 
