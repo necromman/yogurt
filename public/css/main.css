@@ -227,7 +227,7 @@ body{background-image: url("../img/Hexagon-1s-46x36px.svg")}
     padding: 0 6px;
 }
 .chat-input input {
-    width: 85%;
+    width: 80%;
     height: 6.5vh;
     border: none;
     outline: none;
