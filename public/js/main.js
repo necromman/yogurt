@@ -152,7 +152,7 @@ $(function () {
         publicKeyIn.update({
             order: dataOrder + 1
         });
-        var keyword = "<h3 data-id='" + dataMenu + "' data-order='"+ dataOrder +"' class='" + shopId + "'>" + dataMenuName + "</h3><p>가격:<span class='mt-price'>" + dataPrice + "</span><br>상호:<span class='mt-sname'>" + sName + "</span></p>"
+        var keyword = "<h3 data-id='" + dataMenu + "' data-order='" + dataOrder + "' class='" + shopId + "'>" + dataMenuName + "</h3><p>가격:<span class='mt-price'>" + dataPrice + "</span><br>상호:<span class='mt-sname'>" + sName + "</span></p>"
         chatKeyIn.push({
             keyword: keyword,
             date: localTime,
@@ -234,13 +234,14 @@ $(function () {
 
     }
 
+    var jUser;
 
     function public_on_child_added(data) {
         var key = data.key;
         var sData = data.val();
         var Kword = sData.keyword;
         var Kdate = sData.date;
-        var jUser = sData.user;
+        jUser = sData.user;
         var mPrice = sData.mprice;
 
 
@@ -282,16 +283,27 @@ $(function () {
         var shopId2 = samThis.prevAll("h3").attr("class");
         var dataMeuName = samThis.prevAll("h3").text();
         var sName2 = samThis.prevAll("p").children(".mt-sname").text();
-        var menuKey = samThis.prevAll("h3").attr("data-id");
-        var dataOrder2 = samThis.prevAll("h3").attr("data-order");
+        var dataOrder2 = 0;
 
-        var publicKeyIn = database.ref('/음식점/' + "/food/" + "/" + shopId2 + "/" + "/menu/" + menuKey);
+        var getDataSameOrder = database.ref('/음식점/' + "/food/" + "/" + shopId2 + "/" + "/menu/");
+        getDataSameOrder.on('child_added', getDataSameOrder_c);
+
+        function getDataSameOrder_c(data) {
+            var key = data.key;
+            var Sdata = data.val();
+
+            if (key == dataId) {
+                dataOrder2 = Sdata.order;
+            }
+        }
+
+        var publicKeyIn = database.ref('/음식점/' + "/food/" + "/" + shopId2 + "/" + "/menu/" + dataId);
         publicKeyIn.update({
             order: dataOrder2 + 1
         });
 
         var chatKeyIn = database.ref('/채팅/' + "퍼블릭채팅");
-        var keyword = "<h3 data-id='" + dataId + "' data-order='' class='" + shopId2 + "'>" + dataMeuName + "</h3><p>가격:<span class='mt-price'>" + price + "</span><br>상호:" + sName2 + "</p>"
+        var keyword = "<h3 data-id='" + dataId + "' data-order='" + dataOrder2 + "' class='" + shopId2 + "'>" + dataMeuName + "</h3><p>가격:<span class='mt-price'>" + price + "</span><br>상호:" + sName2 + "</p>"
         chatKeyIn.push({
             keyword: keyword,
             date: localTime,
@@ -301,6 +313,9 @@ $(function () {
             user: userInfo.uid
         });
 
+        if (jUser == userInfo.uid) {
+            $('#' + userInfo.uid).find(".samsam").hide();
+        }
     });
 
     /*나도 같은걸로*/
@@ -310,13 +325,11 @@ $(function () {
     /*본인 메세지 삭제*/
     var delMenu;
     var delShop;
-    var delOrder;
     $(document).on('click', '.msgDel', function () {
         var delBtnThis = $(this);
         var delKey = delBtnThis.prev("div").attr("id");
         delShop = delBtnThis.prev("div").children("h3").attr("class");
         delMenu = delBtnThis.prev("div").children("h3").attr("data-id");
-        // var delOrder = delBtnThis.prev("div").children("h3").attr("data-order");
         var publicGetKeyIn = firebase.database().ref('/채팅/' + "/퍼블릭채팅/" + delKey);
         publicGetKeyIn.remove();
         update_order_action();
