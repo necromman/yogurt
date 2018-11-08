@@ -262,10 +262,13 @@ $(function () {
             Kdate = "오늘";
         }
         var html2 =
-            "<div id='" + jUser + "'><div id='" + key + "' class='timeline-item' data-price='" + mPrice + "'>" + Kword + "<span>" + Kdate + "</span>" + "<button class='samsam btn btn-irenic'>나도 같은걸로</button></div></div>";
+            "<div id='" + jUser + "'><div id='" + key + "' class='timeline-item' data-price='" + mPrice + "'>" + Kword + "<span>" + Kdate + "</span>" + "</div></div>";
 
         $("#chat-history").prepend(html2);
         $('#' + userInfo.uid).addClass("bonin");
+        if(mPrice > 0){
+            $("#"+ key).append("<button class='samsam btn btn-irenic'>나도 같은걸로</button>");
+        }
         if (jUser == userInfo.uid) {
             $('#' + userInfo.uid).append("<button class='msgDel btn btn-irenic'>삭제</button>");
             $('#' + userInfo.uid).find(".samsam").hide();
@@ -304,7 +307,7 @@ $(function () {
         });
 
         var chatKeyIn = database.ref('/채팅/' + "퍼블릭채팅");
-        var keyword = "<h3 data-id='" + dataId + "' data-order='" + dataOrder2 + "' class='" + shopId2 + "'>" + dataMeuName + "</h3><p>가격:<span class='mt-price'>" + price + "</span>원<br>상호:" + sName2 + "</p>"
+        var keyword = "<h3 data-id='" + dataId + "' data-order='" + dataOrder2 + "' class='" + shopId2 + "'>" + dataMeuName + "</h3><p>가격:<span class='mt-price'>" + price + "</span>원<br>상호:<span class='mt-sname'>" + sName2 + "</span></p>"
         chatKeyIn.push({
             keyword: keyword,
             date: localTime,
@@ -407,13 +410,19 @@ $(function () {
         }
         for (var i = 0; i < collection.length; ++i) {
             totalPrice += parseInt(collection[i].innerHTML);
-            $("#total-menu-price span").text(comma(totalPrice));
+            $("#total-menu-price").text(comma(totalPrice));
         }
+        $("#total-test-price").text(comma(32000 - totalPrice));
     }
 
     function comma(str) {
         str = String(str);
         return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    }
+
+    function uncomma(str) {
+        str = String(str);
+        return str.replace(/[^\d]+/g, '');
     }
 
     $(document).on('click', '#menu_line_add', function () {
