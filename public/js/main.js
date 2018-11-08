@@ -116,12 +116,14 @@ $(function () {
         // shopId = $(this).closest(".swiper-slide").attr("id");
         // $("#s_card_wrap").empty();
         get_menu_list();
+        $("body").css("overflow","hidden");
         $("#s_menu_list").css({
             'left': '0%'
         });
         $('.close_list').css("display", "block");
         $('.close_list').on('click', function () {
             $(this).css("display", "none");
+            $("body").css("overflow","");
             $("#s_menu_list").css({
                 'left': '-100%'
             });
@@ -204,7 +206,6 @@ $(function () {
             "              <span class=\"c_name\">" + menuname + "</span>" +
             "              <span class=\"c_price\">" + comma(mprice) + "원</span>" +
             "              <span class=\"c_order\">주문횟수 : <span>" + morder + "</span></span>" +
-            "              <span class=\"c_like\">좋아요 : " + mgrade + "개</span>" +
             "              <span><button class=\"sc-add-to-cart btn btn-irenic\" data-shop='" + shopId + "' data-name='" + menuname + "' data-price='" + mprice + "' data-order='" + morder + "'>이걸로하죠</button></span>" +
             "          </div>"
         // if(morder > 0){$("#s_card_wrap").prepend(mhtml);}else{$("#s_card_wrap").append(mhtml);}
@@ -417,8 +418,13 @@ $(function () {
 
     $(document).on('click', '#menu_line_add', function () {
         input_menu_added();
-
     });
+
+    $(document).on('click', '#menu_line_remove', function () {
+        $("#input-menu-in").find(".form-input:last-child").remove();
+        $("#input-menu-in").find(".form-input:last-child").prev().remove();
+    });
+
     $(document).on('click', '#submit', function () {
         if ($(".form-input input").val() == "") {
             alert("빈곳이 있어요");
