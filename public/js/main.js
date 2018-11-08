@@ -398,14 +398,12 @@ $(function () {
         var html ="<h3>"+ sdMenu +"</h3>" +
             "<p>가격:<span class=\"mt-price\">"+ sdPrice +"</span>원</p>"
         if (!(sdMenu == "" || sdPrice == "")) {
-            // =========== 파이어베이스 입력 시작
             var publicKeyIn = database.ref('/채팅/' + "퍼블릭채팅");
             publicKeyIn.push({
                 keyword: html,
                 date: localTime,
                 user: userInfo.uid
             });
-            // =========== 파이어베이스 입력 끝
             $("#sd-menu").val("");
             $("#sd-price").val("");
         } else {
@@ -417,14 +415,12 @@ $(function () {
     function goSearch() {
         var keyword = $("#chat-text").val();
         if (!keyword == "") {
-            // =========== 파이어베이스 입력 시작
             var publicKeyIn = database.ref('/채팅/' + "퍼블릭채팅");
             publicKeyIn.push({
                 keyword: keyword,
                 date: localTime,
                 user: userInfo.uid
             });
-            // =========== 파이어베이스 입력 끝
         } else {
             alert("입력값이 없어요")
         }
