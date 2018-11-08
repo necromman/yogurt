@@ -113,7 +113,7 @@ $(function () {
             "              <div class=\"owl-item\">" +
             "                  <div class=\"round-element\" style='background-image: url(" + ranBack + ")'>" +
             "                      <div class=\"above-overlay\">" +
-            "                          <h2>" + fname + "<span style=\"font-size: 0.5em;font-weight: 100;\">총주문:<span class='totalOder'>" + totalOder + "</span></span></h2>" +
+            "                          <h2>" + fname + "<span class='totalOwrap'>총주문:<span class='totalOder'>" + totalOder + "</span></span></h2>" +
             "                          <p>휴무일 : " + fclosed + "</p>" +
             "                          <p>배달여부 : " + fdelivery + "</p>" +
             "                          <p><a href='tel:" + fnumber + "'>" + fnumber + "</a></p>" +
