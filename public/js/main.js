@@ -207,8 +207,8 @@ $(function () {
         var sData = data.val();
         if (key == shopId) {
             sName = sData.name;
-            // menu_GetKeyIn = firebase.database().ref('/음식점/' + "/food/" + "/" + shopId + "/" + "menu").orderByChild('order');
-            menu_GetKeyIn = firebase.database().ref('/음식점/' + "/food/" + "/" + shopId + "/" + "menu");
+            menu_GetKeyIn = firebase.database().ref('/음식점/' + "/food/" + "/" + shopId + "/" + "menu").orderByChild('order');
+            //menu_GetKeyIn = firebase.database().ref('/음식점/' + "/food/" + "/" + shopId + "/" + "menu");
             menu_GetKeyIn.on('child_added', menu_on_child_added);
             menu_GetKeyIn.on('child_changed', menu_on_child_added2);
             setRanColor();
@@ -230,8 +230,8 @@ $(function () {
             "              <span class=\"c_order\">주문횟수 : <span>" + morder + "</span></span>" +
             "              <span><button class=\"sc-add-to-cart btn btn-irenic\" data-shop='" + shopId + "' data-name='" + menuname + "' data-price='" + mprice + "' data-order='" + morder + "'>이걸로하죠</button></span>" +
             "          </div>"
-        // if(morder > 0){$("#s_card_wrap").prepend(mhtml);}else{$("#s_card_wrap").append(mhtml);}
-        $("#s_card_wrap").append(mhtml);
+        if(morder > 0){$("#s_card_wrap").prepend(mhtml);}else{$("#s_card_wrap").append(mhtml);}
+        // $("#s_card_wrap").prepend(mhtml);
     }
 
     function menu_on_child_added2(data) {
@@ -392,6 +392,27 @@ $(function () {
 
     /*본인 메세지 삭제*/
 
+    function sdPush() {
+        var sdMenu = $("#sd-menu").val();
+        var sdPrice = $("#sd-price").val();
+        var html ="<h3>"+ sdMenu +"</h3>" +
+            "<p>가격:<span class=\"mt-price\">"+ sdPrice +"</span>원</p>"
+        if (!(sdMenu == "" || sdPrice == "")) {
+            // =========== 파이어베이스 입력 시작
+            var publicKeyIn = database.ref('/채팅/' + "퍼블릭채팅");
+            publicKeyIn.push({
+                keyword: html,
+                date: localTime,
+                user: userInfo.uid
+            });
+            // =========== 파이어베이스 입력 끝
+            $("#sd-menu").val("");
+            $("#sd-price").val("");
+        } else {
+            alert("입력값이 없어요")
+        }
+    }
+
 
     function goSearch() {
         var keyword = $("#chat-text").val();
@@ -420,6 +441,11 @@ $(function () {
     psearch.click(function () {
         goSearch();
         $("#chat-text").val("");
+    });
+
+    var sSearch = $("#s-search");
+    sSearch.click(function () {
+        sdPush();
     });
 
 

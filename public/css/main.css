@@ -190,7 +190,7 @@ body{background-image: url("../img/Hexagon-1s-46x36px.svg")}
     overflow-y: scroll;
     padding: 5em 2em;
     width: 100%;
-    height: 85%;
+    height: 90%;
     background-color: #f2f4f7;
     transition: all 300ms ease-in-out;
 }
