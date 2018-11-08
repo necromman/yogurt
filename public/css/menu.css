@@ -299,6 +299,7 @@
 .btn.focus, .btn:focus, .btn:hover{color: white !important;}
 
 .totalOwrap{
+    font-size: 0.6em;
     font-weight: 100;
     position: absolute;
     top: -30px;
