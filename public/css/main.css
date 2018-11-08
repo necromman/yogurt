@@ -140,7 +140,7 @@ body{background-image: url("../img/Hexagon-1s-46x36px.svg")}
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 0 249px -48px rgba(0,0,0,0.75);
-    transition: all 300ms ease-in-out;
+    /*transition: all 300ms ease-in-out;*/
 }
 .bar {
     position: absolute;
@@ -272,6 +272,9 @@ body{background-image: url("../img/Hexagon-1s-46x36px.svg")}
 @media only screen and (max-width: 950px) {
     .chatbox {
         width: 100%;
+    }
+    .tile{
+        width: 100% !important;
     }
 }
 @media only screen and (max-width: 600px) {
