@@ -279,7 +279,7 @@ body{background-image: url("../img/Hexagon-1s-46x36px.svg")}
 }
 @media only screen and (max-width: 600px) {
     .name, .icon i {
-        font-size: 13px;
+        font-size: 1.3rem;
     }
     .name {
         margin-left: 10px;
