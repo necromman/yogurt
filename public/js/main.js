@@ -61,7 +61,21 @@ $(function () {
         /* 음식점 목록 한세트 */
         var publicGetKeyIn = firebase.database().ref('/음식점/' + "food");
         publicGetKeyIn.on('child_added', food_on_child_added);
+        publicGetKeyIn.on('child_changed', food_on_child_changed);
         $(".lds-heart").hide();
+    }
+
+    var totalOder = 0;
+    function food_on_child_changed(data) {
+        var key = data.key;
+
+        var publicGetKeyIn = firebase.database().ref('/음식점/' + "/food/" + "/" + key + "/" + "menu");
+        publicGetKeyIn.on('child_added', function (data) {
+            var sData = data.val();
+            totalOder += sData.order
+            $("#"+key).find(".totalOder").text(totalOder);
+        });
+        totalOder = 0;
     }
 
     function food_on_child_added(data) {
@@ -72,6 +86,13 @@ $(function () {
         var fclosed = sData.closed;
         var fnumber = sData.number;
         var fdelivery = sData.delivery;
+
+
+        var publicGetKeyIn = firebase.database().ref('/음식점/' + "/food/" + "/" + key + "/" + "menu");
+        publicGetKeyIn.on('child_added', function (data) {
+            var sData = data.val();
+            totalOder += sData.order
+        });
 
         /*범위지정 랜덤*/
         var ranJ = Math.floor((Math.random() * 3) + 1);
@@ -92,7 +113,7 @@ $(function () {
             "              <div class=\"owl-item\">" +
             "                  <div class=\"round-element\" style='background-image: url(" + ranBack + ")'>" +
             "                      <div class=\"above-overlay\">" +
-            "                          <h2>" + fname + "</h2>" +
+            "                          <h2>" + fname + "<span style=\"font-size: 0.5em;font-weight: 100;\">총주문:<span class='totalOder'>" + totalOder + "</span></span></h2>" +
             "                          <p>휴무일 : " + fclosed + "</p>" +
             "                          <p>배달여부 : " + fdelivery + "</p>" +
             "                          <p><a href='tel:" + fnumber + "'>" + fnumber + "</a></p>" +
@@ -102,6 +123,7 @@ $(function () {
             "              </div>" +
             "          </div>";
         $("#j-swiper-wrapper").prepend(fhtml);
+        totalOder = 0;
     }
 
     /* 음식점 목록  한세트 */
@@ -116,14 +138,14 @@ $(function () {
         // shopId = $(this).closest(".swiper-slide").attr("id");
         // $("#s_card_wrap").empty();
         get_menu_list();
-        $("body").css("overflow","hidden");
+        $("body").css("overflow", "hidden");
         $("#s_menu_list").css({
             'left': '0%'
         });
         $('.close_list').css("display", "block");
         $('.close_list').on('click', function () {
             $(this).css("display", "none");
-            $("body").css("overflow","");
+            $("body").css("overflow", "");
             $("#s_menu_list").css({
                 'left': '-100%'
             });
@@ -266,8 +288,8 @@ $(function () {
 
         $("#chat-history").prepend(html2);
         $('#' + userInfo.uid).addClass("bonin");
-        if(mPrice > 0){
-            $("#"+ key).append("<button class='samsam btn btn-irenic'>나도 같은걸로</button>");
+        if (mPrice > 0) {
+            $("#" + key).append("<button class='samsam btn btn-irenic'>나도 같은걸로</button>");
         }
         if (jUser == userInfo.uid) {
             $('#' + userInfo.uid).append("<button class='msgDel btn btn-irenic'>삭제</button>");
@@ -405,8 +427,8 @@ $(function () {
         var totalPrice = 0;
         var collection = document.getElementsByClassName('mt-price');
         if (collection.length < 1) {
+            $("#total-menu-price").text(totalPrice);
             totalPrice = 0;
-            $("#total-menu-price span").text(totalPrice);
         }
         for (var i = 0; i < collection.length; ++i) {
             totalPrice += parseInt(collection[i].innerHTML);
