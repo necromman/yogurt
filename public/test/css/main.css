@@ -471,6 +471,7 @@ svg[id] {
 .time-wrap{
     border-bottom: 0.5px solid rgba(153,170,181,.5);
     padding: 1em 15px;
+    margin: 0.5em 0;
 }
 
 #chat-history{
@@ -485,4 +486,21 @@ svg[id] {
     color: hsla(0,0%,100%,.2);
     float: right;
 }
-.bonin{background-color: hsla(0,0%,100%,.1);}
+.bonin{
+    background-color: hsla(0,0%,100%,.1);
+    border-radius: 5px;
+}
+
+.btn{
+    background-color: #7289da;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-left: 1em;
+}
+.timeline-item{
+    position: relative;
+}
+.dsp-in{
+    display: inline-block;
+}

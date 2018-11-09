@@ -39,7 +39,6 @@ $(function () {
             get_text_list1();
             del_text_msg();
             get_food_list();
-            swiper_func();
         } else {
             firebase.auth().signInAnonymously(); // 익명로그인
         }
@@ -177,7 +176,7 @@ $(function () {
         publicKeyIn.update({
             order: dataOrder + 1
         });
-        var keyword = "<h3 data-id='" + dataMenu + "' data-order='" + dataOrder + "' class='" + shopId + "'>" + dataMenuName + "</h3><p>가격:<span class='mt-price'>" + dataPrice + "</span>원<br>상호:<span class='mt-sname'>" + sName + "</span></p>"
+        var keyword = "<h3 data-id='" + dataMenu + "' data-order='" + dataOrder + "' class='" + shopId + "'>" + dataMenuName + "</h3><p class='dsp-in'>가격:<span class='mt-price'>" + dataPrice + "</span>원<br>상호:<span class='mt-sname'>" + sName + "</span></p>"
         chatKeyIn.push({
             keyword: keyword,
             date: localTime,
@@ -293,12 +292,13 @@ $(function () {
 
         $("#chat-history").prepend(html2);
         $('#' + userInfo.uid).addClass("bonin");
+        $("#" + key).find("p").addClass("dsp-in");
         if (mPrice > 0) {
             $("#" + key).append("<button class='samsam btn btn-irenic'>나도 같은걸로</button>");
         }
         if (jUser == userInfo.uid) {
-            $('#' + userInfo.uid).append("<button class='msgDel btn btn-irenic'>삭제</button>");
-            $('#' + userInfo.uid).find(".samsam").hide();
+            $('#' + userInfo.uid).find(".timeline-item").append("<button class='msgDel btn btn-irenic'>삭제</button>");
+            $('#' + userInfo.uid).find(".samsam").remove();
         }
         /*애드*/
         totalMenuCalc();
@@ -309,11 +309,11 @@ $(function () {
     var samThis;
     $(document).on('click', '.samsam', function () {
         samThis = $(this);
-        var price = samThis.prevAll("p").children(".mt-price").text();
-        var dataId = samThis.prevAll("h3").attr("data-id");
-        var shopId2 = samThis.prevAll("h3").attr("class");
-        var dataMeuName = samThis.prevAll("h3").text();
-        var sName2 = samThis.prevAll("p").children(".mt-sname").text();
+        var price = samThis.parent().find(".mt-price").text();
+        var dataId = samThis.parent().find("h3").attr("data-id");
+        var shopId2 = samThis.parent().find("h3").attr("class");
+        var dataMeuName = samThis.parent().find("h3").text();
+        var sName2 = samThis.parent().find(".mt-sname").text();
         var dataOrder2 = 0;
 
         var getDataSameOrder = database.ref('/음식점/' + "/food/" + "/" + shopId2 + "/" + "/menu/");
@@ -334,7 +334,7 @@ $(function () {
         });
 
         var chatKeyIn = database.ref('/채팅/' + "퍼블릭채팅");
-        var keyword = "<h3 data-id='" + dataId + "' data-order='" + dataOrder2 + "' class='" + shopId2 + "'>" + dataMeuName + "</h3><p>가격:<span class='mt-price'>" + price + "</span>원<br>상호:<span class='mt-sname'>" + sName2 + "</span></p>"
+        var keyword = "<h3 data-id='" + dataId + "' data-order='" + dataOrder2 + "' class='" + shopId2 + "'>" + dataMeuName + "</h3><p class='dsp-in'>가격:<span class='mt-price'>" + price + "</span>원<br>상호:<span class='mt-sname'>" + sName2 + "</span></p>"
         chatKeyIn.push({
             keyword: keyword,
             date: localTime,
@@ -358,9 +358,9 @@ $(function () {
     var delShop;
     $(document).on('click', '.msgDel', function () {
         var delBtnThis = $(this);
-        var delKey = delBtnThis.prev("div").attr("id");
-        delShop = delBtnThis.prev("div").children("h3").attr("class");
-        delMenu = delBtnThis.prev("div").children("h3").attr("data-id");
+        var delKey = delBtnThis.parent().attr("id");
+        delShop = delBtnThis.parent().find("h3").attr("class");
+        delMenu = delBtnThis.parent().find("h3").attr("data-id");
         var publicGetKeyIn = firebase.database().ref('/채팅/' + "/퍼블릭채팅/" + delKey);
         publicGetKeyIn.remove();
         update_order_action();
