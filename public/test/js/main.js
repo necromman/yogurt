@@ -289,7 +289,7 @@ $(function () {
             Kdate = "오늘";
         }
         var html2 =
-            "<div id='" + jUser + "'><div id='" + key + "' class='timeline-item' data-price='" + mPrice + "'>" + Kword + "<span>" + Kdate + "</span>" + "</div></div>";
+            "<div id='" + jUser + "' class='time-wrap'><div id='" + key + "' class='timeline-item' data-price='" + mPrice + "'>" + Kword + "<span class='day-push'>" + Kdate + "</span>" + "</div></div>";
 
         $("#chat-history").prepend(html2);
         $('#' + userInfo.uid).addClass("bonin");
@@ -433,7 +433,7 @@ $(function () {
 
 
     var psearch = $("#p-search");
-    $("input[name=p-search]").keydown(function (key) {
+    $("#chat-text").keydown(function (key) {
         if (key.keyCode == 13) { //키가 13이면 실행 (엔터는 13)
             goSearch();
             $("#chat-text").val("");
