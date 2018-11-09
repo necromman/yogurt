@@ -1,5 +1,4 @@
 function menu_input_list() {
-
     var name = $(".form-input .s-name").val();
     var number = $(".form-input .phone-number").val();
     var closed = $(".form-input .closed").val();
@@ -8,8 +7,6 @@ function menu_input_list() {
     var menunameL = $("#input-menu-in").find("input[name='input-menu']").length;
     var menuname = $("#input-menu-in").find("input[name='input-menu']");
     var menuPrice = $("#input-menu-in").find("input[name='input-price']");
-
-
     var aJsonArray = new Array();
 
     for (var i = 0; i < menunameL; i++) {
@@ -21,7 +18,7 @@ function menu_input_list() {
         aJsonArray.push(aJson);
     }
 
-    console.log(aJsonArray)
+    console.log(aJsonArray);
 
 
     var publicGetKeyIn = firebase.database().ref('/음식점/' + "food");
@@ -33,8 +30,8 @@ function menu_input_list() {
         delivery: delivery,
         menu: aJsonArray
     });
+    signIn();
 }
-
 
 var $btn = document.getElementById("submit");
 var $form = document.getElementById("form");
@@ -42,8 +39,9 @@ var $form = document.getElementById("form");
 function signIn() {
     if ($form.checkValidity()) {
         $btn.classList.add('pending');
-        window.setTimeout(function(){ $btn.classList.add('granted'); }, 1500);
+        window.setTimeout(function () {
+            $btn.classList.add('granted');
+        }, 1500);
     }
 }
 
-$btn.addEventListener("click", signIn);

@@ -66,6 +66,7 @@ $(function () {
     }
 
     var totalOder = 0;
+
     function food_on_child_changed(data) {
         var key = data.key;
 
@@ -73,7 +74,7 @@ $(function () {
         publicGetKeyIn.on('child_added', function (data) {
             var sData = data.val();
             totalOder += sData.order
-            $("#"+key).find(".totalOder").text(totalOder);
+            $("#" + key).find(".totalOder").text(totalOder);
         });
         totalOder = 0;
     }
@@ -230,7 +231,11 @@ $(function () {
             "              <span class=\"c_order\">주문횟수 : <span>" + morder + "</span></span>" +
             "              <span><button class=\"sc-add-to-cart btn btn-irenic\" data-shop='" + shopId + "' data-name='" + menuname + "' data-price='" + mprice + "' data-order='" + morder + "'>이걸로하죠</button></span>" +
             "          </div>"
-        if(morder > 0){$("#s_card_wrap").prepend(mhtml);}else{$("#s_card_wrap").append(mhtml);}
+        if (morder > 0) {
+            $("#s_card_wrap").prepend(mhtml);
+        } else {
+            $("#s_card_wrap").append(mhtml);
+        }
         // $("#s_card_wrap").prepend(mhtml);
     }
 
@@ -395,8 +400,8 @@ $(function () {
     function sdPush() {
         var sdMenu = $("#sd-menu").val();
         var sdPrice = $("#sd-price").val();
-        var html ="<h3>"+ sdMenu +"</h3>" +
-            "<p>가격:<span class=\"mt-price\">"+ sdPrice +"</span>원</p>"
+        var html = "<h3>" + sdMenu + "</h3>" +
+            "<p>가격:<span class=\"mt-price\">" + sdPrice + "</span>원</p>"
         if (!(sdMenu == "" || sdPrice == "")) {
             var publicKeyIn = database.ref('/채팅/' + "퍼블릭채팅");
             publicKeyIn.push({
@@ -478,11 +483,7 @@ $(function () {
     });
 
     $(document).on('click', '#submit', function () {
-        if ($("#input-menu-in .form-input input").val() == "") {
-            alert("빈곳이 있어요");
-        } else {
-            menu_input_list();
-        }
+        menu_input_list()
     });
 
     $("#menu_line_add").keydown(function (key) {
@@ -493,12 +494,12 @@ $(function () {
 
     function input_menu_added() {
         var html = "<div class=\"input-tem\"><label class=\"form-input\">" +
-            "                            <input type=\"text\" name=\"input-menu\" required/>" +
+            "                            <input type=\"text\" name=\"input-menu\"/>" +
             "                            <span class=\"label\">메뉴명</span>" +
             "                            <div class=\"underline\"></div>" +
             "                        </label>" +
             "                        <label class=\"form-input\">" +
-            "                            <input type=\"text\" name=\"input-price\" required/>" +
+            "                            <input type=\"text\" name=\"input-price\"/>" +
             "                            <span class=\"label\">가격</span>" +
             "                            <div class=\"underline\"></div>" +
             "                        </label><div>";
