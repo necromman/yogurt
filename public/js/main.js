@@ -474,12 +474,11 @@ $(function () {
     });
 
     $(document).on('click', '#menu_line_remove', function () {
-        $("#input-menu-in").find(".form-input:last-child").remove();
-        $("#input-menu-in").find(".form-input:last-child").prev().remove();
+        $("#input-menu-in").find(".input-tem:last-child").remove();
     });
 
     $(document).on('click', '#submit', function () {
-        if ($(".form-input input").val() == "") {
+        if ($("#input-menu-in .form-input input").val() == "") {
             alert("빈곳이 있어요");
         } else {
             menu_input_list();
@@ -493,7 +492,7 @@ $(function () {
     });
 
     function input_menu_added() {
-        var html = "<label class=\"form-input\">" +
+        var html = "<div class=\"input-tem\"><label class=\"form-input\">" +
             "                            <input type=\"text\" name=\"input-menu\" required/>" +
             "                            <span class=\"label\">메뉴명</span>" +
             "                            <div class=\"underline\"></div>" +
@@ -502,7 +501,7 @@ $(function () {
             "                            <input type=\"text\" name=\"input-price\" required/>" +
             "                            <span class=\"label\">가격</span>" +
             "                            <div class=\"underline\"></div>" +
-            "                        </label>"
+            "                        </label><div>";
         $("#input-menu-in").append(html);
 
     }
