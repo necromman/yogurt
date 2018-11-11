@@ -254,16 +254,28 @@ $(function () {
 
     /* 메뉴 목록  한세트 */
 
+    /*더보기*/
+
+    $(document).on('click', '#more-btn', function () {
+        $("#chat-history").empty();
+        get_text_list_more();
+
+    });
+    var moreCount = 20;
+    function get_text_list_more() {
+        var publicGetKeyIn = firebase.database().ref('/채팅/' + "퍼블릭채팅").limitToLast(moreCount);
+        publicGetKeyIn.on('child_added', public_on_child_added);
+        $("#chat-history").append("<button id=\"more-btn\">더보기</button>");
+        moreCount += 20;
+    }
 
     /* 채팅 한세트 */
     function get_text_list1() {
-        var publicGetKeyIn = firebase.database().ref('/채팅/' + "퍼블릭채팅");
+        var publicGetKeyIn = firebase.database().ref('/채팅/' + "퍼블릭채팅").limitToLast(20);
         publicGetKeyIn.on('child_added', public_on_child_added);
-
     }
 
     var jUser;
-
     function public_on_child_added(data) {
         var key = data.key;
         var sData = data.val();
@@ -272,7 +284,6 @@ $(function () {
         jUser = sData.user;
         var mPrice = sData.mprice;
         var sdPrice = sData.sdprice;
-
 
         var dateStr = Kdate;
         var a = dateStr.split(" ");
