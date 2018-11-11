@@ -285,9 +285,11 @@ $(function () {
             diff = new Date(end - rKdate),
             days = diff / 1000 / 60 / 60 / 24;
 
+
         if (days < 1) {
             Kdate = "오늘";
         }
+
         var html2 =
             "<div id='" + jUser + "'><div id='" + key + "' class='timeline-item' data-price='" + mPrice + "'>" + Kword + "<span>" + Kdate + "</span>" + "</div></div>";
 
@@ -299,6 +301,10 @@ $(function () {
         if (jUser == userInfo.uid) {
             $('#' + userInfo.uid).append("<button class='msgDel btn btn-irenic'>삭제</button>");
             $('#' + userInfo.uid).find(".samsam").hide();
+        }
+
+        if (days > 1) {
+            $("#chat-history > div").css("backgroundColor","#7d7d7d");
         }
         /*애드*/
         totalMenuCalc();
