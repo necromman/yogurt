@@ -36,7 +36,6 @@ $(function () {
             // if (!$("#chat-history").text()) {
             //
             // }
-            random_food_list();
             get_text_list1();
             del_text_msg();
             get_food_list();
@@ -62,10 +61,12 @@ $(function () {
     var ranFoodName = new Array();
     var ranFoodNameC = 0;
     $("#recommen").click(function () {
+        random_food_list();
         var count = ranFoodName.length;
-        var ranJ = Math.floor((Math.random() * count) + 1);
+        var ranJ = Math.floor(Math.random() * (count - 0) + 0);
         $("#recommen-text").empty();
         $("#recommen-text").append("오늘은 "+ranFoodName[ranJ]+" 어떠세요?")
+        ranFoodNameC = 0;
     })
 
     function random_food_list() {
