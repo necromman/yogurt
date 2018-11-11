@@ -8,7 +8,7 @@
     <meta name="theme-color" content="#4286f4">
     <title>11AM - 일레븐에이엠</title>
     <link rel="stylesheet" type="text/css" href="css/normalize.css"/>
-    <link rel="stylesheet" type="text/css" href="css/main.css?ver=2.0.10"/>
+    <link rel="stylesheet" type="text/css" href="css/main.css?ver=2.0.11"/>
     <link rel="stylesheet" type="text/css" href="css/menu.css?ver=2.0.7"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -54,12 +54,13 @@
 
 <div class="container2">
     <div class="chatbox">
+        <p style="" class="total-alram">
+            <span>가격 : <span id="total-menu-price">0</span>원</span>
+            <span>주문가능 가격 : <span id="total-limit-price">32,000</span>원 </span>
+            <span>남은 가격 : <span id="total-test-price">32,000</span>원</span></p>
         <div class="bar">
             <div class="positioning-container-bar">
                 <div class="name"><p>11AM</p>
-                    <p style="text-align: right;"><span>가격 : <span id="total-menu-price">0</span>원 / 주문가능 가격 : <span
-                            id="total-limit-price">32,000</span>원 / 남은 가격 : <span
-                            id="total-test-price">32,000</span>원</span></p>
                 </div>
             </div>
         </div>
@@ -263,7 +264,7 @@
 
 <!--11AM - 점심 준비 끝-->
 
-<script src="js/main.js?ver=2.0.12"></script>
+<script src="js/main.js?ver=2.0.13"></script>
 <script src="js/menu-input.js?ver=2"></script>
 <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-auth.js"></script>
