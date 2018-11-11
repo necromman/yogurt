@@ -300,7 +300,7 @@ $(function () {
         $("#chat-history").prepend(html2);
         $('#' + userInfo.uid).addClass("bonin");
         if (mPrice > 0) {
-            $("#" + key).append("<button class='samsam btn btn-irenic'>나도 같은걸로</button>");
+            $("#" + key).append("<button class='samsam btn btn-irenic'>같은걸로</button>");
         }
         if (jUser == userInfo.uid) {
             $('#' + userInfo.uid).append("<button class='msgDel btn btn-irenic'>삭제</button>");
