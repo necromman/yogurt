@@ -290,7 +290,6 @@ $(function () {
         if (days < 1) {
             Kdate = "오늘";
             if (mPrice > 0) {
-                mtdelVal = $("#" + key).find(".mt-price").text();
                 totalPrice += parseInt(mPrice);
             }
         }
@@ -403,8 +402,6 @@ $(function () {
         var publicGetKeyIn = firebase.database().ref('/채팅/' + "퍼블릭채팅");
         publicGetKeyIn.on('child_removed', del_on_child_removed);
     }
-
-    var mtdelVal;
 
     function del_on_child_removed(data) {
         var key = data.key;
