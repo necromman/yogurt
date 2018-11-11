@@ -465,7 +465,9 @@ button, input, textarea {
     .chatbox {
         width: 100%;
     }
-
+    #sudong .sd-wrap{
+        width: 100% !important;
+    }
     .tile {
         width: 100% !important;
     }

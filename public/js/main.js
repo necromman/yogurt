@@ -271,6 +271,7 @@ $(function () {
         var Kdate = sData.date;
         jUser = sData.user;
         var mPrice = sData.mprice;
+        var sdPrice = sData.sdprice;
 
 
         var dateStr = Kdate;
@@ -288,7 +289,10 @@ $(function () {
 
         if (days < 1) {
             Kdate = "오늘";
-            totalPrice += parseInt(mPrice);
+            if (mPrice > 0) {
+                mtdelVal = $("#" + key).find(".mt-price").text();
+                totalPrice += parseInt(mPrice);
+            }
         }
 
         var html2 =
@@ -305,9 +309,14 @@ $(function () {
         }
 
         if (days > 1) {
-            $("#chat-history > div").css("backgroundColor","#7d7d7d");
+            $("#chat-history > div").css("backgroundColor", "#7d7d7d");
         }
         /*애드*/
+        if (sdPrice > 0) {
+            totalPrice += parseInt(sdPrice);
+            $("#total-menu-price").text(comma(totalPrice));
+            $("#total-test-price").text(comma(32000 - totalPrice));
+        }
         totalMenuCalc();
 
     }
@@ -395,19 +404,23 @@ $(function () {
         publicGetKeyIn.on('child_removed', del_on_child_removed);
     }
 
+    var mtdelVal;
+
     function del_on_child_removed(data) {
         var key = data.key;
-        var mtdelVal = $("#" + key).find(".mt-price").text();
-        totalPrice -= mtdelVal;
-        $("#total-menu-price").text(comma(totalPrice));
-        $("#total-test-price").text(comma(32000 - totalPrice));
+        var mtdelVal2 = $("#" + key).find(".mt-price").text();
+
+        if (mtdelVal2 > 0) {
+            totalPrice -= parseInt(mtdelVal2);
+            $("#total-menu-price").text(comma(totalPrice));
+            $("#total-test-price").text(comma(32000 - totalPrice));
+        }
         $("#" + key).parent().remove();
         /*리무브*/
 
     }
 
     /*본인 메세지 삭제*/
-
     function sdPush() {
         var sdMenu = $("#sd-menu").val();
         var sdPrice = $("#sd-price").val();
@@ -418,10 +431,12 @@ $(function () {
             publicKeyIn.push({
                 keyword: html,
                 date: localTime,
+                sdprice: sdPrice,
                 user: userInfo.uid
             });
             $("#sd-menu").val("");
             $("#sd-price").val("");
+
         } else {
             alert("입력값이 없어요")
         }
@@ -470,6 +485,7 @@ $(function () {
 
 
     var totalPrice = 0;
+
     function totalMenuCalc() {
         $("#total-menu-price").text(comma(totalPrice));
         $("#total-test-price").text(comma(32000 - totalPrice));
