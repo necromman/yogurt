@@ -288,6 +288,7 @@ $(function () {
 
         if (days < 1) {
             Kdate = "오늘";
+            totalPrice += parseInt(mPrice);
         }
 
         var html2 =
@@ -396,9 +397,13 @@ $(function () {
 
     function del_on_child_removed(data) {
         var key = data.key;
+        var mtdelVal = $("#" + key).find(".mt-price").text();
+        totalPrice -= mtdelVal;
+        $("#total-menu-price").text(comma(totalPrice));
+        $("#total-test-price").text(comma(32000 - totalPrice));
         $("#" + key).parent().remove();
         /*리무브*/
-        totalMenuCalc();
+
     }
 
     /*본인 메세지 삭제*/
@@ -439,7 +444,7 @@ $(function () {
 
 
     var psearch = $("#p-search");
-    $("input[name=p-search]").keydown(function (key) {
+    $("#chat-text").keydown(function (key) {
         if (key.keyCode == 13) { //키가 13이면 실행 (엔터는 13)
             goSearch();
             $("#chat-text").val("");
@@ -453,20 +458,20 @@ $(function () {
     var sSearch = $("#s-search");
     sSearch.click(function () {
         sdPush();
+        $("#sudong").hide()
+    });
+
+    $("#sd-popup").click(function () {
+        $("#sudong").show();
+    });
+    $("#s-search-c").click(function () {
+        $("#sudong").hide();
     });
 
 
+    var totalPrice = 0;
     function totalMenuCalc() {
-        var totalPrice = 0;
-        var collection = document.getElementsByClassName('mt-price');
-        if (collection.length < 1) {
-            $("#total-menu-price").text(totalPrice);
-            totalPrice = 0;
-        }
-        for (var i = 0; i < collection.length; ++i) {
-            totalPrice += parseInt(collection[i].innerHTML);
-            $("#total-menu-price").text(comma(totalPrice));
-        }
+        $("#total-menu-price").text(comma(totalPrice));
         $("#total-test-price").text(comma(32000 - totalPrice));
     }
 
