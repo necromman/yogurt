@@ -340,6 +340,10 @@ button, input, textarea {
 }
 
 .name {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    height: 100%;
     width: 95%;
     color: #fff;
     font-family: sans-serif;
@@ -351,6 +355,10 @@ button, input, textarea {
     transform: translate(0, -50%);
     margin-left: 15px;
     transition: all 300ms ease-in-out;
+}
+
+.name-child{
+    width: 40%;
 }
 
 .icon i {
@@ -610,3 +618,13 @@ button, input, textarea {
     display: inline-block;
     margin: 0 1em;
 }
+
+#recommen{
+    background-color: #ffe501;
+    color: #402e33;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.txt-right{text-align: right}
+.txt-center{text-align: center}

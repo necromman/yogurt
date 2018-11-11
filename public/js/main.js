@@ -57,6 +57,30 @@ $(function () {
 
     // =========== moment.js 스크립트 끝
 
+
+    var ranFoodName = new Array();
+    var ranFoodNameC = 0;
+    $("#recommen").click(function () {
+        random_food_list();
+        var count = ranFoodName.length;
+        var ranJ = Math.floor((Math.random() * count) + 1);
+        $("#recommen-text").empty();
+        $("#recommen-text").append("오늘은 "+ranFoodName[ranJ]+" 어떠세요?")
+    })
+
+    function random_food_list() {
+        var publicGetKeyIn = firebase.database().ref('/음식점/' + "food");
+        publicGetKeyIn.on('child_added', random_food_on_child_added);
+    }
+
+    function random_food_on_child_added(data){
+        var sData = data.val();
+        ranFoodName[ranFoodNameC] = sData.name;
+        ranFoodNameC++;
+    }
+
+
+
     function get_food_list() {
         /* 음식점 목록 한세트 */
         var publicGetKeyIn = firebase.database().ref('/음식점/' + "food");
