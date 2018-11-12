@@ -339,8 +339,10 @@ $(function () {
             $("#" + key).append("<button class='samsam btn btn-irenic'>같은걸로</button>");
         }
         if (jUser == userInfo.uid) {
-            $('#' + userInfo.uid).append("<button class='msgDel btn btn-irenic'>삭제</button>");
-            $('#' + userInfo.uid).find(".samsam").hide();
+            if (days < 1) {
+                $('#' + userInfo.uid).append("<button class='msgDel btn btn-irenic'>삭제</button>");
+                $('#' + userInfo.uid).find(".samsam").hide();
+            }
         }
 
         if (days > 1) {
