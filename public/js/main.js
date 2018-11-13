@@ -254,7 +254,7 @@ $(function () {
             "              <span class=\"c_name\">" + menuname + "</span>" +
             "              <span class=\"c_price\">" + comma(mprice) + "원</span>" +
             "              <span class=\"c_order\">주문횟수 : <span>" + morder + "</span></span>" +
-            "              <span><button class=\"sc-add-to-cart btn btn-irenic\" data-shop='" + shopId + "' data-name='" + menuname + "' data-price='" + mprice + "' data-order='" + morder + "'>이걸로하죠</button></span>" +
+            "              <span><button class=\"sc-add-to-cart jump-btn\" data-shop='" + shopId + "' data-name='" + menuname + "' data-price='" + mprice + "' data-order='" + morder + "'>이걸로하죠</button></span>" +
             "          </div>"
         if (morder > 0) {
             $("#s_card_wrap").prepend(mhtml);
@@ -336,11 +336,11 @@ $(function () {
         $("#chat-history").prepend(html2);
         $('#' + userInfo.uid).addClass("bonin");
         if (mPrice > 0) {
-            $("#" + key).append("<button class='samsam btn btn-irenic'>같은걸로</button>");
+            $("#" + key).append("<button class='samsam jump-btn'>같은걸로</button>");
         }
         if (jUser == userInfo.uid) {
             if (days < 0.5) {
-                $('#' + userInfo.uid).append("<button class='msgDel btn btn-irenic'>삭제</button>");
+                $('#' + userInfo.uid).append("<button class='msgDel jump-btn'>삭제</button>");
                 $('#' + userInfo.uid).find(".samsam").hide();
             }
         }
@@ -545,7 +545,7 @@ $(function () {
     });
 
     $(document).on('click', '#submit', function () {
-        menu_input_list()
+            menu_input_list();
     });
 
     $("#menu_line_add").keydown(function (key) {
@@ -555,16 +555,10 @@ $(function () {
     });
 
     function input_menu_added() {
-        var html = "<div class=\"input-tem\"><label class=\"form-input\">" +
-            "                            <input type=\"text\" name=\"input-menu\"/>" +
-            "                            <span class=\"label\">메뉴명</span>" +
-            "                            <div class=\"underline\"></div>" +
-            "                        </label>" +
-            "                        <label class=\"form-input\">" +
-            "                            <input type=\"text\" name=\"input-price\"/>" +
-            "                            <span class=\"label\">가격</span>" +
-            "                            <div class=\"underline\"></div>" +
-            "                        </label><div>";
+        var html = "<div class=\"input-tem\">" +
+            "            <input type=\"text\" name=\"input-menu\" placeholder=\"메뉴\" required/>" +
+            "            <input type=\"text\" name=\"input-price\" placeholder=\"가격\" required/>" +
+            "        </div>";
         $("#input-menu-in").append(html);
 
     }

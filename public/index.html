@@ -8,8 +8,8 @@
     <meta name="theme-color" content="#4286f4">
     <title>11AM - 일레븐에이엠</title>
     <link rel="stylesheet" type="text/css" href="css/normalize.css"/>
-    <link rel="stylesheet" type="text/css" href="css/main.css?ver=2.0.15"/>
-    <link rel="stylesheet" type="text/css" href="css/menu.css?ver=2.0.7"/>
+    <link rel="stylesheet" type="text/css" href="css/main.css?ver=2.0.16"/>
+    <link rel="stylesheet" type="text/css" href="css/menu.css?ver=2.0.8"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
@@ -33,7 +33,7 @@
 <!--11AM - 점심 준비 시작-->
 
 <div id="s_menu_list">
-    <button class="btn btn-irenic close_list" style="position: fixed;right: 3%;display: none"> 닫기</button>
+    <button class="jump-btn close_list" style="position: fixed;right: 3%;display: none"> 닫기</button>
     <div id="s_card_wrap2">
     </div>
     <div id="s_card_wrap">
@@ -93,8 +93,7 @@
                 </div>
                 <div style="display: flex;flex: 1 1 auto;">
                     <div style="display: flex;align-items: center;justify-content: center;margin: 0 auto;">
-                        <button id="p-search"
-                                style="background-color: #7289da;color: #fff;padding: 5px 10px;border-radius: 5px;font-size: 14px;">
+                        <button id="p-search" class="jump-btn">
                             전송
                         </button>
                     </div>
@@ -109,7 +108,7 @@
                 </div>
             </div>
         </div>-->
-        <div id="sudong">
+        <div id="sudong" class="inp-sty">
             <div class="sd-wrap">
                 <div class="s-child">
                     <h4>수동메뉴 입력</h4>
@@ -122,8 +121,8 @@
                     </div>
                 </div>
                 <div class="s-child">
-                    <button id="s-search" class="btn btn-irenic">확인</button>
-                    <button id="s-search-c" class="btn btn-irenic">닫기</button>
+                    <button id="s-search" class="jump-btn">확인</button>
+                    <button id="s-search-c" class="jump-btn">닫기</button>
                 </div>
             </div>
         </div>
@@ -133,103 +132,41 @@
 </div>
 
 <div class="container3">
+    <div class="inp-sty">
+        <div id="form">
+            <div class="s-child">
+                <h4>정보 입력</h4>
+            </div>
+            <input type="text" class="s-name" placeholder="상호이름" required/>
+            <input type="text" class="cat" placeholder="면/도시락/돈까스..." required/>
+            <input type="text" class="phone-number" placeholder="전화번호" required/>
+            <input type="text" class="closed" placeholder="휴무일" required/>
+            <input type="text" class="delivery" placeholder="배달/방문포장" required/>
 
-    <div class="tile">
-        <div class="tile-header">
-            <h2 style="color: white; opacity: .75; font-size: 4rem; display: flex; justify-content: center; align-items: center; height: 100%;">
-                점심갬성</h2>
-        </div>
-
-        <div class="tile-body">
-            <form id="form">
-                <label class="form-input">
-                    <input type="text" class="s-name" required/>
-                    <span class="label">상호명</span>
-                    <div class="underline"></div>
-                </label>
-
-                <label class="form-input">
-                    <input type="text" class="cat" required/>
-                    <span class="label">구분</span>
-                    <div class="underline"></div>
-                </label>
-
-                <label class="form-input">
-                    <input type="text" class="phone-number" required/>
-                    <span class="label">전화번호</span>
-                    <div class="underline"></div>
-                </label>
-
-                <label class="form-input">
-                    <input type="text" class="closed" required/>
-                    <span class="label">휴무일</span>
-                    <div class="underline"></div>
-                </label>
-
-                <label class="form-input">
-                    <input type="text" class="delivery" required/>
-                    <span class="label">배달유무 (배달가능/방문포장)</span>
-                    <div class="underline"></div>
-                </label>
-
-                <div class="input-menu-wrap">
-                    <h4>메뉴입력</h4>
-                    <div id="input-menu-in">
-                        <div class="input-tem">
-                            <label class="form-input">
-                                <input type="text" name="input-menu"/>
-                                <span class="label">메뉴명</span>
-                                <div class="underline"></div>
-                            </label>
-                            <label class="form-input">
-                                <input type="text" name="input-price"/>
-                                <span class="label">가격</span>
-                                <div class="underline"></div>
-                            </label>
-                        </div>
-                        <div class="input-tem">
-                            <label class="form-input">
-                                <input type="text" name="input-menu" required/>
-                                <span class="label">메뉴명</span>
-                                <div class="underline"></div>
-                            </label>
-                            <label class="form-input">
-                                <input type="text" name="input-price" required/>
-                                <span class="label">가격</span>
-                                <div class="underline"></div>
-                            </label>
-                        </div>
+            <div class="input-menu-wrap">
+                <div class="s-child">
+                    <h4>메뉴 입력</h4>
+                </div>
+                <div id="input-menu-in">
+                    <div class="input-tem">
+                        <input type="text" name="input-menu" placeholder="메뉴" required/>
+                        <input type="text" name="input-price" placeholder="가격" required/>
                     </div>
-                    <div id="menu_line_add" class="btn btn-irenic" tabindex="0">
-                        <span>라인추가</span>
-                    </div>
-                    <div id="menu_line_remove" class="btn btn-irenic" tabindex="0">
-                        <span>라인삭제</span>
+                    <div class="input-tem">
+                        <input type="text" name="input-menu" placeholder="메뉴" required/>
+                        <input type="text" name="input-price" placeholder="가격" required/>
                     </div>
                 </div>
-
-
-                <div class="submit-container clearfix" style="margin-top: 2rem;">
-                    <div id="submit" role="button" type="button" class="btn btn-irenic float-right" tabindex="0">
-                        <span>맛있을거야</span>
-                    </div>
-
-                    <div class="login-pending">
-                        <div class=spinner>
-                            <span class="dot1"></span>
-                            <span class="dot2"></span>
-                        </div>
-
-                        <div class="login-granted-content">
-                            <i class="material-icons">done</i>
-                        </div>
-                    </div>
+                <div>
+                    <button id="menu_line_add" class="jump-btn">라인추가</button>
+                    <button id="menu_line_remove" class="jump-btn">라인삭제</button>
                 </div>
-
-            </form>
+            </div>
+            <div>
+                <button id="submit" class="jump-btn" type="submit">확인</button>
+            </div>
         </div>
     </div>
-
 </div>
 
 <!-- Initialize Swiper -->
@@ -270,8 +207,8 @@
 
 <!--11AM - 점심 준비 끝-->
 
-<script src="js/main.js?ver=2.0.20"></script>
-<script src="js/menu-input.js?ver=2"></script>
+<script src="js/main.js?ver=2.0.21"></script>
+<script src="js/menu-input.js?ver=2.0.2"></script>
 <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-database.js"></script>

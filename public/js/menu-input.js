@@ -1,9 +1,9 @@
 function menu_input_list() {
-    var name = $(".form-input .s-name").val();
-    var number = $(".form-input .phone-number").val();
-    var closed = $(".form-input .closed").val();
-    var cat = $(".form-input .cat").val();
-    var delivery = $(".form-input .delivery").val();
+    var name = $("#form .s-name").val();
+    var number = $("#form .phone-number").val();
+    var closed = $("#form .closed").val();
+    var cat = $("#form .cat").val();
+    var delivery = $("#form .delivery").val();
     var menunameL = $("#input-menu-in").find("input[name='input-menu']").length;
     var menuname = $("#input-menu-in").find("input[name='input-menu']");
     var menuPrice = $("#input-menu-in").find("input[name='input-price']");
@@ -30,18 +30,6 @@ function menu_input_list() {
         delivery: delivery,
         menu: aJsonArray
     });
-    signIn();
+    $("#form input").val("");
+    alert("♥ 추가되었어요.");
 }
-
-var $btn = document.getElementById("submit");
-var $form = document.getElementById("form");
-
-function signIn() {
-    if ($form.checkValidity()) {
-        $btn.classList.add('pending');
-        window.setTimeout(function () {
-            $btn.classList.add('granted');
-        }, 1500);
-    }
-}
-

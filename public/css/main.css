@@ -476,6 +476,10 @@ button, input, textarea {
     .tile {
         width: 100% !important;
     }
+    .inp-sty{
+        width: 100% !important;
+        padding: 0 1em;
+    }
 }
 
 @media only screen and (max-width: 600px) {
@@ -567,14 +571,14 @@ button, input, textarea {
     z-index: 999999;
 }
 
-#sudong input {
-    display: block;
-    width: 100%;
-    margin: 0.5em 0;
+.inp-sty input {
+    display: inline-block;
+    width: 45%;
+    margin: 1px 0;
     background-color: #ffffff;
     padding: 1em 1em;
     border-radius: 5px;
-    border: 1px solid #ddd;
+    border: 1px solid black;
     color: black;
 }
 
@@ -629,4 +633,37 @@ button, input, textarea {
 .txt-right{text-align: right}
 .txt-center{text-align: center}
 
-.container3{display: none}
+.jump-btn{
+    background-color: #7289da;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.container3{
+    position: absolute;
+    width: 100%;
+    background-color: #36393f;
+    color: #fff;
+    padding: 1em 0;
+}
+.container3 .inp-sty{
+    width: 60%;
+    margin: 0 auto;
+}
+
+.totalOwrap{
+    font-size: 0.6em;
+    font-weight: 100;
+    position: absolute;
+    top: -30px;
+    left: 0;
+    width: 100%;
+}
+
+#form .jump-btn{
+    margin-right: 0.5em;
+    margin-top: 1em;
+}
