@@ -323,7 +323,7 @@ $(function () {
             days = diff / 1000 / 60 / 60 / 24;
 
 
-        if (days < 1) {
+        if (days < 0.5) {
             Kdate = "오늘";
             if (mPrice > 0) {
                 totalPrice += parseInt(mPrice);
@@ -339,13 +339,13 @@ $(function () {
             $("#" + key).append("<button class='samsam btn btn-irenic'>같은걸로</button>");
         }
         if (jUser == userInfo.uid) {
-            if (days < 1) {
+            if (days < 0.5) {
                 $('#' + userInfo.uid).append("<button class='msgDel btn btn-irenic'>삭제</button>");
                 $('#' + userInfo.uid).find(".samsam").hide();
             }
         }
 
-        if (days > 1) {
+        if (days > 0.5) {
             $("#chat-history > div").css("backgroundColor", "#7d7d7d");
         }
         /*애드*/
