@@ -401,9 +401,6 @@ button, input, textarea {
     text-align: right;
     display: block;
     color: #bfbfbf;
-    position: absolute;
-    right: 20px;
-    bottom: 0;
 }
 
 .chat-input {
@@ -677,10 +674,4 @@ button, input, textarea {
 
 .timeline-item-wrap{
     position: relative;
-}
-
-.timeline-item-wrap .jump-btn{
-    position: absolute;
-    top: 13%;
-    right: 60px;
 }
