@@ -1,0 +1,24 @@
+{
+  "name": "lunch-jin",
+  "description": "점심 프로젝트",
+  "main": "public/index.html",
+  "authors": [
+    "necromman <necromman@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/necromman/yogurt",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "public/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "html5shiv": "^3.7.3"
+  },
+  "devDependencies": {
+    "jquery": "^3.3.1"
+  }
+}

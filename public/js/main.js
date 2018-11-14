@@ -33,9 +33,7 @@ $(function () {
     auth.onAuthStateChanged(function (user) {
         if (user) {
             userInfo = user;
-            // if (!$("#chat-history").text()) {
-            //
-            // }
+            random_food_list();
             get_text_list1();
             del_text_msg();
             get_food_list();
@@ -49,9 +47,8 @@ $(function () {
     var localTime;
     // =========== moment.js 스크립트 시작
     setInterval(function () {
-        divUtc.text(moment.utc().format('YYYY-MM-DD HH:mm:ss'));
-        localTime = moment.utc(divUtc.text()).toDate();
-        localTime = moment(localTime).format('YYYY-MM-DD HH:mm:ss');
+        divUtc.text(moment.utc().add(9,'hours').format('YYYY-MM-DD HH:mm:ss'));
+        localTime = moment().format('YYYY-MM-DD HH:mm:ss');
         divLocal.text(localTime);
     }, 1000);
 
@@ -61,7 +58,6 @@ $(function () {
     var ranFoodName = new Array();
     var ranFoodNameC = 0;
     $("#recommen").click(function () {
-        random_food_list();
         var count = ranFoodName.length;
         var ranJ = Math.floor(Math.random() * (count - 0) + 0);
         $("#recommen-text").empty();

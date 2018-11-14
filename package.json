@@ -1,0 +1,23 @@
+{
+  "name": "lunch-jin",
+  "version": "1.0.0",
+  "description": "점심 프로젝트",
+  "main": "public/index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/necromman/yogurt.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/necromman/yogurt/issues"
+  },
+  "homepage": "https://github.com/necromman/yogurt#readme",
+  "dependencies": {
+    "bower": "^1.8.4"
+  },
+  "devDependencies": {}
+}
