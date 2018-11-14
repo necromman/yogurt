@@ -161,7 +161,7 @@ button, input, textarea {
     width: 100%;
     margin-bottom: 1em !important;
     padding-bottom: 2em !important;
-    margin-top: -145px !important;
+    margin-top: -163px !important;
     height: 340px;
 }
 
@@ -201,7 +201,7 @@ button, input, textarea {
 
 .above-overlay {
     position: relative;
-    top: 200px;
+    top: 220px;
     margin: 0 auto;
     text-align: center;
     width: 100%;
@@ -212,10 +212,12 @@ button, input, textarea {
 .above-overlay h2 {
     text-shadow: 0 1px 6px #000000;
     font-weight: bold;
+    font-size: 1.2em;
 }
 
 .above-overlay p {
-    margin: 0
+    margin: 0;
+    font-size: 0.8em;
 }
 
 .overlay-gradient-large {
