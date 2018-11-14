@@ -47,7 +47,7 @@ $(function () {
     var localTime;
     // =========== moment.js 스크립트 시작
     setInterval(function () {
-        divUtc.text(moment.utc().add(9,'hours').format('YYYY-MM-DD HH:mm:ss'));
+        divUtc.text(moment.utc().add(9, 'hours').format('YYYY-MM-DD HH:mm:ss'));
         localTime = moment().format('YYYY-MM-DD HH:mm:ss');
         divLocal.text(localTime);
     }, 1000);
@@ -61,7 +61,7 @@ $(function () {
         var count = ranFoodName.length;
         var ranJ = Math.floor(Math.random() * (count - 0) + 0);
         $("#recommen-text").empty();
-        $("#recommen-text").append("오늘은 "+ranFoodName[ranJ]+" 어떠세요?")
+        $("#recommen-text").append("오늘은 " + ranFoodName[ranJ] + " 어떠세요?")
         ranFoodNameC = 0;
     })
 
@@ -70,12 +70,11 @@ $(function () {
         publicGetKeyIn.on('child_added', random_food_on_child_added);
     }
 
-    function random_food_on_child_added(data){
+    function random_food_on_child_added(data) {
         var sData = data.val();
         ranFoodName[ranFoodNameC] = sData.name;
         ranFoodNameC++;
     }
-
 
 
     function get_food_list() {
@@ -283,6 +282,7 @@ $(function () {
 
     });
     var moreCount = 20;
+
     function get_text_list_more() {
         var publicGetKeyIn = firebase.database().ref('/채팅/' + "퍼블릭채팅").limitToLast(moreCount);
         publicGetKeyIn.on('child_added', public_on_child_added);
@@ -297,6 +297,7 @@ $(function () {
     }
 
     var jUser;
+
     function public_on_child_added(data) {
         var key = data.key;
         var sData = data.val();
@@ -541,7 +542,23 @@ $(function () {
     });
 
     $(document).on('click', '#submit', function () {
-            menu_input_list();
+        var check = 0;
+        var fromInput = $("#form input");
+        var fromFind = $("#form").find("input");
+        function f() {
+            for (var i = 0; fromInput.length > i; i++) {
+                if (!fromFind[i].value) {
+                    fromFind[i].focus();
+                    check++;
+                    break;
+                }
+            }
+            if(check <= 0){
+                menu_input_list();
+            }else
+            alert("빈값이 있어요");
+        }
+        f();
     });
 
     $("#menu_line_add").keydown(function (key) {
