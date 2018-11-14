@@ -125,13 +125,13 @@ $(function () {
         var ranBack;
         switch (ranJ) {
             case 1 :
-                ranBack = "/img/1.jpg";
+                ranBack = "/img/01.jpg";
                 break;
             case 2 :
-                ranBack = "/img/2.jpg";
+                ranBack = "/img/02.jpg";
                 break;
             case 3 :
-                ranBack = "/img/3.jpg";
+                ranBack = "/img/03.jpg";
                 break;
         }
 
