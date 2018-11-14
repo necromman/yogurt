@@ -19,5 +19,9 @@
   "dependencies": {
     "bower": "^1.8.4"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "grunt": "^1.0.3",
+    "grunt-contrib-watch": "^1.1.0",
+    "time-grunt": "^2.0.0"
+  }
 }
