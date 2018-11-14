@@ -401,6 +401,9 @@ button, input, textarea {
     text-align: right;
     display: block;
     color: #bfbfbf;
+    position: absolute;
+    right: 20px;
+    bottom: 0;
 }
 
 .chat-input {
@@ -621,7 +624,7 @@ button, input, textarea {
 }
 
 .total-alram{
-    z-index: 999;width: 100%;text-align: center;background-color: #36393f;color: #f1f1f1;
+    z-index: 999;width: 100%;text-align: center;background-color: #347df5;color: #f1f1f1;
 }
 .total-alram > span{
     display: inline-block;
@@ -670,4 +673,14 @@ button, input, textarea {
 #form .jump-btn{
     margin-right: 0.5em;
     margin-top: 1em;
+}
+
+.timeline-item-wrap{
+    position: relative;
+}
+
+.timeline-item-wrap .jump-btn{
+    position: absolute;
+    top: 13%;
+    right: 60px;
 }

@@ -328,7 +328,7 @@ $(function () {
         }
 
         var html2 =
-            "<div id='" + jUser + "'><div id='" + key + "' class='timeline-item' data-price='" + mPrice + "'>" + Kword + "<span>" + Kdate + "</span>" + "</div></div>";
+            "<div id='" + jUser + "' class='timeline-item-wrap'><div id='" + key + "' class='timeline-item' data-price='" + mPrice + "'>" + Kword + "<span>" + Kdate + "</span>" + "</div></div>";
 
         $("#chat-history").prepend(html2);
         $('#' + userInfo.uid).addClass("bonin");
