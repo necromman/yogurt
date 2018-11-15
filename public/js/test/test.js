@@ -27,11 +27,11 @@ function leadingZeros(n, digits) {
 *  moment js countdown
 *==================================================================
 */
-var tHour,tMinute,tSecond = 0;
-
+var tHour, tMinute, tSecond = 0;
+var tMsecond = 9;
 function updateClock() {
     var now = moment();
-    var eventTime = moment("154110", "hhmmss");
+    var eventTime = moment("184000", "hhmmss");
 
     var diffT = eventTime - now;
     tHour = Math.floor(diffT % (1000 * 60 * 60 * 24) / (1000 * 60 * 60));
@@ -43,7 +43,11 @@ function updateClock() {
     console.log("카운트다운 시간" + leadingZeros(tHour, 2));
     console.log("카운트다운 분" + leadingZeros(tMinute, 2));
     console.log("카운트다운 초" + leadingZeros(tSecond, 2));
-
+    console.log("카운트다운 밀리" + tMsecond--);
+    console.log("ssss" + tt);
+    if(tMsecond < 0){
+        tMsecond = 9;
+    }
     /*
     days = distance / (1000 * 60 * 60 * 24)
     hours = distance % (1000 * 60 * 60 * 24) / (1000 * 60 * 60)
@@ -54,10 +58,11 @@ function updateClock() {
 
 var clear = setInterval(function () {
     updateClock();
-    if(tHour == 0 && tMinute==0 && tSecond==0){
+    if (tHour <= 0 && tMinute <= 0 && tSecond <= 0) {
         clearInterval(clear);
+        console.log("카운트다운 없음");
     }
-}, 1000);
+}, 100);
 
 
 
