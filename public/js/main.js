@@ -12,7 +12,7 @@ $(function () {
             get_food_list();
             swiper_func();
         } else {
-            firebase.auth().signInAnonymously(); // 익명로그인
+            firebase.auth().signInAnonymously();
         }
     });
 
@@ -31,18 +31,15 @@ $(function () {
         divLocal.text(localTime);
     }, 1000);
 
-
-
-
     var ranFoodName = new Array();
     var ranFoodNameC = 0;
     $("#recommen").click(function () {
         var count = ranFoodName.length;
         var ranJ = Math.floor(Math.random() * (count - 0) + 0);
         $("#recommen-text").empty();
-        $("#recommen-text").append("오늘은 " + ranFoodName[ranJ] + " 어떠세요?")
+        $("#recommen-text").append("오늘은 " + ranFoodName[ranJ] + " 어떠세요?");
         ranFoodNameC = 0;
-    })
+    });
 
     function random_food_list() {
         var publicGetKeyIn = firebase.database().ref('/음식점/' + "food");
@@ -98,15 +95,9 @@ $(function () {
         var ranJ = Math.floor((Math.random() * 3) + 1);
         var ranBack;
         switch (ranJ) {
-            case 1 :
-                ranBack = "/img/01.jpg";
-                break;
-            case 2 :
-                ranBack = "/img/02.jpg";
-                break;
-            case 3 :
-                ranBack = "/img/03.jpg";
-                break;
+            case 1 : ranBack = "/img/01.jpg"; break;
+            case 2 : ranBack = "/img/02.jpg"; break;
+            case 3 : ranBack = "/img/03.jpg"; break;
         }
 
         var fhtml = "<div id='" + key + "' class=\"swiper-slide\">" +

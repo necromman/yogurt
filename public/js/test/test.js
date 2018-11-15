@@ -27,18 +27,21 @@ function leadingZeros(n, digits) {
 *  moment js countdown
 *==================================================================
 */
-var tHour, tMinute, tSecond = 0;
+var tDay, tHour, tMinute, tSecond = 0;
+var fromDate = "07240000";
 function updateClock() {
     var now = moment();
-    var eventTime = moment("204000", "hhmmss");
+    var eventTime = moment(fromDate, "DDhhmmss");
 
     var diffT = eventTime - now;
+    tDay = Math.floor(diffT / (1000 * 60 * 60 * 24));
     tHour = Math.floor(diffT % (1000 * 60 * 60 * 24) / (1000 * 60 * 60));
     tMinute = Math.floor(diffT % (1000 * 60 * 60) / (1000 * 60));
     tSecond = Math.floor((diffT % (1000 * 60) / 1000));
 
     console.log("현재" + now);
     console.log("이벤트" + eventTime);
+    console.log("카운트다운 데이" + leadingZeros(tDay, 2));
     console.log("카운트다운 시간" + leadingZeros(tHour, 2));
     console.log("카운트다운 분" + leadingZeros(tMinute, 2));
     console.log("카운트다운 초" + leadingZeros(tSecond, 2));
