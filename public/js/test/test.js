@@ -28,10 +28,9 @@ function leadingZeros(n, digits) {
 *==================================================================
 */
 var tHour, tMinute, tSecond = 0;
-var tMsecond = 9;
 function updateClock() {
     var now = moment();
-    var eventTime = moment("184000", "hhmmss");
+    var eventTime = moment("204000", "hhmmss");
 
     var diffT = eventTime - now;
     tHour = Math.floor(diffT % (1000 * 60 * 60 * 24) / (1000 * 60 * 60));
@@ -43,11 +42,21 @@ function updateClock() {
     console.log("카운트다운 시간" + leadingZeros(tHour, 2));
     console.log("카운트다운 분" + leadingZeros(tMinute, 2));
     console.log("카운트다운 초" + leadingZeros(tSecond, 2));
-    console.log("카운트다운 밀리" + tMsecond--);
-    console.log("ssss" + tt);
-    if(tMsecond < 0){
-        tMsecond = 9;
+    var mSecond = parseInt($.trim(now).substr(10,1));
+    var mSecondTemp;
+    switch (mSecond){
+        case 1 : mSecondTemp = 9; break;
+        case 2 : mSecondTemp = 8; break;
+        case 3 : mSecondTemp = 7; break;
+        case 4 : mSecondTemp = 6; break;
+        case 5 : mSecondTemp = 5; break;
+        case 6 : mSecondTemp = 4; break;
+        case 7 : mSecondTemp = 3; break;
+        case 8 : mSecondTemp = 2; break;
+        case 9 : mSecondTemp = 1; break;
+        default : mSecondTemp = 0; break;
     }
+    console.log("카운트다운 밀리" + mSecondTemp);
     /*
     days = distance / (1000 * 60 * 60 * 24)
     hours = distance % (1000 * 60 * 60 * 24) / (1000 * 60 * 60)
