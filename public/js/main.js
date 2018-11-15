@@ -1,31 +1,4 @@
 $(function () {
-
-    /*
-    *==================================================================
-    *  current time zero add
-    *==================================================================
-    */
-    var Now = new Date();
-    var NowTime = Now.getFullYear();
-    NowTime += '-' + leadingZeros((Now.getMonth() + 1), 2);
-    NowTime += '-' + leadingZeros(Now.getDate(), 2);
-    NowTime += ' ' + leadingZeros(Now.getHours(), 2);
-    NowTime += ':' + leadingZeros(Now.getMinutes(), 2);
-    NowTime += ':' + leadingZeros(Now.getSeconds(), 2);
-
-
-    function leadingZeros(n, digits) {
-        var zero = '';
-        n = n.toString();
-
-        if (n.length < digits) {
-            for (var i = 0; i < digits - n.length; i++)
-                zero += '0';
-        }
-        return zero + n;
-    }
-
-
     var auth = firebase.auth();
     var database = firebase.database();
     var authProvider = new firebase.auth.GoogleAuthProvider();
@@ -41,7 +14,13 @@ $(function () {
         } else {
             firebase.auth().signInAnonymously(); // 익명로그인
         }
-    })
+    });
+
+    /*
+    *==================================================================
+    *  moment plug-in
+    *==================================================================
+    */
     var divUtc = $('#divUTC');
     var divLocal = $('#divLocal');
     var localTime;
@@ -52,7 +31,7 @@ $(function () {
         divLocal.text(localTime);
     }, 1000);
 
-    // =========== moment.js 스크립트 끝
+
 
 
     var ranFoodName = new Array();
@@ -206,8 +185,6 @@ $(function () {
             mprice: dataPrice,
             user: userInfo.uid
         });
-        // cartThis.attr("data-order", dataOrder + 1);
-        // cartThis.parent().parent().children(".c_order").children("span").text(dataOrder + 1);
     }
 
     /*푸시메뉴*/
@@ -216,7 +193,6 @@ $(function () {
         $("#s_card_wrap").empty();
         var shopGetKeyIn = firebase.database().ref('/음식점/' + "/food/");
         shopGetKeyIn.on('child_added', shop_on_child_added);
-        // shopGetKeyIn.on('child_changed', shop_on_child_added);
     }
 
 
@@ -545,6 +521,7 @@ $(function () {
         var check = 0;
         var fromInput = $("#form input");
         var fromFind = $("#form").find("input");
+
         function f() {
             for (var i = 0; fromInput.length > i; i++) {
                 if (!fromFind[i].value) {
@@ -553,11 +530,12 @@ $(function () {
                     break;
                 }
             }
-            if(check <= 0){
+            if (check <= 0) {
                 menu_input_list();
-            }else
-            alert("빈값이 있어요");
+            } else
+                alert("빈값이 있어요");
         }
+
         f();
     });
 
