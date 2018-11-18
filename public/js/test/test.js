@@ -28,10 +28,10 @@ function leadingZeros(n, digits) {
 *==================================================================
 */
 var tDay, tHour, tMinute, tSecond = 0;
-var fromDate = "07240000";
+var fromDate = "240000";
 function updateClock() {
     var now = moment();
-    var eventTime = moment(fromDate, "DDhhmmss");
+    var eventTime = moment(fromDate, "hhmmss");
 
     var diffT = eventTime - now;
     tDay = Math.floor(diffT / (1000 * 60 * 60 * 24));
