@@ -104,24 +104,26 @@ function updateClock() {
 *==================================================================
 */
 week = ['일', '월', '화', '수', '목', '금', '토'];
-var NowT;
+
 for (var i = 0; i < 7; i++) {
     var Now = new Date();
-    var B = new Date(Now.setDate(Now.getDate()+ 7 +i)).getDate();
+    var B = new Date(Now.setDate(Now.getDate() + 7 + i)).getDay();
     if (B == 0) {
+        var NowC = new Date();
+        var C = new Date(NowC.setDate(NowC.getDate() + 7 + i)).getDate();
         break;
     }
 }
-
+var NowT;
 NowT = Now.getFullYear();
 NowT += '-' + (Now.getMonth() + 1);
-NowT += '-' + B;
+NowT += '-' + C;
 console.log("다음주 일요일은 " + NowT);
 
 
 NowT = Now.getFullYear();
 NowT += '-' + leadingZeros((Now.getMonth() + 1), 2);
-NowT += '-' + leadingZeros(B, 2);
+NowT += '-' + leadingZeros(C, 2);
 console.log("다음주 일요일은 " + NowT);
 
 
@@ -133,7 +135,7 @@ console.log("다음주 일요일은 " + NowT);
 week = ['일', '월', '화', '수', '목', '금', '토'];
 for (var i = 0; i < 7; i++) {
     var Now = new Date();
-    var B = new Date(Now.setDate(Now.getDate()+ 7 +i)).getDay();
+    var B = new Date(Now.setDate(Now.getDate() + 7 + i)).getDay();
     if (B == 0) {
         break;
     }
