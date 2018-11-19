@@ -170,3 +170,12 @@ function dateSeparation2() {
     console.log(moment22);
     alert(moment22);
 }
+
+function dateSeparation3() {
+    let datestring = '2018-11-13T17:29:50.000+09:00';
+
+    let date = new Date(datestring);
+    [date.getFullYear(), date.getMonth()+1,date.getDate()].join('-') +' ' +
+    [date.getHours(), date.getMinutes(), date.getSeconds()].join(':')
+    console.log(date);
+}
