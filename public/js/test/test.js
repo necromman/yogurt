@@ -142,3 +142,31 @@ for (var i = 0; i < 7; i++) {
 }
 console.log(B);
 console.log(week[B]);
+
+function dateSeparation() {
+    var str = "2018-11-13T17:29:50.000+09:00 ";
+    var strArry = str.split('-');
+    var strT =  strArry[2].split('T');
+    var strC = strT[1].split(':');
+    var strD = strC[2].split('.');
+    var total = strArry[0];
+    total += '-' + strArry[1];
+    total += '-' + strArry[1];
+    total += ' ' + strT[0];
+    total += ':' + strC[0];
+    total += ':' + strC[1];
+    total += ':' + strD[0];
+    console.log(total);
+}
+
+
+function dateSeparation2() {
+
+    /*
+    https://momentjs.com
+    저는 모먼트 JS 이용하고 있는데 이것도 참고하세요 :)
+    */
+    var moment22 =  moment("2018-11-13T17:29:50.000+09:00").format('YYYY-MM-DD hh:mm:ss');
+    console.log(moment22);
+    alert(moment22);
+}
