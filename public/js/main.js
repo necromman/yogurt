@@ -265,7 +265,7 @@ $(function () {
 
     /* 채팅 한세트 */
     function get_text_list1() {
-        const publicGetKeyIn = firebase.database().ref('/채팅/' + "퍼블릭채팅").limitToLast(20);
+        const publicGetKeyIn = firebase.database().ref('/채팅/' + "퍼블릭채팅");
         publicGetKeyIn.on('child_added', public_on_child_added);
     }
 
