@@ -161,21 +161,22 @@ function dateSeparation() {
 
 
 function dateSeparation2() {
-
-    /*
-    https://momentjs.com
-    저는 모먼트 JS 이용하고 있는데 이것도 참고하세요 :)
-    */
     var moment22 =  moment("2018-11-13T17:29:50.000+09:00").format('YYYY-MM-DD hh:mm:ss');
     console.log(moment22);
     alert(moment22);
 }
 
-function dateSeparation3() {
-    let datestring = '2018-11-13T17:29:50.000+09:00';
-
-    let date = new Date(datestring);
-    [date.getFullYear(), date.getMonth()+1,date.getDate()].join('-') +' ' +
-    [date.getHours(), date.getMinutes(), date.getSeconds()].join(':')
-    console.log(date);
+/*
+*==================================================================
+*  scroll
+*==================================================================
+*/
+function scrollAction() {
+    $(window).scroll(function () {
+        if($(this).scrollTop() > 10){
+            console.log("if : " + $(this).scrollTop());
+        }else{
+            console.log("else : " + $(this).scrollTop());
+        }
+    })
 }
