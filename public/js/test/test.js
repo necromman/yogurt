@@ -173,10 +173,11 @@ function dateSeparation2() {
 */
 function scrollAction() {
     $(window).scroll(function () {
-        if($(this).scrollTop() > 10){
-            console.log("if : " + $(this).scrollTop());
+        const thisScroll = $(this).scrollTop();
+        if(thisScroll > 10){
+            console.log("if : " + thisScroll);
         }else{
-            console.log("else : " + $(this).scrollTop());
+            console.log("else : " + thisScroll);
         }
     })
 }

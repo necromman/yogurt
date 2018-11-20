@@ -1,8 +1,7 @@
 $(function () {
-    var auth = firebase.auth();
-    var database = firebase.database();
-    var authProvider = new firebase.auth.GoogleAuthProvider();
-    var userInfo;
+    const auth = firebase.auth();
+    const database = firebase.database();
+    let userInfo;
     auth.onAuthStateChanged(function (user) {
         if (user) {
             userInfo = user;
@@ -21,86 +20,111 @@ $(function () {
     *  moment plug-in
     *==================================================================
     */
-    var divUtc = $('#divUTC');
-    var divLocal = $('#divLocal');
-    var localTime;
+
+    /*
+    *==================================================================
+    * const collection
+    *==================================================================
+    */
+    const divUtc = $('#divUTC');
+    const divLocal = $('#divLocal');
+    const ranFoodName = [];
+    const $recommen = $('#recommen');
+    const $recommenText = $("#recommen-text");
+    const $ldsHeart = $(".lds-heart");
+    const $jSwiperWrapper = $("#j-swiper-wrapper");
+    const $sMenuList = $("#s_menu_list");
+    const $closeList = $('.close_list');
+    const $sCardWrap = $("#s_card_wrap");
+    const $chatHistory = $("#chat-history");
+    const $chatText = $("#chat-text");
+    const $psearch = $("#p-search");
+    const $totalMenuPrice = $("#total-menu-price");
+    const $totalTestPrice = $("#total-test-price");
+    const $inputMenuIn = $("#input-menu-in");
+    const $from = $("#form");
+    const $menuLineAdd = $("#menu_line_add");
+    const $sSearch = $("#s-search");
+    const $sdPopup = $("#sd-popup");
+    const $sSearchC = $("#s-search-c");
+    const $sudong = $("#sudong");
+
+
+
     // =========== moment.js 스크립트 시작
+    let localTime;
     setInterval(function () {
         divUtc.text(moment.utc().add(9, 'hours').format('YYYY-MM-DD HH:mm:ss'));
         localTime = moment().format('YYYY-MM-DD HH:mm:ss');
         divLocal.text(localTime);
     }, 1000);
 
-    var ranFoodName = new Array();
-    var ranFoodNameC = 0;
-    $("#recommen").click(function () {
-        var count = ranFoodName.length;
-        var ranJ = Math.floor(Math.random() * (count - 0) + 0);
-        $("#recommen-text").empty();
-        $("#recommen-text").append("오늘은 " + ranFoodName[ranJ] + " 어떠세요?");
+
+    let ranFoodNameC = 0;
+    $recommen.click(function () {
+        let count = ranFoodName.length;
+        let ranJ = Math.floor(Math.random() * (count));
+        $recommenText.empty();
+        $recommenText.append("오늘은 " + ranFoodName[ranJ] + " 어떠세요?");
         ranFoodNameC = 0;
     });
 
     function random_food_list() {
-        var publicGetKeyIn = firebase.database().ref('/음식점/' + "food");
+        const publicGetKeyIn = firebase.database().ref('/음식점/' + "food");
         publicGetKeyIn.on('child_added', random_food_on_child_added);
     }
 
     function random_food_on_child_added(data) {
-        var sData = data.val();
+        const sData = data.val();
         ranFoodName[ranFoodNameC] = sData.name;
         ranFoodNameC++;
     }
 
 
     function get_food_list() {
-        /* 음식점 목록 한세트 */
-        var publicGetKeyIn = firebase.database().ref('/음식점/' + "food");
+        const publicGetKeyIn = firebase.database().ref('/음식점/' + "food");
         publicGetKeyIn.on('child_added', food_on_child_added);
         publicGetKeyIn.on('child_changed', food_on_child_changed);
-        $(".lds-heart").hide();
+        $ldsHeart.hide();
     }
 
-    var totalOder = 0;
-
+    let totalOder = 0;
     function food_on_child_changed(data) {
-        var key = data.key;
-
-        var publicGetKeyIn = firebase.database().ref('/음식점/' + "/food/" + "/" + key + "/" + "menu");
+        const key = data.key;
+        const publicGetKeyIn = firebase.database().ref('/음식점/' + "/food/" + "/" + key + "/" + "menu");
         publicGetKeyIn.on('child_added', function (data) {
-            var sData = data.val();
-            totalOder += sData.order
+            const sData = data.val();
+            totalOder += sData.order;
             $("#" + key).find(".totalOder").text(totalOder);
         });
         totalOder = 0;
     }
 
     function food_on_child_added(data) {
-        var key = data.key;
-        var sData = data.val();
-        var fname = sData.name;
-        var fcat = sData.cat;
-        var fclosed = sData.closed;
-        var fnumber = sData.number;
-        var fdelivery = sData.delivery;
+        let key = data.key;
+        let sData = data.val();
+        let fname = sData.name;
+        let fclosed = sData.closed;
+        let fnumber = sData.number;
+        let fdelivery = sData.delivery;
 
 
-        var publicGetKeyIn = firebase.database().ref('/음식점/' + "/food/" + "/" + key + "/" + "menu");
+        let publicGetKeyIn = firebase.database().ref('/음식점/' + "/food/" + "/" + key + "/" + "menu");
         publicGetKeyIn.on('child_added', function (data) {
-            var sData = data.val();
+            const sData = data.val();
             totalOder += sData.order
         });
 
         /*범위지정 랜덤*/
-        var ranJ = Math.floor((Math.random() * 3) + 1);
-        var ranBack;
+        let ranJ = Math.floor((Math.random() * 3) + 1);
+        let ranBack;
         switch (ranJ) {
             case 1 : ranBack = "/img/01.jpg"; break;
             case 2 : ranBack = "/img/02.jpg"; break;
             case 3 : ranBack = "/img/03.jpg"; break;
         }
 
-        var fhtml = "<div id='" + key + "' class=\"swiper-slide\">" +
+        let fhtml = "<div id='" + key + "' class=\"swiper-slide\">" +
             "              <div class=\"owl-item\">" +
             "                  <div class=\"round-element\" style='background-image: url(" + ranBack + ")'>" +
             "                      <div class=\"above-overlay\">" +
@@ -113,7 +137,7 @@ $(function () {
             "                  </div>" +
             "              </div>" +
             "          </div>";
-        $("#j-swiper-wrapper").prepend(fhtml);
+        $jSwiperWrapper.prepend(fhtml);
         totalOder = 0;
     }
 
@@ -121,23 +145,23 @@ $(function () {
 
 
     /* 메뉴 목록 한세트 */
-    var shopId;
-    var cartThis;
-    var cartThisSpan;
-    $('#j-swiper-wrapper').on('click', 'div.swiper-slide', function () {
+    let shopId;
+    let cartThis;
+    let cartThisSpan;
+    $jSwiperWrapper.on('click', 'div.swiper-slide', function () {
         shopId = $(this).attr("id");
         // shopId = $(this).closest(".swiper-slide").attr("id");
         // $("#s_card_wrap").empty();
         get_menu_list();
         $("body").css("overflow", "hidden");
-        $("#s_menu_list").css({
+        $sMenuList.css({
             'left': '0%'
         });
-        $('.close_list').css("display", "block");
-        $('.close_list').on('click', function () {
+        $closeList.css("display", "block");
+        $closeList.on('click', function () {
             $(this).css("display", "none");
             $("body").css("overflow", "");
-            $("#s_menu_list").css({
+            $sMenuList.css({
                 'left': '-100%'
             });
         });
@@ -151,23 +175,17 @@ $(function () {
     //AJAX사용 후 불러온 엘리먼트의 이벤트가 작동 하지 않을때
 
     /*푸시메뉴*/
-    var dataMenu;
-    var dataOrder;
-    var totalPrice = 0;
-
     function pushMenu() {
-        var dataShop = cartThis.attr("data-shop");
-        dataMenu = cartThis.closest("div").attr("id");
-        var dataMenuName = cartThis.attr("data-name");
-        var dataPrice = cartThis.attr("data-price");
-        dataOrder = parseInt(cartThis.attr("data-order"));
-
-        var publicKeyIn = database.ref('/음식점/' + "/food/" + "/" + shopId + "/" + "/menu/" + dataMenu);
-        var chatKeyIn = database.ref('/채팅/' + "퍼블릭채팅");
+        let dataMenu = cartThis.closest("div").attr("id");
+        let dataMenuName = cartThis.attr("data-name");
+        let dataPrice = cartThis.attr("data-price");
+        let dataOrder = parseInt(cartThis.attr("data-order"));
+        let publicKeyIn = database.ref('/음식점/' + "/food/" + "/" + shopId + "/" + "/menu/" + dataMenu);
+        let chatKeyIn = database.ref('/채팅/' + "퍼블릭채팅");
         publicKeyIn.update({
             order: dataOrder + 1
         });
-        var keyword = "<h3 data-id='" + dataMenu + "' data-order='" + dataOrder + "' class='" + shopId + "'>" + dataMenuName + "</h3><p>가격:<span class='mt-price'>" + dataPrice + "</span>원<br>상호:<span class='mt-sname'>" + sName + "</span></p>"
+        let keyword = "<h3 data-id='" + dataMenu + "' data-order='" + dataOrder + "' class='" + shopId + "'>" + dataMenuName + "</h3><p>가격:<span class='mt-price'>" + dataPrice + "</span>원<br>상호:<span class='mt-sname'>" + sName + "</span></p>";
         chatKeyIn.push({
             keyword: keyword,
             date: localTime,
@@ -181,18 +199,17 @@ $(function () {
     /*푸시메뉴*/
 
     function get_menu_list() {
-        $("#s_card_wrap").empty();
-        var shopGetKeyIn = firebase.database().ref('/음식점/' + "/food/");
+        $sCardWrap.empty();
+        const shopGetKeyIn = firebase.database().ref('/음식점/' + "/food/");
         shopGetKeyIn.on('child_added', shop_on_child_added);
     }
 
 
-    var sName;
-    var menu_GetKeyIn;
-
+    let sName;
+    let menu_GetKeyIn;
     function shop_on_child_added(data) {
-        var key = data.key; // 메뉴이름
-        var sData = data.val();
+        let key = data.key; // 메뉴이름
+        let sData = data.val();
         if (key == shopId) {
             sName = sData.name;
             menu_GetKeyIn = firebase.database().ref('/음식점/' + "/food/" + "/" + shopId + "/" + "menu").orderByChild('order');
@@ -204,34 +221,30 @@ $(function () {
     }
 
     function menu_on_child_added(data) {
-        var key = data.key; // 메뉴이름
-        var sData = data.val();
-        var mprice = sData.price;
-        var menuname = sData.menuname;
-        var morder = sData.order;
-        var mgrade = sData.grade;
+        let key = data.key; // 메뉴이름
+        let sData = data.val();
+        let mprice = sData.price;
+        let menuname = sData.menuname;
+        let morder = sData.order;
 
-        var mhtml = "<div id='" + key + "' class=\"card\">" +
+        let mhtml = "<div id='" + key + "' class=\"card\">" +
             "              <span class=\"c_img\"><span>" + sName.substr(0, 2) + "</span></span>" +
             "              <span class=\"c_name\">" + menuname + "</span>" +
             "              <span class=\"c_price\">" + comma(mprice) + "원</span>" +
             "              <span class=\"c_order\">주문횟수 : <span>" + morder + "</span></span>" +
             "              <span><button class=\"sc-add-to-cart jump-btn\" data-shop='" + shopId + "' data-name='" + menuname + "' data-price='" + mprice + "' data-order='" + morder + "'>이걸로하죠</button></span>" +
-            "          </div>"
+            "          </div>";
         if (morder > 0) {
-            $("#s_card_wrap").prepend(mhtml);
+            $sCardWrap.prepend(mhtml);
         } else {
-            $("#s_card_wrap").append(mhtml);
+            $sCardWrap.append(mhtml);
         }
-        // $("#s_card_wrap").prepend(mhtml);
     }
 
     function menu_on_child_added2(data) {
-        var key = data.key; // 메뉴이름
-        var sData = data.val();
-        var mprice = sData.price;
-        var morder = sData.order;
-        var mgrade = sData.grade;
+        let key = data.key;
+        let sData = data.val();
+        let morder = sData.order;
         $("#" + key + " .c_order span").text(morder);
         $("#" + key + " .sc-add-to-cart").attr("data-order", morder);
         $("." + shopId).attr("data-order", morder);
@@ -244,48 +257,43 @@ $(function () {
     /*더보기*/
 
     $(document).on('click', '#more-btn', function () {
-        $("#chat-history").empty();
+        $chatHistory.empty();
         get_text_list_more();
 
     });
-    var moreCount = 20;
-
+    let moreCount = 20;
     function get_text_list_more() {
-        var publicGetKeyIn = firebase.database().ref('/채팅/' + "퍼블릭채팅").limitToLast(moreCount);
+        let publicGetKeyIn = firebase.database().ref('/채팅/' + "퍼블릭채팅").limitToLast(moreCount);
         publicGetKeyIn.on('child_added', public_on_child_added);
-        $("#chat-history").append("<button id=\"more-btn\">더보기</button>");
+        $chatHistory.append("<button id=\"more-btn\">더보기</button>");
         moreCount += 20;
     }
 
     /* 채팅 한세트 */
     function get_text_list1() {
-        var publicGetKeyIn = firebase.database().ref('/채팅/' + "퍼블릭채팅").limitToLast(20);
+        const publicGetKeyIn = firebase.database().ref('/채팅/' + "퍼블릭채팅").limitToLast(20);
         publicGetKeyIn.on('child_added', public_on_child_added);
     }
 
-    var jUser;
-
+    let jUser;
     function public_on_child_added(data) {
-        var key = data.key;
-        var sData = data.val();
-        var Kword = sData.keyword;
-        var Kdate = sData.date;
+        let key = data.key;
+        let sData = data.val();
+        let Kword = sData.keyword;
+        let Kdate = sData.date;
         jUser = sData.user;
-        var mPrice = sData.mprice;
-        var sdPrice = sData.sdprice;
+        let mPrice = sData.mprice;
+        let sdPrice = sData.sdprice;
 
-        var dateStr = Kdate;
-        var a = dateStr.split(" ");
-        var d = a[0].split("-");
-        var t = a[1].split(":");
-        var rKdate = new Date(d[0], (d[1] - 1), d[2], t[0], t[1], t[2]);
-
-
-        // var start = new Date(Kdate),
-        var end = new Date(),
+        let dateStr = Kdate;
+        let a;
+        a = dateStr.split(" ");
+        let d = a[0].split("-");
+        let t = a[1].split(":");
+        let rKdate = new Date(d[0], (d[1] - 1), d[2], t[0], t[1], t[2]);
+        let end = new Date(),
             diff = new Date(end - rKdate),
             days = diff / 1000 / 60 / 60 / 24;
-
 
         if (days < 0.5) {
             Kdate = "오늘";
@@ -294,10 +302,10 @@ $(function () {
             }
         }
 
-        var html2 =
-            "<div id='" + jUser + "' class='timeline-item-wrap'><div id='" + key + "' class='timeline-item' data-price='" + mPrice + "'>" + Kword + "<span>" + Kdate + "</span>" + "</div></div>";
+        let html2 =
+            "<div id='" + jUser + "' class='timeline-item-wrap "+ key +"'><div id='" + key + "' class='timeline-item' data-price='" + mPrice + "'>" + Kword + "<span>" + Kdate + "</span>" + "</div></div>";
 
-        $("#chat-history").prepend(html2);
+        $chatHistory.prepend(html2);
         $('#' + userInfo.uid).addClass("bonin");
         if (mPrice > 0) {
             $("#" + key).append("<button class='samsam jump-btn'>같은걸로</button>");
@@ -308,37 +316,37 @@ $(function () {
                 $('#' + userInfo.uid).find(".samsam").hide();
             }
         }
-
         if (days > 0.5) {
             $("#chat-history > div").css("backgroundColor", "#7d7d7d");
         }
+
         /*애드*/
         if (sdPrice > 0) {
             totalPrice += parseInt(sdPrice);
-            $("#total-menu-price").text(comma(totalPrice));
-            $("#total-test-price").text(comma(32000 - totalPrice));
+            $totalMenuPrice.text(comma(totalPrice));
+            $totalTestPrice.text(comma(32000 - totalPrice));
         }
         totalMenuCalc();
 
     }
 
     /*나도 같은걸로*/
-    var samThis;
+    let samThis;
     $(document).on('click', '.samsam', function () {
         samThis = $(this);
-        var price = samThis.prevAll("p").children(".mt-price").text();
-        var dataId = samThis.prevAll("h3").attr("data-id");
-        var shopId2 = samThis.prevAll("h3").attr("class");
-        var dataMeuName = samThis.prevAll("h3").text();
-        var sName2 = samThis.prevAll("p").children(".mt-sname").text();
-        var dataOrder2 = 0;
+        let price = samThis.prevAll("p").children(".mt-price").text();
+        let dataId = samThis.prevAll("h3").attr("data-id");
+        let shopId2 = samThis.prevAll("h3").attr("class");
+        let dataMeuName = samThis.prevAll("h3").text();
+        let sName2 = samThis.prevAll("p").children(".mt-sname").text();
+        let dataOrder2 = 0;
 
-        var getDataSameOrder = database.ref('/음식점/' + "/food/" + "/" + shopId2 + "/" + "/menu/");
+        let getDataSameOrder = database.ref('/음식점/' + "/food/" + "/" + shopId2 + "/" + "/menu/");
         getDataSameOrder.on('child_added', getDataSameOrder_c);
 
         function getDataSameOrder_c(data) {
-            var key = data.key;
-            var Sdata = data.val();
+            let key = data.key;
+            let Sdata = data.val();
 
             if (key == dataId) {
                 dataOrder2 = Sdata.order;
@@ -366,34 +374,30 @@ $(function () {
         }
     });
 
-    /*나도 같은걸로*/
-
-    /* 채팅 한세트 */
-
     /*본인 메세지 삭제*/
-    var delMenu;
-    var delShop;
+    let delMenu;
+    let delShop;
     $(document).on('click', '.msgDel', function () {
-        var delBtnThis = $(this);
-        var delKey = delBtnThis.prev("div").attr("id");
+        let delBtnThis = $(this);
+        let delKey = delBtnThis.prev("div").attr("id");
         delShop = delBtnThis.prev("div").children("h3").attr("class");
         delMenu = delBtnThis.prev("div").children("h3").attr("data-id");
-        var publicGetKeyIn = firebase.database().ref('/채팅/' + "/퍼블릭채팅/" + delKey);
+        let publicGetKeyIn = firebase.database().ref('/채팅/' + "/퍼블릭채팅/" + delKey);
         publicGetKeyIn.remove();
         update_order_action();
     });
 
     function update_order_action() {
-        var publicKeyIn = database.ref('/음식점/' + "/food/" + "/" + delShop + "/" + "menu");
+        let publicKeyIn = database.ref('/음식점/' + "/food/" + "/" + delShop + "/" + "menu");
         publicKeyIn.on('child_added', update_order_delete_child);
     }
 
     function update_order_delete_child(data) {
-        var key = data.key;
-        var dataTem = data.val();
-        var dataOrderTem = dataTem.order;
+        let key = data.key;
+        let dataTem = data.val();
+        let dataOrderTem = dataTem.order;
         if (key == delMenu) {
-            var publicKeyIn = database.ref('/음식점/' + "/food/" + "/" + delShop + "/" + "/menu/" + delMenu);
+            let publicKeyIn = database.ref('/음식점/' + "/food/" + "/" + delShop + "/" + "/menu/" + delMenu);
             publicKeyIn.update({
                 order: dataOrderTem - 1
             });
@@ -401,30 +405,30 @@ $(function () {
     }
 
     function del_text_msg() {
-        var publicGetKeyIn = firebase.database().ref('/채팅/' + "퍼블릭채팅");
+        const publicGetKeyIn = firebase.database().ref('/채팅/' + "퍼블릭채팅");
         publicGetKeyIn.on('child_removed', del_on_child_removed);
     }
 
     function del_on_child_removed(data) {
-        var key = data.key;
-        var mtdelVal2 = $("#" + key).find(".mt-price").text();
+        let key = data.key;
+        let mtdelVal2 = $("#" + key).find(".mt-price").text();
 
         if (mtdelVal2 > 0) {
             totalPrice -= parseInt(mtdelVal2);
             $("#total-menu-price").text(comma(totalPrice));
             $("#total-test-price").text(comma(32000 - totalPrice));
         }
-        $("#" + key).parent().remove();
+        $("." + key).remove();
         /*리무브*/
 
     }
 
     /*본인 메세지 삭제*/
     function sdPush() {
-        var sdMenu = $("#sd-menu").val();
-        var sdPrice = $("#sd-price").val();
-        var html = "<h3>" + sdMenu + "</h3>" +
-            "<p>가격:<span class=\"mt-price\">" + sdPrice + "</span>원</p>"
+        let sdMenu = $("#sd-menu").val();
+        let sdPrice = $("#sd-price").val();
+        let html = "<h3>" + sdMenu + "</h3>" +
+            "<p>가격:<span class=\"mt-price\">" + sdPrice + "</span>원</p>";
         if (!(sdMenu == "" || sdPrice == "")) {
             var publicKeyIn = database.ref('/채팅/' + "퍼블릭채팅");
             publicKeyIn.push({
@@ -437,15 +441,15 @@ $(function () {
             $("#sd-price").val("");
 
         } else {
-            alert("입력값이 없어요")
+            alert("입력값이 없어요");
         }
     }
 
 
     function goSearch() {
-        var keyword = $("#chat-text").val();
-        if (!keyword == "") {
-            var publicKeyIn = database.ref('/채팅/' + "퍼블릭채팅");
+        let keyword = $chatText.val();
+        if (keyword) {
+            const publicKeyIn = database.ref('/채팅/' + "퍼블릭채팅");
             publicKeyIn.push({
                 keyword: keyword,
                 date: localTime,
@@ -457,37 +461,34 @@ $(function () {
     }
 
 
-    var psearch = $("#p-search");
-    $("#chat-text").keydown(function (key) {
+    $chatText.keydown(function (key) {
         if (key.keyCode == 13) { //키가 13이면 실행 (엔터는 13)
             goSearch();
-            $("#chat-text").val("");
+            $chatText.val("");
         }
     });
-    psearch.click(function () {
+    $psearch.click(function () {
         goSearch();
-        $("#chat-text").val("");
+        $chatText.val("");
     });
 
-    var sSearch = $("#s-search");
-    sSearch.click(function () {
+    $sSearch.click(function () {
         sdPush();
-        $("#sudong").hide()
+        $sudong.hide()
     });
 
-    $("#sd-popup").click(function () {
-        $("#sudong").show();
+    $sdPopup.click(function () {
+        $sudong.show();
     });
-    $("#s-search-c").click(function () {
-        $("#sudong").hide();
+    $sSearchC.click(function () {
+        $sudong.hide();
     });
 
 
-    var totalPrice = 0;
-
+    let totalPrice = 0;
     function totalMenuCalc() {
-        $("#total-menu-price").text(comma(totalPrice));
-        $("#total-test-price").text(comma(32000 - totalPrice));
+        $totalMenuPrice.text(comma(totalPrice));
+        $totalTestPrice.text(comma(32000 - totalPrice));
     }
 
     function comma(str) {
@@ -505,16 +506,16 @@ $(function () {
     });
 
     $(document).on('click', '#menu_line_remove', function () {
-        $("#input-menu-in").find(".input-tem:last-child").remove();
+        $inputMenuIn.find(".input-tem:last-child").remove();
     });
 
     $(document).on('click', '#submit', function () {
-        var check = 0;
-        var fromInput = $("#form input");
-        var fromFind = $("#form").find("input");
+        let check = 0;
+        let fromInput = $("#form input");
+        let fromFind = $from.find("input");
 
         function f() {
-            for (var i = 0; fromInput.length > i; i++) {
+            for (let i = 0; fromInput.length > i; i++) {
                 if (!fromFind[i].value) {
                     fromFind[i].focus();
                     check++;
@@ -530,18 +531,18 @@ $(function () {
         f();
     });
 
-    $("#menu_line_add").keydown(function (key) {
+    $menuLineAdd.keydown(function (key) {
         if (key.keyCode == 13 || key.keyCode == 32) { //키가 13이면 실행 (엔터는 13)
             input_menu_added();
         }
     });
 
     function input_menu_added() {
-        var html = "<div class=\"input-tem\">" +
+        let html = "<div class=\"input-tem\">" +
             "            <input type=\"text\" name=\"input-menu\" placeholder=\"메뉴\" required/>" +
             "            <input type=\"text\" name=\"input-price\" placeholder=\"가격\" required/>" +
             "        </div>";
-        $("#input-menu-in").append(html);
+        $inputMenuIn.append(html);
 
     }
 
