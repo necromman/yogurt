@@ -181,3 +181,29 @@ function scrollAction() {
         }
     })
 }
+/*
+*==================================================================
+*  Regex
+*==================================================================
+*/
+function regEx() {
+    const str = ["02-123-1234","02-1234-1234"];
+    const re = /\d{2}\-(\d{3}|\d{4})\-\d{4}/g;
+    let found = str[1].match(re);
+    console.log(found);
+}
+
+function xssT() {
+    const str = "<script>alert('test')</script>";
+    const re = "";
+    let found = str[1].match(re);
+    console.log(found);
+}
+
+/*
+진바이오 영문 실패
+var tem = document.getElementsByClassName("home")[0].innerHTML;
+var rep = tem.replace('"/&gt;',' ');
+var temr = document.getElementsByClassName("home")[0].innerHTML = rep;
+console.log(temr);
+*/

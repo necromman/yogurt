@@ -1,18 +1,18 @@
 function menu_input_list() {
-    var name = $("#form .s-name").val();
-    var number = $("#form .phone-number").val();
-    var closed = $("#form .closed").val();
-    var cat = $("#form .cat").val();
-    var delivery = $("#form .delivery").val();
-    var menunameL = $("#input-menu-in").find("input[name='input-menu']").length;
-    var menuname = $("#input-menu-in").find("input[name='input-menu']");
-    var menuPrice = $("#input-menu-in").find("input[name='input-price']");
-    var aJsonArray = new Array();
+    let name = $("#form .s-name").val();
+    let number = $("#form .phone-number").val();
+    let closed = $("#form .closed").val();
+    let cat = $("#form .cat").val();
+    let delivery = $("#form .delivery").val();
+    let menunameL = $("#input-menu-in").find("input[name='input-menu']").length;
+    let menuname = $("#input-menu-in").find("input[name='input-menu']");
+    let menuPrice = $("#input-menu-in").find("input[name='input-price']");
+    let aJsonArray = new Array();
 
-    for (var i = 0; i < menunameL; i++) {
-        var aJson = new Object();
-        aJson.menuname = menuname[i].value;
-        aJson.price = menuPrice[i].value;
+    for (let i = 0; i < menunameL; i++) {
+        let aJson = new Object();
+        aJson.menuname = replaceFunc(menuname[i].value);
+        aJson.price = replaceFunc(menuPrice[i].value);
         aJson.order = 0;
         aJson.grade = 0;
         aJsonArray.push(aJson);
@@ -20,14 +20,13 @@ function menu_input_list() {
 
     console.log(aJsonArray);
 
-
-    var publicGetKeyIn = firebase.database().ref('/음식점/' + "food");
+    let publicGetKeyIn = firebase.database().ref('/음식점/' + "food");
     publicGetKeyIn.push({
-        name: name,
-        number: number,
-        closed: closed,
-        cat: cat,
-        delivery: delivery,
+        name: replaceFunc(name),
+        number: replaceFunc(number),
+        closed: replaceFunc(closed),
+        cat: replaceFunc(cat),
+        delivery: replaceFunc(delivery),
         menu: aJsonArray
     });
     $("#form input").val("");

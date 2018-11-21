@@ -44,7 +44,6 @@ $(function () {
     const $sudong = $("#sudong");
 
 
-
     // =========== moment.js 스크립트 시작
     let localTime;
     setInterval(function () {
@@ -83,6 +82,7 @@ $(function () {
     }
 
     let totalOder = 0;
+
     function food_on_child_changed(data) {
         const key = data.key;
         const publicGetKeyIn = firebase.database().ref('/음식점/' + "/food/" + "/" + key + "/" + "menu");
@@ -113,9 +113,15 @@ $(function () {
         let ranJ = Math.floor((Math.random() * 3) + 1);
         let ranBack;
         switch (ranJ) {
-            case 1 : ranBack = "/img/01.jpg"; break;
-            case 2 : ranBack = "/img/02.jpg"; break;
-            case 3 : ranBack = "/img/03.jpg"; break;
+            case 1 :
+                ranBack = "/img/01.jpg";
+                break;
+            case 2 :
+                ranBack = "/img/02.jpg";
+                break;
+            case 3 :
+                ranBack = "/img/03.jpg";
+                break;
         }
 
         let fhtml = "<div id='" + key + "' class=\"swiper-slide\">" +
@@ -201,6 +207,7 @@ $(function () {
 
     let sName;
     let menu_GetKeyIn;
+
     function shop_on_child_added(data) {
         let key = data.key; // 메뉴이름
         let sData = data.val();
@@ -256,6 +263,7 @@ $(function () {
 
     });
     let moreCount = 20;
+
     function get_text_list_more() {
         let publicGetKeyIn = firebase.database().ref('/채팅/' + "퍼블릭채팅").limitToLast(moreCount);
         publicGetKeyIn.on('child_added', public_on_child_added);
@@ -270,6 +278,7 @@ $(function () {
     }
 
     let jUser;
+
     function public_on_child_added(data) {
         let key = data.key;
         let sData = data.val();
@@ -297,7 +306,7 @@ $(function () {
         }
 
         let html2 =
-            "<div id='" + jUser + "' class='timeline-item-wrap "+ key +"'><div id='" + key + "' class='timeline-item' data-price='" + mPrice + "'>" + Kword + "<span>" + Kdate + "</span>" + "</div></div>";
+            "<div id='" + jUser + "' class='timeline-item-wrap " + key + "'><div id='" + key + "' class='timeline-item' data-price='" + mPrice + "'>" + Kword + "<span>" + Kdate + "</span>" + "</div></div>";
 
         $chatHistory.prepend(html2);
         $('#' + userInfo.uid).addClass("bonin");
@@ -441,7 +450,12 @@ $(function () {
 
 
     function goSearch() {
-        let keyword = $chatText.val();
+        let keyword = replaceFunc($chatText.val());
+        /*keyword = keyword.replace(new RegExp("(" + find.map(function (i) {
+            return i.replace(/[.?*+^$[\]\\(){}|-]/g, "\\$&")
+        }).join("|") + ")", "g"), function (s) {
+            return replace[find.indexOf(s)]
+        });*/
         if (keyword) {
             const publicKeyIn = database.ref('/채팅/' + "퍼블릭채팅");
             publicKeyIn.push({
@@ -480,6 +494,7 @@ $(function () {
 
 
     let totalPrice = 0;
+
     function totalMenuCalc() {
         $totalMenuPrice.text(comma(totalPrice));
         $totalTestPrice.text(comma(32000 - totalPrice));
@@ -541,3 +556,14 @@ $(function () {
     }
 
 });
+
+function replaceFunc(re) {
+    const find = ["<", ">", "\n"];
+    const replace = ["&lt;", "&gt;", "<br/>"];
+    let temp = re.replace(new RegExp("(" + find.map(function (i) {
+        return i.replace(/[.?*+^$[\]\\(){}|-]/g, "\\$&")
+    }).join("|") + ")", "g"), function (s) {
+        return replace[find.indexOf(s)]
+    });
+    return temp;
+}
