@@ -201,9 +201,9 @@ function xssT() {
 }
 
 /*
-진바이오 영문 실패
-var tem = document.getElementsByClassName("home")[0].innerHTML;
+진바이오 영문 성공
+var tem = document.getElementsByTagName("body")[0].innerHTML;
 var rep = tem.replace('"/&gt;',' ');
-var temr = document.getElementsByClassName("home")[0].innerHTML = rep;
+var temr = document.getElementsByTagName("body")[0].innerHTML = rep;
 console.log(temr);
 */

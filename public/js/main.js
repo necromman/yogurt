@@ -101,8 +101,7 @@ $(function () {
         let fclosed = sData.closed;
         let fnumber = sData.number;
         let fdelivery = sData.delivery;
-
-
+        let imgSrc = sData.imgsrc;
         let publicGetKeyIn = firebase.database().ref('/음식점/' + "/food/" + "/" + key + "/" + "menu");
         publicGetKeyIn.on('child_added', function (data) {
             const sData = data.val();
@@ -124,19 +123,37 @@ $(function () {
                 break;
         }
 
-        let fhtml = "<div id='" + key + "' class=\"swiper-slide\">" +
-            "              <div class=\"owl-item\">" +
-            "                  <div class=\"round-element\" style='background-image: url(" + ranBack + ")'>" +
-            "                      <div class=\"above-overlay\">" +
-            "                          <h2>" + fname + "<span class='totalOwrap'>주문:<span class='totalOder'>" + totalOder + "</span></span></h2>" +
-            "                          <p>휴무일 : " + fclosed + "</p>" +
-            "                          <p>배달여부 : " + fdelivery + "</p>" +
-            "                          <p><a href='tel:" + fnumber + "'>" + fnumber + "</a></p>" +
-            "                      </div>" +
-            "                      <div class=\"overlay-gradient-large\"></div>" +
-            "                  </div>" +
-            "              </div>" +
-            "          </div>";
+        let fhtml;
+        if (!imgSrc) {
+            fhtml = "<div id='" + key + "' class=\"swiper-slide\">" +
+                "              <div class=\"owl-item\">" +
+                "                  <div class=\"round-element\" style='background-image: url(" + ranBack + ")'>" +
+                "                      <div class=\"above-overlay\">" +
+                "                          <h2>" + fname + "<span class='totalOwrap'>주문:<span class='totalOder'>" + totalOder + "</span></span></h2>" +
+                "                          <p>휴무일 : " + fclosed + "</p>" +
+                "                          <p>배달여부 : " + fdelivery + "</p>" +
+                "                          <p><a href='tel:" + fnumber + "'>" + fnumber + "</a></p>" +
+                "                      </div>" +
+                "                      <div class=\"overlay-gradient-large\"></div>" +
+                "                  </div>" +
+                "              </div>" +
+                "          </div>";
+        } else {
+            fhtml = "<div id='" + key + "' class=\"swiper-slide\">" +
+                "              <div class=\"owl-item\">" +
+                "                  <div class=\"round-element\" style='background-image: url(" + ranBack + ")'>" +
+                "                      <div class=\"above-overlay\">" +
+                "                          <h2>" + fname + "<span class='totalOwrap'>주문:<span class='totalOder'>" + totalOder + "</span></span></h2>" +
+                "                          <p>휴무일 : " + fclosed + "</p>" +
+                "                          <p>배달여부 : " + fdelivery + "</p>" +
+                "                          <p><a href='" + imgSrc + "' alt='그림메뉴보기' target='_blank'> 메뉴판 보기 </a></p>" +
+                "                          <p><a href='tel:" + fnumber + "'>" + fnumber + "</a></p>" +
+                "                      </div>" +
+                "                      <div class=\"overlay-gradient-large\"></div>" +
+                "                  </div>" +
+                "              </div>" +
+                "          </div>";
+        }
         $jSwiperWrapper.prepend(fhtml);
         totalOder = 0;
     }
@@ -148,7 +165,7 @@ $(function () {
     let shopId;
     let cartThis;
     let cartThisSpan;
-    $jSwiperWrapper.on('click', 'div.swiper-slide', function () {
+    $jSwiperWrapper.on('click', 'div.swiper-slide:not(a)', function () {
         shopId = $(this).attr("id");
         // shopId = $(this).closest(".swiper-slide").attr("id");
         // $("#s_card_wrap").empty();
