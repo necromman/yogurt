@@ -362,7 +362,7 @@ button, input, textarea {
     transition: all 300ms ease-in-out;
 }
 
-.name-child{
+.name-child {
     width: 40%;
 }
 
@@ -476,13 +476,16 @@ button, input, textarea {
     .chatbox {
         width: 100%;
     }
-    #sudong .sd-wrap{
+
+    #sudong .sd-wrap {
         width: 100% !important;
     }
+
     .tile {
         width: 100% !important;
     }
-    .inp-sty{
+
+    .inp-sty {
         width: 100% !important;
         padding: 0 1em;
     }
@@ -617,29 +620,40 @@ button, input, textarea {
     align-items: center;
     justify-content: flex-end;
 }
+
 #sudong .s-child button {
     margin-left: 1em;
 }
 
-.total-alram{
-    z-index: 999;width: 100%;text-align: center;background-color: #347df5;color: #f1f1f1;
+.total-alram {
+    z-index: 999;
+    width: 100%;
+    text-align: center;
+    background-color: #347df5;
+    color: #f1f1f1;
 }
-.total-alram > span{
+
+.total-alram > span {
     display: inline-block;
     margin: 0 1em;
 }
 
-#recommen{
+#recommen {
     background-color: #ffe501;
     color: #402e33;
     padding: 5px 10px;
     border-radius: 5px;
 }
 
-.txt-right{text-align: right}
-.txt-center{text-align: center}
+.txt-right {
+    text-align: right
+}
 
-.jump-btn{
+.txt-center {
+    text-align: center
+}
+
+.jump-btn {
     background-color: #7289da;
     color: #fff;
     padding: 5px 10px;
@@ -648,18 +662,19 @@ button, input, textarea {
     cursor: pointer;
 }
 
-.container3{
+.container3 {
     width: 100%;
     background-color: #36393f;
     color: #fff;
     padding: 1em 0;
 }
-.container3 .inp-sty{
+
+.container3 .inp-sty {
     width: 60%;
     margin: 0 auto;
 }
 
-.totalOwrap{
+.totalOwrap {
     font-size: 0.6em;
     font-weight: 100;
     position: absolute;
@@ -668,11 +683,71 @@ button, input, textarea {
     width: 100%;
 }
 
-#form .jump-btn{
+#form .jump-btn {
     margin-right: 0.5em;
     margin-top: 1em;
 }
 
-.timeline-item-wrap{
+.timeline-item-wrap {
     position: relative;
 }
+
+.l-brow-check .l-brow {
+    font-size: 1.3em;
+    font-weight: bold
+}
+
+.l-brow-check i {
+    vertical-align: text-top !important
+}
+
+#ie_versioncheck {
+    background-color: black;
+    color: white;
+    z-index: 3;
+    left: 0;
+    top: 0;
+    padding: 4.4px 0;
+    padding-left: 5px;
+    border-left: 5px solid #ff0000;
+}
+
+#ie_versioncheck_in {
+    background-color: rgba(50, 50, 50, 0.9);
+    border: 5px solid red;
+    position: relative;
+    top: 5px;
+    left: -10px;
+    padding: 5px;
+}
+
+#ie_versioncheck_in div {
+    margin: 10px 0 0px 0;
+}
+
+#ie_versioncheck_in i {
+    margin: 0 5px;
+}
+
+#ie_versioncheck_in a {
+    color: yellow;
+}
+
+#ie_versioncheck_in .close-box {
+    float: right;
+    color: slategrey;
+}
+
+#ie_versioncheck_in .close-box span {
+    cursor: pointer;
+}
+
+#ie_versioncheck span, #ie_versioncheck label {
+    vertical-align: baseline
+}
+
+#ie_versioncheck span[class*=your] {
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
