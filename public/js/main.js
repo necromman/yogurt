@@ -373,24 +373,28 @@ $(function () {
             }
         }
 
-        var publicKeyIn = database.ref('/음식점/' + "/food/" + "/" + shopId2 + "/" + "/menu/" + dataId);
-        publicKeyIn.update({
-            order: dataOrder2 + 1
-        });
+        if (dataOrder2) {
+            var publicKeyIn = database.ref('/음식점/' + "/food/" + "/" + shopId2 + "/" + "/menu/" + dataId);
+            publicKeyIn.update({
+                order: dataOrder2 + 1
+            });
 
-        var chatKeyIn = database.ref('/채팅/' + "퍼블릭채팅");
-        var keyword = "<h3 data-id='" + dataId + "' data-order='" + dataOrder2 + "' class='" + shopId2 + "'>" + dataMeuName + "</h3><p>가격:<span class='mt-price'>" + price + "</span>원<br>상호:<span class='mt-sname'>" + sName2 + "</span></p>"
-        chatKeyIn.push({
-            keyword: keyword,
-            date: localTime,
-            shopname: sName2,
-            mmenu: dataMeuName,
-            mprice: price,
-            user: userInfo.uid
-        });
+            var chatKeyIn = database.ref('/채팅/' + "퍼블릭채팅");
+            var keyword = "<h3 data-id='" + dataId + "' data-order='" + dataOrder2 + "' class='" + shopId2 + "'>" + dataMeuName + "</h3><p>가격:<span class='mt-price'>" + price + "</span>원<br>상호:<span class='mt-sname'>" + sName2 + "</span></p>"
+            chatKeyIn.push({
+                keyword: keyword,
+                date: localTime,
+                shopname: sName2,
+                mmenu: dataMeuName,
+                mprice: price,
+                user: userInfo.uid
+            });
 
-        if (jUser == userInfo.uid) {
-            $('#' + userInfo.uid).find(".samsam").hide();
+            if (jUser == userInfo.uid) {
+                $('#' + userInfo.uid).find(".samsam").hide();
+            }
+        }else{
+            alert("음식점이 없어요.")
         }
     });
 
