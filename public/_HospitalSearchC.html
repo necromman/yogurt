@@ -12,9 +12,40 @@
 
 <body>
 <script>
+
     $(function () {
 
         var hospitalArr = new Array();
+        var hospitalinfo = new Object();
+        hospitalinfo.name = "서울병원1";
+        hospitalinfo.pnumber = "02-000-0000";
+        hospitalinfo.areainfo = "서울";
+        hospitalinfo.addr = "충남 천안시 서북구 봉정로 388";
+        hospitalinfo.gmapaddr = "충남 천안시 서북구 봉정로 388 2층 진바이오테크";
+        hospitalinfo.gmapx = 36.836656;
+        hospitalinfo.gmapy = 127.145802;
+        hospitalArr.push(hospitalinfo);
+
+        var hospitalinfo = new Object();
+        hospitalinfo.name = "서울병원1";
+        hospitalinfo.pnumber = "02-000-0000";
+        hospitalinfo.areainfo = "서울";
+        hospitalinfo.addr = "충남 천안시 서북구 봉정로 388";
+        hospitalinfo.gmapaddr = "충남 천안시 서북구 봉정로 388 2층 진바이오테크";
+        hospitalinfo.gmapx = 36.836656;
+        hospitalinfo.gmapy = 127.145802;
+        hospitalArr.push(hospitalinfo);
+
+        var hospitalinfo = new Object();
+        hospitalinfo.name = "서울병원1";
+        hospitalinfo.pnumber = "02-000-0000";
+        hospitalinfo.areainfo = "서울";
+        hospitalinfo.addr = "충남 천안시 서북구 봉정로 388";
+        hospitalinfo.gmapaddr = "충남 천안시 서북구 봉정로 388 2층 진바이오테크";
+        hospitalinfo.gmapx = 36.836656;
+        hospitalinfo.gmapy = 127.145802;
+        hospitalArr.push(hospitalinfo);
+
         var hospitalinfo = new Object();
         hospitalinfo.name = "서울병원1";
         hospitalinfo.pnumber = "02-000-0000";
@@ -58,22 +89,25 @@
         var jsonInfo = JSON.stringify(hospitalArr);
         var contact = JSON.parse(jsonInfo);
         var contactLen = contact.length;
+        console.log(contactLen);
 
         function templateHtml(i) {
-            var html = "<tr>" +
-                "        <td class=\"ta_left\">" + contact[i].name + "</td>" +
-                "        <td>" + contact[i].pnumber + "</td>" +
-                "        <td class=\"ta_left\">" + contact[i].addr + "</td>" +
-                "        <td> <a class=\"btn_search\" href=\"javascript:void(0)\" onclick=\"duam(" + contact[i].gmapx + "," + contact[i].gmapy + "); return false;\">위치보기</a>" +
-                "        </td>" +
-                "    </tr>";
+            if(typeof(contact[i].name) === undefined) console.log("이상");
+                var html = "<tr>" +
+                    "        <td class=\"ta_left\">" + contact[i].name + "</td>" +
+                    "        <td>" + contact[i].pnumber + "</td>" +
+                    "        <td class=\"ta_left\">" + contact[i].addr + "</td>" +
+                    "        <td> <a class=\"btn_search\" href=\"javascript:void(0)\" onclick=\"duam(" + contact[i].gmapx + "," + contact[i].gmapy + "); return false;\">위치보기</a>" +
+                    "        </td>" +
+                    "    </tr>";
             return html;
+
         }
 
         for (var i in contact) {
             $("#resultTable tbody").append(templateHtml(i));
         }
-
+            pageBaby(contactLen);
         $(".areaE").click(function () {
             $("#resultTable tbody").empty();
             var thisT = $(this).text();
@@ -89,85 +123,70 @@
             if (!$("#resultTable tbody").text()) {
                 $("#resultTable tbody").text("검색결과가 없습니다.");
             }
+            $('#con_group').empty();
+            $("#resultTable tbody tr").length
+            pageBaby($("#resultTable tbody tr").length);
         });
 
+        function pageBaby(contactLen) {
+            var show_per_page = 5;
+            var number_of_items = contactLen;
+            var number_of_pages = Math.ceil(number_of_items / show_per_page);
 
-        var totalData = contactLen;    // 총 데이터 수
-        var dataPerPage = 5;    // 한 페이지에 나타낼 데이터 수
-        var pageCount = 5;        // 한 화면에 나타낼 페이지 수
+            $('#con_group').append('<div class=controls></div><input id=current_page type=hidden><input id=show_per_page type=hidden>');
+            $('#current_page').val(0);
+            $('#show_per_page').val(show_per_page);
 
-        for (var i=0 ;i < pageCount; i++) {
-            $("#con").append(templateHtml(i));
-        }
-
-        function paging(totalData, dataPerPage, pageCount, currentPage) {
-            var totalPage = Math.ceil(totalData / dataPerPage);    // 총 페이지 수
-            var pageGroup = Math.ceil(currentPage / pageCount);    // 페이지 그룹
-
-            var last = pageGroup * pageCount;    // 화면에 보여질 마지막 페이지 번호
-            if (last > totalPage)
-                last = totalPage;
-            var first = last - (pageCount - 1);    // 화면에 보여질 첫번째 페이지 번호
-            var next = last + 1;
-            var prev = first - 1;
-
-            var $pingingView = $("#paging");
-
-            var html2 = "";
-
-            if (prev > 0)
-                html2 += "<a href=# id='prev'><</a> ";
-
-            for (var i = first; i <= last; i++) {
-                html2 += "<a href='#' id=" + i + ">" + i + "</a> ";
+            var navigation_html = '<a class="prev" onclick="previous()">Prev</a>';
+            var current_link = 0;
+            while (number_of_pages > current_link) {
+                navigation_html += '<a class="page" onclick="go_to_page(' + current_link + ')" longdesc="' + current_link + '">' + (current_link + 1) + '</a>';
+                current_link++;
             }
+            navigation_html += '<a class="next" onclick="next()">Next</a>';
 
-            if (last < totalPage)
-                html2 += "<a href=# id='next'>></a>";
+            $('.controls').html(navigation_html);
+            $('.controls .page:first').addClass('active');
 
-            $("#paging").html(html2);    // 페이지 목록 생성
-            $("#paging a").css("color", "black");
-            $("#paging a#" + currentPage).css({
-                "text-decoration": "none",
-                "color": "red",
-                "font-weight": "bold"
-            });    // 현재 페이지 표시
-
-            $("#paging a").click(function () {
-
-                var $item = $(this);
-                var $id = $item.attr("id");
-                var selectedPage = $item.text();
-                var selCount = parseInt(selectedPage) * pageCount;
-                if(selectedPage == 1){
-                    selCount = 0;
-                }
-
-                console.log(selCount);
-                console.log(selCount + pageCount);
-                $("#con").empty();
-                for (var i= selCount ;i < selCount + pageCount; i++) {
-                    $("#con").append(templateHtml(i));
-                }
-
-                if ($id == "next") selectedPage = next;
-                if ($id == "prev") selectedPage = prev;
-
-                paging(totalData, dataPerPage, pageCount, selectedPage);
-            });
-
+            $("#resultTable tbody tr").css('display', 'none');
+            $("#resultTable tbody tr").slice(0, show_per_page).css('display', '');
         }
-        paging(totalData, dataPerPage, pageCount, 1);
-    })
+    });
+
+    function go_to_page(page_num) {
+        var show_per_page = parseInt($('#show_per_page').val(), 0);
+
+        start_from = page_num * show_per_page;
+
+        end_on = start_from + show_per_page;
+
+        $("#resultTable tbody tr").css('display', 'none').slice(start_from, end_on).css('display', '');
+
+        $('.page[longdesc=' + page_num + ']').addClass('active').siblings('.active').removeClass('active');
+
+        $('#current_page').val(page_num);
+    }
+
+
+
+    function previous() {
+        new_page = parseInt($('#current_page').val(), 0) - 1;
+        //if there is an item before the current active link run the function
+        if ($('.active').prev('.page').length == true) {
+            go_to_page(new_page);
+        }
+    }
+
+    function next() {
+        new_page = parseInt($('#current_page').val(), 0) + 1;
+        //if there is an item after the current active link run the function
+        if ($('.active').next('.page').length == true) {
+            go_to_page(new_page);
+        }
+    }
 
 
 </script>
-
-
-
-
-<div id="con"></div>
-<div id="paging"></div>
 
 
 <div class="group_content group_data_search">
@@ -176,7 +195,6 @@
     </div>
 </div>
 
-<button id="jido">클릭</button>
 <button class="areaE">전체</button>
 <button class="areaE">서울</button>
 <button class="areaE">충남</button>
@@ -201,9 +219,11 @@
 
     </tbody>
 </table>
+<div id="con_group"></div>
 
 
 <style>
+    #con_group *{cursor: pointer;margin: 0 5px}
     .map_wrap {position:relative;overflow:hidden;width:100%;height:350px;}
     .radius_border{border:1px solid #919191;border-radius:5px;}
     .custom_typecontrol {position:absolute;top:10px;right:10px;overflow:hidden;width:130px;height:30px;margin:0;padding:0;z-index:1;font-size:12px;font-family:'Malgun Gothic', '맑은 고딕', sans-serif;}
@@ -220,22 +240,10 @@
 </style>
 <div class="map_wrap">
     <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
-    <!-- 지도타입 컨트롤 div 입니다 -->
-    <!--<div class="custom_typecontrol radius_border">
-        <span id="btnRoadmap" class="selected_btn" onclick="setMapType('roadmap')">지도</span>
-        <span id="btnSkyview" class="btn" onclick="setMapType('skyview')">스카이뷰</span>
-    </div>-->
-    <!-- 지도 확대, 축소 컨트롤 div 입니다 -->
-    <!--<div class="custom_zoomcontrol radius_border">
-        <span onclick="zoomIn()"><img src="http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_plus.png" alt="확대"></span>
-        <span onclick="zoomOut()"><img src="http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_minus.png" alt="축소"></span>
-    </div>-->
 </div>
 <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=66058a4e060c299a06c75d63b3ddcbfb"></script>
 <script>
-    $("#jido").click(function () {
-        duam(33.450701, 126.570667)
-    });
+
     function duam(x, y) {
         var container = document.getElementById('map');
         var options = {
@@ -265,4 +273,5 @@
 
 </script>
 </body>
+
 </html>
