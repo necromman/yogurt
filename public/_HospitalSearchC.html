@@ -16,65 +16,19 @@
     $(function () {
 
         var hospitalArr = new Array();
-        var hospitalinfo = new Object();
-        hospitalinfo.name = "서울병원1";
-        hospitalinfo.pnumber = "02-000-0000";
-        hospitalinfo.areainfo = "서울";
-        hospitalinfo.addr = "충남 천안시 서북구 봉정로 388";
-        hospitalinfo.gmapaddr = "충남 천안시 서북구 봉정로 388 2층 진바이오테크";
-        hospitalinfo.gmapx = 36.836656;
-        hospitalinfo.gmapy = 127.145802;
-        hospitalArr.push(hospitalinfo);
+        for (var i = 0; i < 15; i++) {
+            var hospitalinfo = new Object();
+            hospitalinfo.name = "서울병원1"+i;
+            hospitalinfo.pnumber = "02-000-0000";
+            hospitalinfo.areainfo = "서울";
+            hospitalinfo.addr = "충남 천안시 서북구 봉정로 388";
+            hospitalinfo.gmapaddr = "충남 천안시 서북구 봉정로 388 2층 진바이오테크";
+            hospitalinfo.gmapx = 36.836656;
+            hospitalinfo.gmapy = 127.145802;
+            hospitalArr.push(hospitalinfo);
+        }
 
-        var hospitalinfo = new Object();
-        hospitalinfo.name = "서울병원1";
-        hospitalinfo.pnumber = "02-000-0000";
-        hospitalinfo.areainfo = "서울";
-        hospitalinfo.addr = "충남 천안시 서북구 봉정로 388";
-        hospitalinfo.gmapaddr = "충남 천안시 서북구 봉정로 388 2층 진바이오테크";
-        hospitalinfo.gmapx = 36.836656;
-        hospitalinfo.gmapy = 127.145802;
-        hospitalArr.push(hospitalinfo);
-
-        var hospitalinfo = new Object();
-        hospitalinfo.name = "서울병원1";
-        hospitalinfo.pnumber = "02-000-0000";
-        hospitalinfo.areainfo = "서울";
-        hospitalinfo.addr = "충남 천안시 서북구 봉정로 388";
-        hospitalinfo.gmapaddr = "충남 천안시 서북구 봉정로 388 2층 진바이오테크";
-        hospitalinfo.gmapx = 36.836656;
-        hospitalinfo.gmapy = 127.145802;
-        hospitalArr.push(hospitalinfo);
-
-        var hospitalinfo = new Object();
-        hospitalinfo.name = "서울병원1";
-        hospitalinfo.pnumber = "02-000-0000";
-        hospitalinfo.areainfo = "서울";
-        hospitalinfo.addr = "충남 천안시 서북구 봉정로 388";
-        hospitalinfo.gmapaddr = "충남 천안시 서북구 봉정로 388 2층 진바이오테크";
-        hospitalinfo.gmapx = 36.836656;
-        hospitalinfo.gmapy = 127.145802;
-        hospitalArr.push(hospitalinfo);
-
-        hospitalinfo = new Object();
-        hospitalinfo.name = "충남병원2";
-        hospitalinfo.pnumber = "02-000-0000";
-        hospitalinfo.areainfo = "충남";
-        hospitalinfo.addr = "충남 천안시 서북구 봉정로 388";
-        hospitalinfo.gmapx = 36.836656;
-        hospitalinfo.gmapy = 127.145802;
-        hospitalArr.push(hospitalinfo);
-
-        hospitalinfo = new Object();
-        hospitalinfo.name = "서울병원3";
-        hospitalinfo.pnumber = "02-000-0000";
-        hospitalinfo.areainfo = "서울";
-        hospitalinfo.addr = "충남 천안시 서북구 봉정로 388";
-        hospitalinfo.gmapx = 36.836656;
-        hospitalinfo.gmapy = 127.145802;
-        hospitalArr.push(hospitalinfo);
-
-        for (var i = 0; i < 30; i++) {
+        for (var i = 0; i < 20; i++) {
             hospitalinfo = new Object();
             hospitalinfo.name = "충남병원"+i;
             hospitalinfo.pnumber = "02-000-0000";
@@ -130,6 +84,7 @@
 
         function pageBaby(contactLen) {
             var show_per_page = 5;
+            var show_limit_number = 5;
             var number_of_items = contactLen;
             var number_of_pages = Math.ceil(number_of_items / show_per_page);
 
@@ -137,13 +92,13 @@
             $('#current_page').val(0);
             $('#show_per_page').val(show_per_page);
 
-            var navigation_html = '<a class="prev" onclick="previous()">Prev</a>';
+            var navigation_html = '<a class="prev" onclick="previous()">이전</a>';
             var current_link = 0;
             while (number_of_pages > current_link) {
                 navigation_html += '<a class="page" onclick="go_to_page(' + current_link + ')" longdesc="' + current_link + '">' + (current_link + 1) + '</a>';
                 current_link++;
             }
-            navigation_html += '<a class="next" onclick="next()">Next</a>';
+            navigation_html += '<a class="next" onclick="next()">다음</a>';
 
             $('.controls').html(navigation_html);
             $('.controls .page:first').addClass('active');
@@ -155,15 +110,10 @@
 
     function go_to_page(page_num) {
         var show_per_page = parseInt($('#show_per_page').val(), 0);
-
         start_from = page_num * show_per_page;
-
         end_on = start_from + show_per_page;
-
         $("#resultTable tbody tr").css('display', 'none').slice(start_from, end_on).css('display', '');
-
         $('.page[longdesc=' + page_num + ']').addClass('active').siblings('.active').removeClass('active');
-
         $('#current_page').val(page_num);
     }
 
@@ -223,7 +173,7 @@
 
 
 <style>
-    #con_group *{cursor: pointer;margin: 0 5px}
+    #con_group *{cursor: pointer;margin: 0 5px;display: inline-block;padding: 0 5px;}
     .map_wrap {position:relative;overflow:hidden;width:100%;height:350px;}
     .radius_border{border:1px solid #919191;border-radius:5px;}
     .custom_typecontrol {position:absolute;top:10px;right:10px;overflow:hidden;width:130px;height:30px;margin:0;padding:0;z-index:1;font-size:12px;font-family:'Malgun Gothic', '맑은 고딕', sans-serif;}
@@ -250,7 +200,6 @@
             center: new daum.maps.LatLng(x, y),
             level: 3
         };
-
         // 마커
         var markerPosition = new daum.maps.LatLng(x, y);
         var marker = new daum.maps.Marker({
