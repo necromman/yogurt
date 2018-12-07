@@ -17,7 +17,7 @@
     $(function () {
 
         var hospitalArr = new Array();
-        for (var i = 0; i < 20; i++) {
+        for (var i = 0; i < 50; i++) {
             var hospitalinfo = new Object();
             hospitalinfo.name = "서울병원1"+i;
             hospitalinfo.pnumber = "02-000-0000";
@@ -81,7 +81,10 @@
             load();
         });
 
+
+
         load = function() {
+            $("#resultEa").text($("#resultTable tbody tr").length + "개");
             window.tp = new Pagination('#tablePaging', {
                 itemsCount: $("#resultTable tbody tr").length,
                 onPageSizeChange: function (ps) {
@@ -101,13 +104,29 @@
                     }
                 }
             });
-        }
+        };
 
         load();
 
 
-    });
+        $("#totalSearch").keyup(function () {
+            $("#resultTable tbody").empty();
+            var thisT = $(this).val();
+            if (thisT) {
+                for (var i in contact) {
+                    var str = contact[i].name;
+                    if (str.match(thisT)) {
+                        $("#resultTable tbody").append(templateHtml(i));
+                    }
+                }
+            }
+            if (!$("#resultTable tbody").text()) {
+                $("#resultTable tbody").text("검색결과가 없습니다.");
+            }
+            load();
+        });
 
+    });
 
 
 </script>
@@ -115,7 +134,10 @@
 
 <div class="group_content group_data_search">
     <div class="group_title">
-        <h4 class="title">결과 : <span class="color_key3" id="searchResult"> 전체 </span></h4>
+        <h4 class="title">결과 : <span class="color_key3" id="searchResult"> 전체 </span> <span class="color_key3" id="resultEa"> </span></h4>
+    </div>
+    <div>
+        <input type="text" id="totalSearch" placeholder="병원명 검색"/>
     </div>
 </div>
 
