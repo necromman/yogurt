@@ -22,10 +22,10 @@ var Pagination = function (el, options) {
 		pageSize = options.pageSize || pageRange[0],
 
 		allPagesLabel = options.labels.all || 'All',
-		firstPageLabel = options.labels.first || 'First',
-		lastPageLabel = options.labels.last || 'Last',
-		nextPageLabel = options.labels.next || '&raquo;',
-		previousPageLabel = options.labels.previous || '&laquo;',
+		firstPageLabel = options.labels.first || '처음',
+		lastPageLabel = options.labels.last || '마지막',
+		nextPageLabel = options.labels.next || '>',
+		previousPageLabel = options.labels.previous || '<',
 
 		init, changePageSize, reRenderPageNumbers, getRenderedPageNumbers, getPageNumbersToDisplay,
 		getPagesCount, goNextPage, goPreviousPage, goToPage, disable, enable, getRenderedPager,

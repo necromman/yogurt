@@ -61,6 +61,7 @@
         for (var i in contact) {
             $("#resultTable tbody").append(templateHtml(i));
         }
+
         $(".areaE").click(function () {
             $("#resultTable tbody").empty();
             var thisT = $(this).text();
@@ -73,15 +74,34 @@
                     $("#resultTable tbody").append(templateHtml(i));
                 }
             }
-            if (!$("#resultTable tbody").text()) {
-                $("#resultTable tbody").text("검색결과가 없습니다.");
-            }
-            $('#con_group').empty();
-            $("#resultTable tbody tr").length
+            resultnone();
             load();
         });
 
+        $("#totalSearch").keyup(function () {
+            var thisT = $(this).val();
+            $("#resultTable tbody").empty();
+            if (thisT) {
+                $("#searchResult").text(thisT);
+                for (var i in contact) {
+                    var str = contact[i].name;
+                    if (str.match(thisT)) {
+                        $("#resultTable tbody").append(templateHtml(i));
+                    }
+                }
+            }else{
+                $("#searchResult").text("전체");
+                for (var i in contact) {$("#resultTable tbody").append(templateHtml(i));}
+            }
+            resultnone();
+            load();
+        });
 
+        function resultnone(){
+            if (!$("#resultTable tbody").text()) {
+                $("#resultTable tbody").text("검색결과가 없습니다.");
+            }
+        }
 
         load = function() {
             $("#resultEa").text($("#resultTable tbody tr").length + "개");
@@ -105,27 +125,7 @@
                 }
             });
         };
-
         load();
-
-
-        $("#totalSearch").keyup(function () {
-            $("#resultTable tbody").empty();
-            var thisT = $(this).val();
-            if (thisT) {
-                for (var i in contact) {
-                    var str = contact[i].name;
-                    if (str.match(thisT)) {
-                        $("#resultTable tbody").append(templateHtml(i));
-                    }
-                }
-            }
-            if (!$("#resultTable tbody").text()) {
-                $("#resultTable tbody").text("검색결과가 없습니다.");
-            }
-            load();
-        });
-
     });
 
 
