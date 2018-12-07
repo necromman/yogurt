@@ -245,6 +245,7 @@ $(function () {
         let morder = sData.order;
 
         let mhtml = "<div id='" + key + "' class=\"card\">" +
+            "              <span><button class=\"sc-remove-menu jump-btn\" data-shop='" + shopId + "' data-name='" + menuname + "' data-price='" + mprice + "' data-order='" + morder + "'>삭제</button></span>" +
             "              <span class=\"c_img\"><span>" + sName.substr(0, 2) + "</span></span>" +
             "              <span class=\"c_name\">" + menuname + "</span>" +
             "              <span class=\"c_price\">" + comma(mprice) + "원</span>" +
@@ -408,6 +409,22 @@ $(function () {
         let publicGetKeyIn = firebase.database().ref('/채팅/' + "/퍼블릭채팅/" + delKey);
         publicGetKeyIn.remove();
         update_order_action();
+    });
+
+    $(document).on('click', '.sc-remove-menu', function () {
+        if(confirm("삭제 할까요?") == true){
+            let cartThis = $(this);
+            let dataMenu = cartThis.closest("div").attr("id");
+            let dataShop = cartThis.attr("data-shop");
+            let publicGetKeyIn = firebase.database().ref('/음식점/' + "/food/" + "/" + dataShop + "/" + "/menu/" + dataMenu);
+            console.log(dataMenu);
+            console.log(dataShop);
+            publicGetKeyIn.remove();
+            cartThis.closest("div").hide();
+            alert("삭제 되었어요");
+        }else{
+            return ;
+        }
     });
 
     function update_order_action() {
