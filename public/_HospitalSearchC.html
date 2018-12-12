@@ -10,7 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
-<body>
+<body style="width: 1200px">
 <script>
     var Pagination=function(el,options){options.labels=options.labels||{};var $container=$(el),$pagesContainer,$pageRangeCombo,ALL=-1,PREVIOUS_PAGE_NUMBER=-1,NEXT_PAGE_NUMBER=-2,FIRST_PAGE_NUMBER=-3,LAST_PAGE_NUMBER=-4,isDisabled=options.isDisabled||false,itemsCount=options.itemsCount,currentPage=options.currentPage||1,pageRange=options.pageRange||[10,20,30,-1],pageSize=options.pageSize||pageRange[0],allPagesLabel=options.labels.all||'All',firstPageLabel=options.labels.first||'처음',lastPageLabel=options.labels.last||'마지막',nextPageLabel=options.labels.next||'>',previousPageLabel=options.labels.previous||'<',init,changePageSize,reRenderPageNumbers,getRenderedPageNumbers,getPageNumbersToDisplay,getPagesCount,goNextPage,goPreviousPage,goToPage,disable,enable,getRenderedPager,process,getRenderedPageRange,toggleElements,onPageClick,onPageRangeComboChange,goToFirstPage,goToLastPage;init=function(){$container.html(getRenderedPager());$pagesContainer=$container.find('.pagination');$pageRangeCombo=$container.find('.page-range');toggleElements();$pagesContainer.on("click","li",onPageClick);$pageRangeCombo.on('change',onPageRangeComboChange);process();};onPageRangeComboChange=function(){var psValue=Number($(this).val()),ps=psValue===ALL?itemsCount:psValue;if(!isDisabled){if(typeof options.onPageSizeChange==='function'){options.onPageSizeChange(ps);}
         changePageSize(ps);toggleElements();}};onPageClick=function(){var $p=$(this),page=$p.data('page');if(!isDisabled&&!$p.hasClass('active')){switch(page){case PREVIOUS_PAGE_NUMBER:goPreviousPage();break;case NEXT_PAGE_NUMBER:goNextPage();break;case FIRST_PAGE_NUMBER:goToFirstPage();break;case LAST_PAGE_NUMBER:goToLastPage();break;default:goToPage(page);break;}
@@ -61,7 +61,7 @@
                     "        <td class=\"ta_left\">" + contact[i].name + "</td>" +
                     "        <td>" + contact[i].pnumber + "</td>" +
                     "        <td class=\"ta_left\">" + contact[i].addr + "</td>" +
-                    "        <td> <a class=\"btn_search\" href=\"javascript:void(0)\" onclick=\"duam(" + contact[i].gmapx + "," + contact[i].gmapy + "); return false;\">위치보기</a>" +
+                    "        <td> <a class=\"btn_search\" href=\"javascript:void(0)\" onclick=\"duam(" + contact[i].gmapx + "," + contact[i].gmapy + "); return false;\"><img src='https://mediworldmall.com/data/skin/front/dcoms_ssanmart/img/icon/search_btn.png' alt='병원검색아이디'></a>" +
                     "        </td>" +
                     "    </tr>";
             return html;
@@ -72,7 +72,10 @@
             $("#resultTable tbody").append(templateHtml(i));
         }
 
-        $(".areaE").click(function () {
+        var $areaEL = $('.areaE');
+        $areaEL.click(function () {
+            $(this).addClass('abtn_active');
+            $areaEL.not($(this)).removeClass('abtn_active');
             $("#resultTable tbody").empty();
             var thisT = $(this).text();
             $("#searchResult").text(thisT);
@@ -109,7 +112,7 @@
 
         function resultnone(){
             if (!$("#resultTable tbody").text()) {
-                $("#resultTable tbody").text("검색결과가 없습니다.");
+                $("#resultTable tbody").append("<tr><td colspan='4'>검색결과가 없습니다.</td></tr>");
             }
         }
 
@@ -136,6 +139,10 @@
             });
         };
         load();
+
+
+
+
     });
 
 
@@ -151,17 +158,31 @@
     </div>
 </div>
 
-<button class="areaE">전체</button>
+<button class="areaE abtn_active">전체</button>
 <button class="areaE">서울</button>
+<button class="areaE">경기</button>
+<button class="areaE">부산</button>
+<button class="areaE">대구</button>
+<button class="areaE">인천</button>
+<button class="areaE">대전</button>
+<button class="areaE">울산</button>
+<button class="areaE">강원</button>
+<button class="areaE">충북</button>
 <button class="areaE">충남</button>
-<button class="areaE">기타</button>
+<button class="areaE">광주</button>
+<button class="areaE">전북</button>
+<button class="areaE">전남</button>
+<button class="areaE">경북</button>
+<button class="areaE">경남</button>
+<button class="areaE">제주</button>
+<button class="areaE">세종</button>
 
 <table class="tbl_data tbl_data_col" id="resultTable">
     <colgroup>
-        <col style="width:100px;">
+        <col style="width:200px;">
         <col style="width:120px;">
         <col>
-        <col style="width:130px;">
+        <col style="width:80px;">
     </colgroup>
     <thead>
     <tr>
@@ -179,10 +200,10 @@
 
 
 <style>
-    #resultTable{width: 100%;text-align: center;border-collapse: collapse;}
-    #resultTable thead{background-color: #3580b5;}
-    #resultTable th{font-size: 15px;color: white;padding: 10px 0;}
-    #resultTable td{padding: 5px 0;border-bottom: 1px solid #ddd;}
+    #resultTable{width: 100%;text-align: center;border-collapse: collapse;border: 1px solid #ddd;}
+    #resultTable thead{background-color: #f5f5f5;border-top: 2px solid;}
+    #resultTable th{font-size: 14px;padding: 10px 0;text-align: center;border-right: 1px solid #ddd;}
+    #resultTable td{padding: 10px 0;border-bottom: 1px solid #ddd;border-right: 1px solid #ddd;font-size: 13px}
     #con_group *{cursor: pointer;margin: 0 5px;display: inline-block;padding: 0 5px;}
     .map_wrap {position:relative;overflow:hidden;width:100%;height:350px;}
     .radius_border{border:1px solid #919191;border-radius:5px;}
@@ -200,6 +221,8 @@
     .paging-container select{vertical-align: text-bottom;position: relative;top: -5px;left: 5px;}
     .pagination li:hover{border: 1px solid #ffffff !important;}
     #tablePaging{text-align: center}
+    .areaE{padding: 5px 5px;border: 1px solid #ddd}
+    .abtn_active{background-color: #3a77d8;color: white}
 </style>
 <div class="map_wrap">
     <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
