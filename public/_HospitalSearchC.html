@@ -22,6 +22,48 @@
         while(i<=pagesToShow){pageNumbers.push(startFromNumber++);i++;}
         return pageNumbers;};getPagesCount=function(){return Math.ceil(itemsCount / pageSize);};goNextPage=function(){if(currentPage<getPagesCount()){currentPage++;reRenderPageNumbers();process();}};goPreviousPage=function(){if(currentPage>1){currentPage--;reRenderPageNumbers();process();}};goToFirstPage=function(){if(currentPage!==1){goToPage(1);}};goToLastPage=function(){var pageCount=getPagesCount();if(currentPage!==pageCount){goToPage(pageCount);}};goToPage=function(pageNumber){currentPage=pageNumber;reRenderPageNumbers();process();};disable=function(){isDisabled=true;$pagesContainer.addClass('disabled');$pageRangeCombo.prop('disabled',true);};enable=function(){isDisabled=false;$pagesContainer.removeClass('disabled');$pageRangeCombo.prop('disabled',false);};process=function(){if(typeof options.onPageChange==='function'){options.onPageChange({currentPage:currentPage,pageSize:pageSize});}};init();this.disable=disable;this.enable=enable;};
 </script>
+
+<!--쿠키테스트-->
+<script>
+    $(function () {
+
+        var $quickNav = $("#quick");
+
+        var setCookie = function (name, value, exp) {
+            var date = new Date();
+            date.setTime(date.getTime() + exp * 24 * 60 * 60 * 1000);
+            document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
+        };
+
+        var getCookie = function (name) {
+            var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+            return value ? value[2] : null;
+        };
+
+        var $getCoo = getCookie('name');
+        if ($getCoo == null) {
+            setCookie('name', 0, 7);
+            $quickNav.css('right','0px')
+        }else if($getCoo == 1){
+            $quickNav.css('right','-200px')
+        }
+
+        $(".quick_btn").click(function () {
+            var $getCoo = getCookie('name');
+            if ($getCoo == 1) {
+                setCookie('name', 0, 7);
+            }
+            if ($getCoo == 0) {
+                setCookie('name', 1, 7);
+            }
+            console.log($getCoo);
+        })
+
+
+    })
+</script>
+<!--쿠키테스트-->
+
 <script>
 
     $(function () {
@@ -117,7 +159,7 @@
         }
 
         load = function() {
-            $("#resultEa").text($("#resultTable tbody tr").length + "개");
+            $("#resultEa").text($(".data").length + "개");
             window.tp = new Pagination('#tablePaging', {
                 itemsCount: $("#resultTable tbody tr").length,
                 onPageSizeChange: function (ps) {
@@ -148,6 +190,7 @@
 
 </script>
 
+<button class="quick_btn">퀵</button>
 
 <div class="group_content group_data_search">
     <div class="group_title">
