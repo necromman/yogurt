@@ -27,7 +27,6 @@
     address,caption,cite,code,dfn,em,var {font-style:normal;font-weight:normal}
 </style>
 
-
 <style>
     #atbm_gnb_wrap a {color:#333;text-decoration:none !important;}
     #atbm_gnb_wrap a:active, #atbm_gnb_wrap a:hover {text-decoration:none !important;}
@@ -35,11 +34,13 @@
     #atbm_gnb_wrap *{transition: all 0.5s}
     #atbm_gnb {text-align: right;padding: 0;margin: 0;}
     #atbm_gnb > li {display: inline-block}
-    #atbm_gnb > li > a{background: linear-gradient(0deg, white, #f1f1f1);border: 1px solid #ccc;border-bottom: none;padding: 8px 25px;border-radius: 5px 5px 0 0;font-weight: bold;color: #656565;display: block;font-size: 14px;margin: 7px 0 0 -3px;}
+    #atbm_gnb > li > a{text-align: center;background: linear-gradient(0deg, white, #f1f1f1);border: 1px solid #ccc;border-bottom: none;padding: 10px 0;border-radius: 5px 5px 0 0;font-weight: bold;color: #656565;display: block;font-size: 14px;margin: 3px 0 0 -3px;width: 122px;position: relative;}
+    #atbm_gnb > li > a:hover{color: #FFB212}
     #atbm_gnb > li > ul{position: absolute;display: none;text-align: left;left: 100px;width: 745px;}
     #atbm_gnb > li > ul > li {display: inline-block;}
-    #atbm_gnb > li > ul > li > a {color: #808080;font-size: 13px;font-weight: bold;margin-top: 10px;display: block;padding-right: 5px;}
-    .over_on > a{color: #FFB212 !important;}
+    #atbm_gnb > li > ul > li > a {color: #000000;font-size: 13px;font-weight: bold;margin-top: 10px;display: block;padding-right: 5px;}
+    #atbm_gnb > li > ul > li > a:hover{color: #FFB212}
+    .over_on_after:after{content: '';position: absolute;width: 95.5%;border: 4px solid #ffb212;border-bottom: none;border-radius: 5px 5px 0 0;height: 39px;left: -1px;top: -5px;z-index: 4;}
 </style>
 <script>
     $(function () {
@@ -52,7 +53,9 @@
 
         $main_depth.mouseenter(function () {
             $(this).find('ul').css("display", "block");
+            $(this).children('a').addClass("over_on_after");
             $main_depth.not($(this)).find('ul').css("display", "none");
+            $main_depth.not($(this)).children('a').removeClass("over_on_after")
         });
 
         $sub_depth.mouseenter(function () {
@@ -61,11 +64,13 @@
 
         $('#atbm_gnb_wrap').mouseleave(function () {
             $main_depth.find('ul').css("display", "none");
+            $main_depth.children('a').removeClass("over_on_after")
             contiMenu();
         });
         function contiMenu() {
             switch (window.location.pathname){
                 case "/yogurt/public/tmjbalancing.html" : $atbm_gnb.children('li:nth-child(1)').children('a').css("color","#FFB212");
+                    $atbm_gnb.children('li:nth-child(1)').children('a').addClass("over_on_after");
                     $atbm_gnb.children('li:nth-child(1)').children('ul').css({"display":"block"});
                     $atbm_gnb.children('li:nth-child(1)').children('ul').children('li:nth-child(1)').children('a').css({"color":"#FFB212"});
                 default : break;
