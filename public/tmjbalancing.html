@@ -30,7 +30,7 @@
 
 <style>
     #atbm_gnb_wrap a {color:#333;text-decoration:none !important;}
-    #atbm_gnb_wrapa:active, #atbm_gnb_wrap a:hover {text-decoration:none !important;}
+    #atbm_gnb_wrap a:active, #atbm_gnb_wrap a:hover {text-decoration:none !important;}
     #atbm_gnb_wrap{width: 745px;height: 78px;position: relative;font-family: sans-serif;}
     #atbm_gnb_wrap *{transition: all 0.5s}
     #atbm_gnb {text-align: right;padding: 0;margin: 0;}
@@ -39,29 +39,39 @@
     #atbm_gnb > li > ul{position: absolute;display: none;text-align: left;left: 100px;width: 745px;}
     #atbm_gnb > li > ul > li {display: inline-block;}
     #atbm_gnb > li > ul > li > a {color: #808080;font-size: 13px;font-weight: bold;margin-top: 10px;display: block;padding-right: 5px;}
+    .over_on > a{color: #FFB212 !important;}
 </style>
 <script>
     $(function () {
+        var $atbm_gnb = $("#atbm_gnb");
         var $main_depth = $("#atbm_gnb > li");
         var $sub_depth = $("#atbm_gnb > li > ul > li > a");
         var $sub_ul = $("#atbm_gnb > li > ul");
+
+        contiMenu();
+
         $main_depth.mouseenter(function () {
             $(this).find('ul').css("display", "block");
             $main_depth.not($(this)).find('ul').css("display", "none");
-            depthOneVelocityOn($(this).children('a'));
-            depthOneVelocityOut($main_depth.not($(this)).children('a'));
         });
 
         $sub_depth.mouseenter(function () {
-            depthOneVelocityOn($(this));
-            depthOneVelocityOut($sub_depth.not($(this)));
+
         });
 
         $('#atbm_gnb_wrap').mouseleave(function () {
             $main_depth.find('ul').css("display", "none");
-            depthOneVelocityOut($main_depth.find('a'));
-            depthOneVelocityOut($sub_depth);
+            contiMenu();
         });
+        function contiMenu() {
+            switch (window.location.pathname){
+                case "/yogurt/public/tmjbalancing.html" : $atbm_gnb.children('li:nth-child(1)').children('a').css("color","#FFB212");
+                    $atbm_gnb.children('li:nth-child(1)').children('ul').css({"display":"block"});
+                    $atbm_gnb.children('li:nth-child(1)').children('ul').children('li:nth-child(1)').children('a').css({"color":"#FFB212"});
+                default : break;
+            }
+        }
+
     })
 
 </script>
