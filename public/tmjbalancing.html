@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>턱관절균형의학회</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+<style>
+    /* reset */
+    body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,textarea,p,blockquote,th,td,input,select,textarea,button {margin:0;padding:0}
+    fieldset,img {border:0 none;vertical-align:top;}
+    dl,ul,ol,li {list-style:none}
+    blockquote, q {quotes: none}
+    blockquote:before, blockquote:after,q:before, q:after {content:'';content:none}
+    input,select,textarea,button {vertical-align:middle}
+    button {border:0 none;background-color:transparent;cursor:pointer}
+    /*body,th,td,input,select,textarea,button {font-size:12px;line-height:1.5;font-family:'Exo 2',"나눔고딕","NanumGothic","Malgun Gothic", "Nanum Gothic", "돋움", "dotum" , sans-serif;color:#333}*/
+    /* color값은 디자인가이드에 맞게사용 */
+    a {color:#333;text-decoration:none !important;}
+    a:active, a:hover {text-decoration:none !important;}
+    address,caption,cite,code,dfn,em,var {font-style:normal;font-weight:normal}
+</style>
+
+
+<style>
+    #atbm_gnb_wrap a {color:#333;text-decoration:none !important;}
+    #atbm_gnb_wrapa:active, #atbm_gnb_wrap a:hover {text-decoration:none !important;}
+    #atbm_gnb_wrap{width: 745px;height: 78px;position: relative;font-family: sans-serif;}
+    #atbm_gnb_wrap *{transition: all 0.5s}
+    #atbm_gnb {text-align: right;padding: 0;margin: 0;}
+    #atbm_gnb > li {display: inline-block}
+    #atbm_gnb > li > a{background: linear-gradient(0deg, white, #f1f1f1);border: 1px solid #ccc;border-bottom: none;padding: 8px 25px;border-radius: 5px 5px 0 0;font-weight: bold;color: #656565;display: block;font-size: 14px;margin: 7px 0 0 -3px;}
+    #atbm_gnb > li > ul{position: absolute;display: none;text-align: left;left: 100px;width: 745px;}
+    #atbm_gnb > li > ul > li {display: inline-block;}
+    #atbm_gnb > li > ul > li > a {color: #808080;font-size: 13px;font-weight: bold;margin-top: 10px;display: block;padding-right: 5px;}
+</style>
+<script>
+    $(function () {
+        var $main_depth = $("#atbm_gnb > li");
+        var $sub_depth = $("#atbm_gnb > li > ul > li > a");
+        var $sub_ul = $("#atbm_gnb > li > ul");
+        $main_depth.mouseenter(function () {
+            $(this).find('ul').css("display", "block");
+            $main_depth.not($(this)).find('ul').css("display", "none");
+            depthOneVelocityOn($(this).children('a'));
+            depthOneVelocityOut($main_depth.not($(this)).children('a'));
+        });
+
+        $sub_depth.mouseenter(function () {
+            depthOneVelocityOn($(this));
+            depthOneVelocityOut($sub_depth.not($(this)));
+        });
+
+        $('#atbm_gnb_wrap').mouseleave(function () {
+            $main_depth.find('ul').css("display", "none");
+            depthOneVelocityOut($main_depth.find('a'));
+            depthOneVelocityOut($sub_depth);
+        });
+    })
+
+</script>
+<div id="atbm_gnb_wrap">
+    <ul id="atbm_gnb">
+        <li><a href="#">학회소개</a>
+            <ul>
+                <li><a href="#">학회장인사말</a></li>
+                <li><a href="#">학회소개</a></li>
+                <li><a href="#">학회회칙</a></li>
+                <li><a href="#">학회연혁</a></li>
+                <li><a href="#">학회조직</a></li>
+                <li><a href="#">병원안내</a></li>
+            </ul>
+        </li>
+        <li><a href="#">학회관련자료실</a>
+            <ul>
+                <li><a href="#">임상자료</a></li>
+                <li><a href="#">세미나강의록</a></li>
+                <li><a href="#">자료실</a></li>
+                <li><a href="#">학회활동사진</a></li>
+            </ul>
+        </li>
+        <li><a href="#">학회세미나 일정</a>
+            <ul>
+                <li><a href="#">세미나관련 문의</a></li>
+                <li><a href="#">세미나일정(달력)</a></li>
+            </ul>
+        </li>
+        <li><a href="#">게시판</a>
+            <ul>
+                <li><a href="#">공지사항</a></li>
+                <li><a href="#">회원동정</a></li>
+                <li><a href="#">회원 이야기방</a></li>
+                <li><a href="#">질문과답변</a></li>
+                <li><a href="#">임원회의실</a></li>
+                <li><a href="#">자유게시판</a></li>
+                <li><a href="#">보도자료</a></li>
+                <li><a href="#">설문조사</a></li>
+                <li><a href="#">임상발표</a></li>
+                <li><a href="#">강의접수</a></li>
+            </ul>
+        </li>
+        <li><a href="#">학회지</a>
+            <ul>
+                <li><a href="#">투고안내</a></li>
+                <li><a href="#">논문투고</a></li>
+                <li><a href="#">학회지검색</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/velocity-animate@2.0/velocity.min.js"></script>
+</html>
