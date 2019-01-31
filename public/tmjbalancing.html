@@ -67,14 +67,72 @@
             $main_depth.children('a').removeClass("over_on_after")
             contiMenu();
         });
+
         function contiMenu() {
-            switch (window.location.pathname){
-                case "/yogurt/public/tmjbalancing.html" : $atbm_gnb.children('li:nth-child(1)').children('a').css("color","#FFB212");
-                    $atbm_gnb.children('li:nth-child(1)').children('a').addClass("over_on_after");
-                    $atbm_gnb.children('li:nth-child(1)').children('ul').css({"display":"block"});
-                    $atbm_gnb.children('li:nth-child(1)').children('ul').children('li:nth-child(1)').children('a').css({"color":"#FFB212"});
-                default : break;
+
+            var $wlpwls = window.location.pathname+window.location.search;
+
+            switch ($wlpwls){
+
+                case "/introduction/index9.php" : contiMenufunc(1,1); break;
+                case "/introduction/index.php" : contiMenufunc(1,2); break;
+                case "/introduction/index2.php" : contiMenufunc(1,3); break;
+                case "/introduction/index3.php" : contiMenufunc(1,4); break;
+                case "/introduction/index5.php" : contiMenufunc(1,5); break;
+                case "/bbs/bbs/board.php?bo_table=h_info" : contiMenufunc(1,6); break;
+
+                case "/bbs/bbs/board.php?bo_table=clinical_data" : contiMenufunc(2,1); break;
+                case "/bbs/bbs/board.php?bo_table=s_book" : contiMenufunc(2,2); break;
+                case "/bbs/bbs/board.php?bo_table=data1" : contiMenufunc(2,3); break;
+                case "/bbs/bbs/board.php?bo_table=gallery" : contiMenufunc(2,4); break;
+
+                case "/bbs/bbs/board.php?bo_table=seminar1" : contiMenufunc(3,1); break;
+                case "/bbs/bbs/board.php?bo_table=schedule" : contiMenufunc(3,2); break;
+
+                case "/bbs/bbs/board.php?bo_table=notice" : contiMenufunc(4,1); break;
+                case "/bbs/bbs/board.php?bo_table=mem1" : contiMenufunc(4,2); break;
+                case "/bbs/bbs/board.php?bo_table=story" : contiMenufunc(4,3); break;
+                case "/bbs/bbs/board.php?bo_table=qna" : contiMenufunc(4,4); break;
+                case "/bbs/bbs/board.php?bo_table=mem2" : contiMenufunc(4,5); break;
+                case "/bbs/bbs/board.php?bo_table=freeboard" : contiMenufunc(4,6); break;
+                case "/bbs/bbs/board.php?bo_table=data2" : contiMenufunc(4,7); break;
+                case "/totalboard/index8.php" : contiMenufunc(4,8); break;
+                case "/bbs/bbs/board.php?bo_table=clinical_ppt" : contiMenufunc(4,9); break;
+                case "/bbs/bbs/board.php?bo_table=seminar" : contiMenufunc(4,10); break;
+
+                case "/dissertation/index.php" : contiMenufunc(5,1); break;
+                case "/bbs/bbs/board.php?bo_table=asso_paper3" : contiMenufunc(5,2); break;
+                case "/bbs/bbs/board.php?bo_table=asso_paper4" : contiMenufunc(5,3); break;
+
+                default :
+                    if($wlpwls.match("clinical_data")){contiMenufunc(2,1)}
+                    if($wlpwls.match("s_book")){contiMenufunc(2,2)}
+                    if($wlpwls.match("data1")){contiMenufunc(2,3)}
+                    if($wlpwls.match("gallery")){contiMenufunc(2,4)}
+                    if($wlpwls.match("seminar1")){contiMenufunc(3,1)}
+                    if($wlpwls.match("schedule")){contiMenufunc(3,2)}
+
+                    if($wlpwls.match("notice")){contiMenufunc(4,1)}
+                    if($wlpwls.match("mem1")){contiMenufunc(4,2)}
+                    if($wlpwls.match("story")){contiMenufunc(4,3)}
+                    if($wlpwls.match("qna")){contiMenufunc(4,4)}
+                    if($wlpwls.match("mem2")){contiMenufunc(4,5)}
+                    if($wlpwls.match("freeboard")){contiMenufunc(4,6)}
+                    if($wlpwls.match("data2")){contiMenufunc(4,7)}
+                    if($wlpwls.match("clinical_ppt")){contiMenufunc(4,9)}
+                    if($wlpwls.match("seminar")){contiMenufunc(4,10)}
+
+                    if($wlpwls.match("asso_paper3")){contiMenufunc(5,2)}
+                    if($wlpwls.match("asso_paper4")){contiMenufunc(5,3)}
+                    break;
             }
+        }
+
+        function contiMenufunc(num, sub){
+            $atbm_gnb.children("li:nth-child("+num+")").children('a').css("color","#FFB212");
+            $atbm_gnb.children("li:nth-child("+num+")").children('a').addClass("over_on_after");
+            $atbm_gnb.children("li:nth-child("+num+")").children('ul').css({"display":"block"});
+            $atbm_gnb.children("li:nth-child("+num+")").children('ul').children("li:nth-child("+sub+")").children('a').css({"color":"#FFB212"});
         }
 
     })
@@ -82,53 +140,52 @@
 </script>
 <div id="atbm_gnb_wrap">
     <ul id="atbm_gnb">
-        <li><a href="#">학회소개</a>
+        <li><a href="/introduction/index9.php">학회소개</a>
             <ul>
-                <li><a href="#">학회장인사말</a></li>
-                <li><a href="#">학회소개</a></li>
-                <li><a href="#">학회회칙</a></li>
-                <li><a href="#">학회연혁</a></li>
-                <li><a href="#">학회조직</a></li>
-                <li><a href="#">병원안내</a></li>
+                <li><a href="/introduction/index9.php">학회장인사말</a></li>
+                <li><a href="/introduction/index.php">학회소개</a></li>
+                <li><a href="/introduction/index2.php">학회회칙</a></li>
+                <li><a href="/introduction/index3.php">학회연혁</a></li>
+                <li><a href="/introduction/index5.php">학회조직</a></li>
+                <li><a href="/bbs/bbs/board.php?bo_table=h_info">병원안내</a></li>
             </ul>
         </li>
-        <li><a href="#">학회관련자료실</a>
+        <li><a href="/bbs/bbs/board.php?bo_table=clinical_data">학회관련자료실</a>
             <ul>
-                <li><a href="#">임상자료</a></li>
-                <li><a href="#">세미나강의록</a></li>
-                <li><a href="#">자료실</a></li>
-                <li><a href="#">학회활동사진</a></li>
+                <li><a href="/bbs/bbs/board.php?bo_table=clinical_data">임상자료</a></li>
+                <li><a href="/bbs/bbs/board.php?bo_table=s_book">세미나강의록</a></li>
+                <li><a href="/bbs/bbs/board.php?bo_table=data1">자료실</a></li>
+                <li><a href="/bbs/bbs/board.php?bo_table=gallery">학회활동사진</a></li>
             </ul>
         </li>
-        <li><a href="#">학회세미나 일정</a>
+        <li><a href="/bbs/bbs/board.php?bo_table=seminar1">학회세미나 일정</a>
             <ul>
-                <li><a href="#">세미나관련 문의</a></li>
-                <li><a href="#">세미나일정(달력)</a></li>
+                <li><a href="/bbs/bbs/board.php?bo_table=seminar1">세미나관련 문의</a></li>
+                <li><a href="/bbs/bbs/board.php?bo_table=schedule">세미나일정(달력)</a></li>
             </ul>
         </li>
-        <li><a href="#">게시판</a>
+        <li><a href="/bbs/bbs/board.php?bo_table=notice">게시판</a>
             <ul>
-                <li><a href="#">공지사항</a></li>
-                <li><a href="#">회원동정</a></li>
-                <li><a href="#">회원 이야기방</a></li>
-                <li><a href="#">질문과답변</a></li>
-                <li><a href="#">임원회의실</a></li>
-                <li><a href="#">자유게시판</a></li>
-                <li><a href="#">보도자료</a></li>
-                <li><a href="#">설문조사</a></li>
-                <li><a href="#">임상발표</a></li>
-                <li><a href="#">강의접수</a></li>
+                <li><a href="/bbs/bbs/board.php?bo_table=notice">공지사항</a></li>
+                <li><a href="/bbs/bbs/board.php?bo_table=mem1">회원동정</a></li>
+                <li><a href="/bbs/bbs/board.php?bo_table=story">회원 이야기방</a></li>
+                <li><a href="/bbs/bbs/board.php?bo_table=qna">질문과답변</a></li>
+                <li><a href="/bbs/bbs/board.php?bo_table=mem2">임원회의실</a></li>
+                <li><a href="/bbs/bbs/board.php?bo_table=freeboard">자유게시판</a></li>
+                <li><a href="/bbs/bbs/board.php?bo_table=data2">보도자료</a></li>
+                <li><a href="/totalboard/index8.php">설문조사</a></li>
+                <li><a href="/bbs/bbs/board.php?bo_table=clinical_ppt">임상발표</a></li>
+                <li><a href="/bbs/bbs/board.php?bo_table=seminar">강의접수</a></li>
             </ul>
         </li>
-        <li><a href="#">학회지</a>
+        <li><a href="/dissertation/index.php">학회지</a>
             <ul>
-                <li><a href="#">투고안내</a></li>
-                <li><a href="#">논문투고</a></li>
-                <li><a href="#">학회지검색</a></li>
+                <li><a href="/dissertation/index.php">투고안내</a></li>
+                <li><a href="/bbs/bbs/board.php?bo_table=asso_paper3">논문투고</a></li>
+                <li><a href="/bbs/bbs/board.php?bo_table=asso_paper4">학회지검색</a></li>
             </ul>
         </li>
     </ul>
 </div>
 </body>
-<script src="//cdn.jsdelivr.net/npm/velocity-animate@2.0/velocity.min.js"></script>
 </html>
