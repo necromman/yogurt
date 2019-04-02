@@ -30,6 +30,7 @@ $(function () {
     const $sMenuList = $("#s_menu_list");
     const $closeList = $('.close_list');
     const $sCardWrap = $("#s_card_wrap");
+    const $sCardWrap2 = $("#s_card_wrap2");
     const $chatHistory = $("#chat-history");
     const $chatText = $("#chat-text");
     const $psearch = $("#p-search");
@@ -215,6 +216,7 @@ $(function () {
     /*푸시메뉴*/
 
     function get_menu_list() {
+        $sCardWrap2.empty();
         $sCardWrap.empty();
         const shopGetKeyIn = firebase.database().ref('/음식점/' + "/food/");
         shopGetKeyIn.on('child_added', shop_on_child_added);
@@ -231,11 +233,39 @@ $(function () {
             sName = sData.name;
             menu_GetKeyIn = firebase.database().ref('/음식점/' + "/food/" + "/" + shopId + "/" + "menu").orderByChild('order');
             //menu_GetKeyIn = firebase.database().ref('/음식점/' + "/food/" + "/" + shopId + "/" + "menu");
+            let addHtml = "<div id='"+shopId+"' class=\"card\">" +
+                "                        <input type=\"text\" name=\"input-menu\" placeholder=\"메뉴\" required/>" +
+                "                        <input type=\"text\" name=\"input-price\" placeholder=\"가격\" required/>" +
+                "                   <button class='jump-btn menu-add'>메뉴추가</button> </div>";
+            $sCardWrap2.append(addHtml);
+
             menu_GetKeyIn.on('child_added', menu_on_child_added);
             menu_GetKeyIn.on('child_changed', menu_on_child_added2);
             setRanColor();
         }
     }
+
+    //메뉴추가
+    $(document).on('click', '.menu-add', function () {
+        var $this = $(this);
+
+        let $shop = $this.closest("div");
+        let $shop_id = $this.closest("div").attr("id");
+        let menu_name = $shop.find('input[name=input-menu]').val();
+        let menu_price = $shop.find('input[name=input-price]').val();
+        if(menu_name && menu_price){
+        let publicKeyIn = database.ref('/음식점/' + "/food/" + "/" + $shop_id + "/" + "/menu/");
+        publicKeyIn.push({
+            grade: 0,
+            menuname: menu_name,
+            order: 0,
+            price: menu_price
+        });
+            alert(menu_name + "가 추가 됐어요.");
+        }else{
+            alert("입력값이 없어요");
+        }
+    });
 
     function menu_on_child_added(data) {
         let key = data.key; // 메뉴이름
@@ -393,7 +423,7 @@ $(function () {
             if (jUser == userInfo.uid) {
                 $('#' + userInfo.uid).find(".samsam").hide();
             }
-        }else{
+        } else {
             alert("음식점이 없어요.")
         }
     });
@@ -412,7 +442,7 @@ $(function () {
     });
 
     $(document).on('click', '.sc-remove-menu', function () {
-        if(confirm("삭제 할까요?") == true){
+        if (confirm("삭제 할까요?") == true) {
             let cartThis = $(this);
             let dataMenu = cartThis.closest("div").attr("id");
             let dataShop = cartThis.attr("data-shop");
@@ -422,8 +452,8 @@ $(function () {
             publicGetKeyIn.remove();
             cartThis.closest("div").hide();
             alert("삭제 되었어요");
-        }else{
-            return ;
+        } else {
+            return;
         }
     });
 
